@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# RamPool
+v15
+[Dd]ebug
+[Rr]elease
