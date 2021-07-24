@@ -4,12 +4,12 @@
 #include "Slot.h"
 
 CRamPoolImp::CRamPoolImp()
-{
+{	
 }
 
 CRamPoolImp::~CRamPoolImp()
 {
-	for (auto _block : m_BlockList)
+	for (auto& _block : m_BlockList)
 	{
 		while (!_block.IsEmpty())
 		{

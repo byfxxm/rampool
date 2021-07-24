@@ -9,6 +9,8 @@
 #define GRANULARITY 16
 #define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
 #define SLOTNUM 256
-#define MAXSIZE 10240
+#define MAXSIZE 102400
 #define BLOCKNUM (MAXSIZE / GRANULARITY)
 #define BLOCKINDEX(size) (ROUND(size) / GRANULARITY - 1)
+
+extern _declspec(thread) void* g_pRamPool;
