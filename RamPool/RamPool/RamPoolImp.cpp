@@ -4,12 +4,12 @@
 #include "Slot.h"
 
 CRamPoolImp::CRamPoolImp()
-{
+{	
 }
 
 CRamPoolImp::~CRamPoolImp()
 {
-	for (auto _block : m_BlockList)
+	for (auto& _block : m_BlockList)
 	{
 		while (!_block.IsEmpty())
 		{
@@ -18,9 +18,9 @@ CRamPoolImp::~CRamPoolImp()
 	}
 }
 
-void* CRamPoolImp::Malloc(int nSize_)
+void* CRamPoolImp::Malloc(size_t nSize_)
 {
-	if (nSize_ <= 0)
+	if (nSize_ == 0)
 		return nullptr;
 
 	int _index = BLOCKINDEX(nSize_);

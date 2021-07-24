@@ -9,7 +9,7 @@ CBlock::CBlock(int nSize_): Node<CBlock*>(this)
 
 	int _nSlotSize = sizeof(CSlot) + m_nSize;
 	int _nMemSize = _nSlotSize * SLOTNUM;
-	m_pMem = new char[_nMemSize];
+	m_pMem = (char*)VirtualAlloc(nullptr, _nMemSize, MEM_COMMIT, PAGE_READWRITE);
 	memset(m_pMem, 0, _nMemSize);
 
 	int _nIndexOfMem = 0;
@@ -23,7 +23,7 @@ CBlock::CBlock(int nSize_): Node<CBlock*>(this)
 
 CBlock::~CBlock()
 {
-	delete[] m_pMem;
+	VirtualFree(m_pMem, 0, MEM_RELEASE);
 }
 
 void* CBlock::Alloc()

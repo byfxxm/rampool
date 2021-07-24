@@ -6,5 +6,8 @@
 
 RAMPOOL_API void* RamPool_Create();
 RAMPOOL_API void RamPool_Delete(void* pRamPool_);
-RAMPOOL_API void* RamPool_Malloc(void* pRamPool_, unsigned nSize_);
+RAMPOOL_API void* RamPool_Malloc(void* pRamPool_, size_t nSize_);
 RAMPOOL_API void RamPool_Free(void* pRamPool_, void* p_);
+
+RAMPOOL_API void* rp_malloc(size_t nSize_);
+RAMPOOL_API void rp_free(void* p_);
