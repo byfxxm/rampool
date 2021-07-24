@@ -1,16 +1,18 @@
 #pragma once
 #include "LinkedList.h"
 
-class CSlot;
+struct Slot;
 class CBlock: public Node<CBlock*>
 {
 public:
 	CBlock(int);
-	virtual ~CBlock();
+	~CBlock();
 	void* Alloc();
+	bool IsFull();
 
 private:
 	char* m_pMem;
 	int m_nSize;
-	CSlot* m_pSlots[SLOTNUM];
+	Slot* m_pSlots[SLOTNUM];
+	int m_nCurSlot;
 };

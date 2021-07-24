@@ -2,11 +2,9 @@
 #include <functional>
 
 template<class T>
-class Node
+struct Node
 {
-public:
 	Node(T data_) :Data(data_), pPrevious(nullptr), pNext(nullptr) {}
-	virtual ~Node() {}
 	T Data;
 	Node* pPrevious;
 	Node* pNext;
@@ -82,7 +80,10 @@ public:
 
 		auto _pOrgHead = m_pHead;
 		m_pHead = m_pHead->pNext;
-		m_pHead->pPrevious = nullptr;
+		if (m_pHead == nullptr)
+			m_pTail = nullptr;
+		else
+			m_pHead->pPrevious = nullptr;
 		return _pOrgHead;
 	}
 

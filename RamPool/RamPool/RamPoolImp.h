@@ -2,7 +2,7 @@
 #include "LinkedList.h"
 
 class CBlock;
-class CSlot;
+struct Slot;
 class CRamPoolImp
 {
 public:
@@ -14,5 +14,5 @@ public:
 private:
 	CLinkedList<CBlock*> m_Blocks[BLOCKNUM];
 	//LINKEDLIST m_BlockList;
-	CLinkedList<CSlot*> m_FreeList[BLOCKNUM];
+	CLinkedList<Slot*> m_FreeList[BLOCKNUM];
 };
