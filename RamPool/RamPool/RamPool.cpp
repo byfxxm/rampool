@@ -10,7 +10,7 @@ void* RamPool_Create()
 
 void RamPool_Delete(void* pRamPool_)
 {
-	delete pRamPool_;
+	delete (CRamPoolImp*)pRamPool_;
 }
 
 void* RamPool_Malloc(void* pRamPool_, unsigned nSize_)

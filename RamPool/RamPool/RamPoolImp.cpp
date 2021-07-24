@@ -9,7 +9,7 @@ CRamPoolImp::CRamPoolImp()
 
 CRamPoolImp::~CRamPoolImp()
 {
-	for (auto _block : m_Blocks)
+	for (auto _block : m_BlockList)
 	{
 		_block.Find([](Node<CBlock*>* p_)->bool
 		{
@@ -30,21 +30,21 @@ void* CRamPoolImp::Malloc(int nSize_)
 
 	if (!m_FreeList[_index].IsEmpty())
 	{
-		return m_FreeList[_index].PopFront()->Data->Mem;
+		return m_FreeList[_index].PopFront()->m_Data->m_Mem;
 	}
 
-	auto _pBlock = m_Blocks[_index].Find([](Node<CBlock*>* p_)->bool
+	auto _pBlock = m_BlockList[_index].Find([](Node<CBlock*>* p_)->bool
 	{
 		_ASSERT(p_ != nullptr);
-		return !p_->Data->IsFull();
+		return !p_->m_Data->IsFull();
 	});
 
 	if (_pBlock != nullptr)
-		return _pBlock->Data->Alloc();
+		return _pBlock->m_Data->Alloc();
 
 	_pBlock = new CBlock(nSize_);
-	m_Blocks[_index].PushBack(_pBlock);
-	return _pBlock->Data->Alloc();
+	m_BlockList[_index].PushBack(_pBlock);
+	return _pBlock->m_Data->Alloc();
 }
 
 void CRamPoolImp::Free(void* p_)
@@ -52,7 +52,7 @@ void CRamPoolImp::Free(void* p_)
 	if (p_ == nullptr)
 		return;
 
-	Slot* _pSlot = POINTER_TO_SLOT(p_);
-	int _index = BLOCKINDEX(_pSlot->nSize);
+	CSlot* _pSlot = POINTER_TO_SLOT(p_);
+	int _index = BLOCKINDEX(_pSlot->m_nSize);
 	m_FreeList[_index].PushBack(_pSlot);
 }

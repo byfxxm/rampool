@@ -1,11 +1,13 @@
 #pragma once
 #pragma warning(disable:4200)
 
-struct Slot: public Node<Slot*>
+class CSlot: public Node<CSlot*>
 {
-	Slot() : Node<Slot*>(this) {}
-	int nSize;
-	char Mem[];
+public:
+	CSlot() : Node<CSlot*>(this) {}
+	virtual ~CSlot() {}
+	int m_nSize;
+	char m_Mem[];
 };
 
-#define POINTER_TO_SLOT(p) ((Slot*)((char*)(p) - sizeof(Slot)))
+#define POINTER_TO_SLOT(p) ((CSlot*)((char*)(p) - sizeof(CSlot)))

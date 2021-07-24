@@ -3,26 +3,17 @@
 
 int main()
 {
-	void* _pRamPool = RamPool_Create();
-
 	while (true)
 	{
-		char* _pStr[300];
+		void* _pRamPool = RamPool_Create();
+
+		char* _pStr[3000];
 		for (int _i = 0; _i < _countof(_pStr); _i++)
 		{
 			_pStr[_i] = (char*)RamPool_Malloc(_pRamPool, 17);
+			_pStr[_i] = (char*)RamPool_Malloc(_pRamPool, 50);
 		}
-		//char* _p = (char*)RamPool_Malloc(_pRamPool, 100);
 
-		//sprintf_s(_p, 100, "hello\n");
-
-		//printf(_p);
-
-		for (auto _p : _pStr)
-		{
-			RamPool_Free(_pRamPool, _p);
-		}
+		RamPool_Delete(_pRamPool);
 	}
-
-	RamPool_Delete(_pRamPool);
 }

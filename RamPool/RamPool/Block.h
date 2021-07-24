@@ -1,7 +1,7 @@
 #pragma once
 #include "LinkedList.h"
 
-struct Slot;
+class CSlot;
 class CBlock: public Node<CBlock*>
 {
 public:
@@ -13,6 +13,6 @@ public:
 private:
 	char* m_pMem;
 	int m_nSize;
-	Slot* m_pSlots[SLOTNUM];
+	CSlot* m_pSlots[SLOTNUM];
 	int m_nCurSlot;
 };

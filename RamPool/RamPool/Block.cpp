@@ -9,7 +9,7 @@ CBlock::CBlock(int nSize_): Node<CBlock*>(this)
 	m_nCurSlot = 0;
 	m_nSize = ROUND(nSize_);
 
-	int _nSlotSize = sizeof(Slot) + m_nSize;
+	int _nSlotSize = sizeof(CSlot) + m_nSize;
 	int _nMemSize = _nSlotSize * SLOTNUM;
 	m_pMem = new char[_nMemSize];
 	memset(m_pMem, 0, _nMemSize);
@@ -17,8 +17,8 @@ CBlock::CBlock(int nSize_): Node<CBlock*>(this)
 	int _nIndexOfMem = 0;
 	for (int _i = 0; _i < SLOTNUM; _i++)
 	{
-		m_pSlots[_i] = new (&m_pMem[_nIndexOfMem]) Slot();
-		m_pSlots[_i]->nSize = m_nSize;
+		m_pSlots[_i] = new (&m_pMem[_nIndexOfMem]) CSlot();
+		m_pSlots[_i]->m_nSize = m_nSize;
 		_nIndexOfMem += _nSlotSize;
 	}
 }
@@ -33,7 +33,7 @@ void* CBlock::Alloc()
 	if (IsFull())
 		return nullptr;
 			
-	return m_pSlots[m_nCurSlot++]->Mem;
+	return m_pSlots[m_nCurSlot++]->m_Mem;
 }
 
 bool CBlock::IsFull()

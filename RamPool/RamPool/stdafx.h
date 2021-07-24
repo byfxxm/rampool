@@ -8,9 +8,7 @@
 
 #define GRANULARITY 16
 #define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
-#define BLOCKHEADSIZE 8
 #define SLOTNUM 256
-#define BLOCKSIZE(size) (ROUND(size) * SLOTNUM)
-#define MAXSIZE 1024
+#define MAXSIZE 10240
 #define BLOCKNUM (MAXSIZE / GRANULARITY)
 #define BLOCKINDEX(size) (ROUND(size) / GRANULARITY - 1)
