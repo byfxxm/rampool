@@ -16,7 +16,6 @@ template<class T>
 class CLinkedList
 {
 public:
-
 	CLinkedList()
 	{
 		m_pHead = nullptr;
