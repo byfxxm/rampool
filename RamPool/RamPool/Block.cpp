@@ -4,8 +4,6 @@
 
 CBlock::CBlock(int nSize_): Node<CBlock*>(this)
 {
-	printf("Add block(%d)\n", nSize_);
-
 	m_nCurSlot = 0;
 	m_nSize = ROUND(nSize_);
 
