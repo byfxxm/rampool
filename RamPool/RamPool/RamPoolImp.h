@@ -1,14 +1,17 @@
 #pragma once
+#include "LinkedList.h"
 
-
-class CRamPool
+class CBlock;
+class CSlot;
+class CRamPoolImp
 {
 public:
-	CRamPool();
-	~CRamPool();
+	CRamPoolImp();
+	~CRamPoolImp();
 	void* Malloc(int);
 	void Free(void*);
 
 private:
-	
+	CLinkedList<CBlock*> m_BlockList[BLOCKNUM];
+	CLinkedList<CSlot*> m_FreeList[BLOCKNUM];
 };
