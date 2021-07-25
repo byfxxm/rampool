@@ -231,3 +231,20 @@ void RunMMU()
 	_th3.join();
 	_th4.join();
 }
+
+void RamPool_Test4()
+{
+	RamPool_Compare(100, RunRamPool, RunMMU);
+}
+
+void RamPool_Test5()
+{
+	void* _pPool = RamPool_Create();
+
+	for (int _i = 0; _i < 10000; _i++)
+	{
+		RamPool_Malloc(_pPool, 1000);
+	}
+
+	RamPool_Delete(_pPool);
+}
