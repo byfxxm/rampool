@@ -52,6 +52,7 @@ public:
 	Node<T>* PopFront()
 	{
 		unique_lock<mutex> _locker(m_Mutex);
+
 		if (IsEmpty())
 			return nullptr;
 
