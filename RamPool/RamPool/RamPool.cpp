@@ -22,13 +22,3 @@ void RamPool_Free(void* pRamPool_, void* p_)
 {
 	((CRamPoolImp*)pRamPool_)->Free(p_);
 }
-
-void* rp_malloc(size_t nSize_)
-{
-	return RamPool_Malloc(g_pRamPool, nSize_);
-}
-
-void rp_free(void* p_)
-{
-	RamPool_Free(g_pRamPool, p_);
-}

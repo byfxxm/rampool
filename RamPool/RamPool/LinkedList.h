@@ -1,5 +1,8 @@
 #pragma once
 #include <functional>
+#include <condition_variable>
+
+using namespace std;
 
 template<class T>
 class Node
@@ -66,7 +69,7 @@ public:
 		return m_pHead == nullptr;
 	}
 
-	Node<T>* Find(std::function<bool(Node<T>*)> func_) const
+	Node<T>* Find(std::function<bool(Node<T>*)> func_)
 	{
 		Node<T>* _p = m_pHead;
 

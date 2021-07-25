@@ -15,14 +15,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RamPoolTest.cpp">
-      <Filter>2</Filter>
-    </ClCompile>
-    <ClCompile Include="Tests.cpp">
-      <Filter>2</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>1</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>2</Filter>
+    </ClCompile>
+    <ClCompile Include="RamPoolTests.cpp">
+      <Filter>2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

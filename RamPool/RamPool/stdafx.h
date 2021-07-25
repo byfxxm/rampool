@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <crtdbg.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #define GRANULARITY 16
 #define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
