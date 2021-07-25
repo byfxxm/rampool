@@ -22,12 +22,12 @@ static void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_
 
 void RamPool_Test1()
 {
-	int _nSizes[3000];
+	int _nSizes[1000];
 	srand((unsigned)time(0));
 
 	for (auto& _size : _nSizes)
 	{
-		_size = rand() % 1024 + 1;
+		_size = rand() % 10240;
 	}
 	
 	void* _pPool = RamPool_Create();
