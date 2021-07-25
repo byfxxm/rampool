@@ -120,23 +120,23 @@ void RamPool_Test3()
 	RamPool_Delete(_pPool);
 }
 
+void* g_pPool;
 void RunRamPool()
 {
-	void* _pPool = RamPool_Create();
+	//void* _pPool = RamPool_Create();
 	{
 		auto GetRandom = []()->unsigned
 		{
-			srand((unsigned)time(0));
-			return rand() % 10240;
+			return 1000;
 		};
 
 		auto ThreadFunc = [&]()
 		{
-			void* _p = RamPool_Malloc(_pPool, GetRandom());
-			RamPool_Free(_pPool, _p);
+			void* _p = RamPool_Malloc(g_pPool, GetRandom());
+			RamPool_Free(g_pPool, _p);
 		};
 
-		int _nTimes = 1000;
+		int _nTimes = 10000;
 
 		thread _th1([&]()
 		{
@@ -175,15 +175,14 @@ void RunRamPool()
 		_th3.join();
 		_th4.join();
 	}
-	RamPool_Delete(_pPool);
+	//RamPool_Delete(_pPool);
 }
 
 void RunMMU()
 {
 	auto GetRandom = []()->unsigned
 	{
-		srand((unsigned)time(0));
-		return rand() % 10240;
+		return 1000;
 	};
 
 	auto ThreadFunc = [&]()
@@ -192,7 +191,7 @@ void RunMMU()
 		free(_p);
 	};
 
-	int _nTimes = 1000;
+	int _nTimes = 10000;
 
 	thread _th1([&]()
 	{
@@ -230,4 +229,23 @@ void RunMMU()
 	_th2.join();
 	_th3.join();
 	_th4.join();
+}
+
+void RamPool_Test4()
+{
+	g_pPool = RamPool_Create();
+	RamPool_Compare(100, RunRamPool, RunMMU);
+	RamPool_Delete(g_pPool);
+}
+
+void RamPool_Test5()
+{
+	void* _pPool = RamPool_Create();
+
+	for (int _i = 0; _i < 10000; _i++)
+	{
+		RamPool_Malloc(_pPool, 1000);
+	}
+
+	RamPool_Delete(_pPool);
 }
