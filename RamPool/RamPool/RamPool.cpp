@@ -13,7 +13,7 @@ void RamPool_Delete(void* pRamPool_)
 	delete (CRamPoolImp*)pRamPool_;
 }
 
-void* RamPool_Malloc(void* pRamPool_, unsigned nSize_)
+void* RamPool_Malloc(void* pRamPool_, size_t nSize_)
 {
 	return ((CRamPoolImp*)pRamPool_)->Malloc(nSize_);
 }
@@ -23,7 +23,7 @@ void RamPool_Free(void* pRamPool_, void* p_)
 	((CRamPoolImp*)pRamPool_)->Free(p_);
 }
 
-void* rp_malloc(unsigned nSize_)
+void* rp_malloc(size_t nSize_)
 {
 	return RamPool_Malloc(g_pRamPool, nSize_);
 }

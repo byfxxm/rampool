@@ -8,7 +8,7 @@ class CRamPoolImp
 public:
 	CRamPoolImp();
 	~CRamPoolImp();
-	void* Malloc(int);
+	void* Malloc(size_t);
 	void Free(void*);
 
 private:

@@ -18,9 +18,9 @@ CRamPoolImp::~CRamPoolImp()
 	}
 }
 
-void* CRamPoolImp::Malloc(int nSize_)
+void* CRamPoolImp::Malloc(size_t nSize_)
 {
-	if (nSize_ <= 0)
+	if (nSize_ == 0)
 		return nullptr;
 
 	int _index = BLOCKINDEX(nSize_);

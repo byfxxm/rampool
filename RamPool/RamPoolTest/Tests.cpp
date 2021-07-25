@@ -3,7 +3,7 @@
 
 using namespace std;
 
-static void RamPool_TestBase(const char* test_, int times_, function<void()>f1_, function<void()>f2_)
+static void RamPool_Compare(const char* test_, int times_, function<void()>f1_, function<void()>f2_)
 {
 	auto _time1 = clock();
 
@@ -27,10 +27,10 @@ void RamPool_Test1()
 
 	for (auto& _size : _nSizes)
 	{
-		_size = rand() % 20;
+		_size = rand() % 1024;
 	}
 
-	RamPool_TestBase("Test1", 1000, [&]()
+	RamPool_Compare("Test1", 1000, [&]()
 	{
 		char** _p = (char**)rp_malloc(_countof(_nSizes) * sizeof(char*));
 
