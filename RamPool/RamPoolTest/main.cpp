@@ -4,9 +4,8 @@ using namespace std;
 void RamPool_Test1();
 void RamPool_Test2();
 void RamPool_Test3();
-void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_);
-void RunRamPool();
-void RunMMU();
+void RamPool_Test4();
+void RamPool_Test5();
 
 int main()
 {
@@ -15,7 +14,7 @@ int main()
 		//RamPool_Test1();
 		//RamPool_Test2();
 		//RamPool_Test3();
-		RamPool_Compare(100, RunRamPool, RunMMU);
+		RamPool_Test4();
 		//break;
 	}
 }
