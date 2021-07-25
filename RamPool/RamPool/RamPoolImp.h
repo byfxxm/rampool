@@ -14,5 +14,4 @@ public:
 private:
 	CLinkedList<CBlock*> m_BlockList[BLOCKNUM];
 	CLinkedList<CSlot*> m_FreeList[BLOCKNUM];
-	mutex m_Mutex;
 };

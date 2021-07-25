@@ -82,19 +82,17 @@ void RamPool_Test3()
 
 	void* _pPool = RamPool_Create();
 
+	void* _p[64] = { 0 };
+	HANDLE _hThMalloc[64];
+	HANDLE _hThFree[64];
+
 	while (1)
 	{
-		volatile void* _p[64] = { 0 };
-		HANDLE c[64];
-		HANDLE _hThMalloc[64];
-		HANDLE _hThFree[64];
-
-		for (volatile int _i = 0; _i < _countof(_p); _i++)
+		for (int _i = 0; _i < _countof(_p); _i++)
 		{
-			thread _th([&](volatile int _index)
+			thread _th([&](int _index)
 			{
-				//_p[_index] = RamPool_Malloc(_pPool, 50);
-				_p[_index] = malloc(50);
+				_p[_index] = RamPool_Malloc(_pPool, 50);
 			}, _i);
 
 			_hThMalloc[_i] = _th.native_handle();
@@ -106,8 +104,7 @@ void RamPool_Test3()
 			thread _th([&](volatile int _index)
 			{
 				while (_p[_index] == nullptr);
-				//RamPool_Free(_pPool, (void*)_p[_index]);
-				free((void*)_p[_index]);
+				RamPool_Free(_pPool, (void*)_p[_index]);
 			}, _i);
 
 			_hThFree[_i] = _th.native_handle();
@@ -119,8 +116,6 @@ void RamPool_Test3()
 
 		printf("$");
 	}
-
-	getchar();
 
 	RamPool_Delete(_pPool);
 }

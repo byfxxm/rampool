@@ -32,6 +32,7 @@ public:
 
 	void PushBack(Node<T>* p_)
 	{
+		unique_lock<mutex> _locker(m_Mutex);
 		_ASSERT(p_ != nullptr);
 
 		if (IsEmpty())
@@ -50,6 +51,7 @@ public:
 
 	Node<T>* PopFront()
 	{
+		unique_lock<mutex> _locker(m_Mutex);
 		if (IsEmpty())
 			return nullptr;
 
@@ -71,6 +73,7 @@ public:
 
 	Node<T>* Find(std::function<bool(Node<T>*)> func_)
 	{
+		unique_lock<mutex> _locker(m_Mutex);
 		Node<T>* _p = m_pHead;
 
 		while (_p != nullptr)
@@ -88,4 +91,5 @@ private:
 	Node<T>* m_pHead;
 	Node<T>* m_pTail;
 	Node<T>* m_pCur;
+	mutex m_Mutex;
 };

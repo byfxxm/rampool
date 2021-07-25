@@ -9,7 +9,6 @@ CRamPoolImp::CRamPoolImp()
 
 CRamPoolImp::~CRamPoolImp()
 {
-	unique_lock<mutex> _locker(m_Mutex);
 	for (auto& _block : m_BlockList)
 	{
 		while (!_block.IsEmpty())
@@ -21,7 +20,6 @@ CRamPoolImp::~CRamPoolImp()
 
 void* CRamPoolImp::Malloc(size_t nSize_)
 {
-	unique_lock<mutex> _locker(m_Mutex);
 	if (nSize_ == 0)
 		return nullptr;
 
@@ -48,7 +46,6 @@ void* CRamPoolImp::Malloc(size_t nSize_)
 
 void CRamPoolImp::Free(void* p_)
 {
-	unique_lock<mutex> _locker(m_Mutex);
 	if (p_ == nullptr)
 		return;
 
