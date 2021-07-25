@@ -3,7 +3,7 @@
 
 using namespace std;
 
-static void RamPool_Compare(const char* test_, int times_, function<void()>f1_, function<void()>f2_)
+static void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 {
 	auto _time1 = clock();
 
@@ -17,7 +17,7 @@ static void RamPool_Compare(const char* test_, int times_, function<void()>f1_, 
 
 	auto _time3 = clock();
 
-	printf("%s time rate: %f\n", test_, 1.0 * (_time2 - _time1) / (_time3 - _time2));
+	printf("time rate: %f\n", 1.0 * (_time2 - _time1) / (_time3 - _time2));
 }
 
 void RamPool_Test1()
@@ -32,7 +32,7 @@ void RamPool_Test1()
 	
 	void* _pPool = RamPool_Create();
 
-	RamPool_Compare("Test1", 1000, [&]
+	RamPool_Compare(1000, [&]
 	{
 		char** _p = (char**)RamPool_Malloc(_pPool, _countof(_nSizes) * sizeof(char*));
 
@@ -101,7 +101,7 @@ void RamPool_Test3()
 
 		for (volatile int _i = 0; _i < _countof(_p); _i++)
 		{
-			thread _th([&](volatile int _index)
+			thread _th([&](int _index)
 			{
 				while (_p[_index] == nullptr);
 				RamPool_Free(_pPool, (void*)_p[_index]);
