@@ -11,9 +11,10 @@ CRamPoolImp::~CRamPoolImp()
 {
 	for (auto& _block : m_BlockList)
 	{
-		while (!_block.IsEmpty())
+		Node<CBlock*>* _p = nullptr;
+		while ((_p = _block.PopFront()) != nullptr)
 		{
-			delete _block.PopFront();
+			delete _p;
 		}
 	}
 }
@@ -25,10 +26,9 @@ void* CRamPoolImp::Malloc(size_t nSize_)
 
 	int _index = BLOCKINDEX(nSize_);
 
-	if (!m_FreeList[_index].IsEmpty())
-	{
-		return m_FreeList[_index].PopFront()->m_Data->m_Mem;
-	}
+	auto _p = m_FreeList[_index].PopFront();
+	if (_p != nullptr)
+		return _p->m_Data->m_Mem;
 
 	auto _pBlock = m_BlockList[_index].Find([](Node<CBlock*>* p_)->bool
 	{

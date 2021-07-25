@@ -3,7 +3,7 @@
 
 using namespace std;
 
-static void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
+void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 {
 	auto _time1 = clock();
 
@@ -118,4 +118,116 @@ void RamPool_Test3()
 	}
 
 	RamPool_Delete(_pPool);
+}
+
+void RunRamPool()
+{
+	void* _pPool = RamPool_Create();
+	{
+		auto GetRandom = []()->unsigned
+		{
+			srand((unsigned)time(0));
+			return rand() % 10240;
+		};
+
+		auto ThreadFunc = [&]()
+		{
+			void* _p = RamPool_Malloc(_pPool, GetRandom());
+			RamPool_Free(_pPool, _p);
+		};
+
+		int _nTimes = 1000;
+
+		thread _th1([&]()
+		{
+			for (int _i = 0; _i < _nTimes; _i++)
+			{
+				ThreadFunc();
+			}
+		});
+
+		thread _th2([&]()
+		{
+			for (int _i = 0; _i < _nTimes; _i++)
+			{
+				ThreadFunc();
+			}
+		});
+
+		thread _th3([&]()
+		{
+			for (int _i = 0; _i < _nTimes; _i++)
+			{
+				ThreadFunc();
+			}
+		});
+
+		thread _th4([&]()
+		{
+			for (int _i = 0; _i < _nTimes; _i++)
+			{
+				ThreadFunc();
+			}
+		});
+
+		_th1.join();
+		_th2.join();
+		_th3.join();
+		_th4.join();
+	}
+	RamPool_Delete(_pPool);
+}
+
+void RunMMU()
+{
+	auto GetRandom = []()->unsigned
+	{
+		srand((unsigned)time(0));
+		return rand() % 10240;
+	};
+
+	auto ThreadFunc = [&]()
+	{
+		void* _p = malloc(GetRandom());
+		free(_p);
+	};
+
+	int _nTimes = 1000;
+
+	thread _th1([&]()
+	{
+		for (int _i = 0; _i < _nTimes; _i++)
+		{
+			ThreadFunc();
+		}
+	});
+
+	thread _th2([&]()
+	{
+		for (int _i = 0; _i < _nTimes; _i++)
+		{
+			ThreadFunc();
+		}
+	});
+
+	thread _th3([&]()
+	{
+		for (int _i = 0; _i < _nTimes; _i++)
+		{
+			ThreadFunc();
+		}
+	});
+
+	thread _th4([&]()
+	{
+		for (int _i = 0; _i < _nTimes; _i++)
+		{
+			ThreadFunc();
+		}
+	});
+
+	_th1.join();
+	_th2.join();
+	_th3.join();
+	_th4.join();
 }

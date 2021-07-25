@@ -19,6 +19,7 @@ template<class T>
 class CLinkedList
 {
 public:
+
 	CLinkedList()
 	{
 		m_pHead = nullptr;
@@ -67,11 +68,6 @@ public:
 		return _pHead;
 	}
 
-	bool IsEmpty()
-	{
-		return m_pHead == nullptr;
-	}
-
 	Node<T>* Find(std::function<bool(Node<T>*)> func_)
 	{
 		unique_lock<mutex> _locker(m_Mutex);
@@ -89,6 +85,12 @@ public:
 	}
 
 private:
+
+	bool IsEmpty()
+	{
+		return m_pHead == nullptr;
+	}
+
 	Node<T>* m_pHead;
 	Node<T>* m_pTail;
 	Node<T>* m_pCur;
