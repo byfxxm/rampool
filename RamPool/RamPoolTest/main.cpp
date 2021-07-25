@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 
+using namespace std;
 void RamPool_Test1();
 void RamPool_Test2();
 void RamPool_Test3();
