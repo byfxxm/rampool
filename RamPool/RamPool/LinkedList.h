@@ -16,7 +16,6 @@ public:
 
 private:
 	bool IsEmpty();
-	bool IsLegal(CNode*);
 	CNode* m_pHead;
 	CNode* m_pTail;
 	mutex m_Mutex;

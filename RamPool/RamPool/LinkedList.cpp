@@ -16,7 +16,7 @@ void CLinkedList::PushBack(CNode* p_)
 {
 	unique_lock<mutex> _locker(m_Mutex);
 
-	if (!IsLegal(p_))
+	if (p_ == nullptr || p_->m_pNext != nullptr || p_->m_pPrev != nullptr || p_ == m_pHead)
 		return;
 
 	if (IsEmpty())
@@ -70,12 +70,4 @@ CNode* CLinkedList::Find(std::function<bool(CNode*)> func_)
 inline bool CLinkedList::IsEmpty()
 {
 	return m_pHead == nullptr;
-}
-
-inline bool CLinkedList::IsLegal(CNode* p_)
-{
-	if (p_ == nullptr || p_->m_pNext != nullptr || p_->m_pPrev != nullptr || p_ == m_pHead)
-		return false;
-
-	return true;
 }

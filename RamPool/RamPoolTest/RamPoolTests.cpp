@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "../RamPool/RamPool.h"
 
-#ifdef malloc
-#undef malloc
-#endif
-#ifdef free
-#undef free
-#endif
-
 using namespace std;
 
 void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
