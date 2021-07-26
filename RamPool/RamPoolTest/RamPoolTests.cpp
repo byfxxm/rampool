@@ -40,16 +40,16 @@ void RamPool_Test1()
 		free(_p);
 	};
 
-	auto MultiThreadRun = [&_nSizes](function<void(int)> f_)
+	auto MultiThreadRun = [&_nSizes](function<void(int)> fRun_)
 	{
-		thread _ths[100];
+		thread _ths[1000];
 
 		for (int _i = 0; _i < _countof(_ths); _i++)
 		{
 			thread _th([&]()
 			{
 				for (int _j = 0; _j < _countof(_nSizes); _j++)
-					f_(_nSizes[_j]);
+					fRun_(_nSizes[_j]);
 			});
 
 			_ths[_i].swap(_th);
@@ -61,7 +61,7 @@ void RamPool_Test1()
 		}
 	};
 
-	RamPool_Compare(100, [&]()
+	RamPool_Compare(10, [&]()
 	{
 		MultiThreadRun(RunRamPool);
 	}, [&]()
