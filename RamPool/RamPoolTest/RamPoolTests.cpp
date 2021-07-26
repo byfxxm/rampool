@@ -90,3 +90,18 @@ void RamPool_Test2()
 
 	rp_destroy();
 }
+
+void RamPool_Test3()
+{
+	void* p1 = rp_malloc(1000);
+	void* p2 = rp_malloc(1000);
+	void* p3 = rp_malloc(1000);
+
+	rp_free(p1);
+	rp_free(p1);
+	rp_free(p2);
+	rp_free(p2);
+	rp_free(p2);
+	rp_free(p3);
+	rp_free(p1);
+}
