@@ -13,5 +13,3 @@
 #define MAXSIZE 10240
 #define POOLNUM (MAXSIZE / GRANULARITY)
 #define POOLINDEX(size) (ROUND(size) / GRANULARITY - 1)
-
-extern _declspec(thread) void* g_pRamPool;
