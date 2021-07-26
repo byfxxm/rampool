@@ -9,7 +9,7 @@ CRamPoolImp::CRamPoolImp()
 
 CRamPoolImp::~CRamPoolImp()
 {
-	Clear();
+	Destroy();
 }
 
 CRamPoolImp* CRamPoolImp::Instance()
@@ -18,7 +18,7 @@ CRamPoolImp* CRamPoolImp::Instance()
 	return &s_Inst;
 }
 
-void CRamPoolImp::Clear()
+void CRamPoolImp::Destroy()
 {
 	for (auto& _list : m_BlockLists)
 	{

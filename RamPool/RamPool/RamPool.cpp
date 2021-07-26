@@ -23,9 +23,9 @@ void RamPool_Free(void* pRamPool_, void* p_)
 	return ((CRamPoolImp*)pRamPool_)->Free(p_);
 }
 
-void RamPool_Clear(void* pRamPool_)
+void RamPool_Destroy(void* pRamPool_)
 {
-	return ((CRamPoolImp*)pRamPool_)->Clear();
+	return ((CRamPoolImp*)pRamPool_)->Destroy();
 }
 
 void* rp_malloc(size_t nSize_)
@@ -38,7 +38,7 @@ void rp_free(void* p_)
 	return CRamPoolImp::Instance()->Free(p_);
 }
 
-void rp_clear()
+void rp_destroy()
 {
-	return CRamPoolImp::Instance()->Clear();
+	return CRamPoolImp::Instance()->Destroy();
 }

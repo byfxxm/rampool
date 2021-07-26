@@ -22,7 +22,7 @@ void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 
 void RamPool_Test1()
 {
-	int _nSizes[10000];
+	int _nSizes[100000];
 	srand((unsigned)time(0));
 
 	for (auto& _size : _nSizes)
@@ -42,7 +42,7 @@ void RamPool_Test1()
 
 	auto MultiThreadRun = [&_nSizes](function<void(int)> fRun_)
 	{
-		thread _ths[1000];
+		thread _ths[100];
 
 		for (int _i = 0; _i < _countof(_ths); _i++)
 		{
@@ -81,5 +81,5 @@ void RamPool_Test2()
 		rp_malloc(1000);
 	}
 
-	rp_clear();
+	rp_destroy();
 }

@@ -8,8 +8,8 @@ RAMPOOL_API void* RamPool_Create();
 RAMPOOL_API void RamPool_Delete(void* pRamPool_);
 RAMPOOL_API void* RamPool_Malloc(void* pRamPool_, size_t nSize_);
 RAMPOOL_API void RamPool_Free(void* pRamPool_, void* p_);
-RAMPOOL_API void RamPool_Clear(void* pRamPool_);
+RAMPOOL_API void RamPool_Destroy(void* pRamPool_);
 
 RAMPOOL_API void* rp_malloc(size_t nSize_);
 RAMPOOL_API void rp_free(void* p_);
-RAMPOOL_API void rp_clear();
+RAMPOOL_API void rp_destroy();

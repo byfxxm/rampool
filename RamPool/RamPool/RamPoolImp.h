@@ -10,7 +10,7 @@ public:
 	~CRamPoolImp();
 	void* Malloc(size_t);
 	void Free(void*);
-	void Clear();
+	void Destroy();
 	static CRamPoolImp* Instance();
 
 private:
