@@ -9,7 +9,6 @@
 
 #define GRANULARITY 16
 #define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
-#define SLOTNUM 64
 #define MAXSIZE 10240
 #define POOLNUM (MAXSIZE / GRANULARITY)
 #define POOLINDEX(size) (ROUND(size) / GRANULARITY - 1)

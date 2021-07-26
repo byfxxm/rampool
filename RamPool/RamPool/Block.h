@@ -12,6 +12,7 @@ public:
 
 private:
 	char* m_pMem;
-	CSlot* m_pSlots[SLOTNUM];
+	CSlot** m_ppSlots;
+	int m_nSlotNum;
 	int m_nCurSlot;
 };

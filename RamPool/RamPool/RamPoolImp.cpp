@@ -37,7 +37,7 @@ void CRamPoolImp::Destroy()
 
 void* CRamPoolImp::Malloc(size_t nSize_)
 {
-	if (nSize_ == 0)
+	if (nSize_ == 0 || nSize_ > MAXSIZE)
 		return nullptr;
 
 	auto _index = POOLINDEX(nSize_);
