@@ -1,8 +1,8 @@
 #pragma once
-#include "LinkedList.h"
+#include "Node.h"
 
 class CSlot;
-class CBlock: public Node<CBlock*>
+class CBlock: public CNode
 {
 public:
 	CBlock(int);

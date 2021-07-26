@@ -2,7 +2,7 @@
 #include "Block.h"
 #include "Slot.h"
 
-CBlock::CBlock(int nSize_): Node<CBlock*>(this)
+CBlock::CBlock(int nSize_)
 {
 	m_nCurSlot = 0;
 	m_nSize = ROUND(nSize_);
