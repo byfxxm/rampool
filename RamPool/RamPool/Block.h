@@ -6,7 +6,7 @@ class CBlock: public CNode
 {
 public:
 	CBlock(int);
-	~CBlock();
+	virtual ~CBlock();
 	void* Alloc();
 	bool IsFull();
 
