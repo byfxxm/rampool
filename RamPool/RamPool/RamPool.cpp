@@ -14,24 +14,30 @@ void RamPool_Delete(void* pRamPool_)
 
 void* RamPool_Malloc(size_t nSize_, void* pRamPool_)
 {
-	if (pRamPool_ == nullptr)
-		pRamPool_ = CRamPoolImp::Instance();
-
 	return ((CRamPoolImp*)pRamPool_)->Malloc(nSize_);
 }
 
-void RamPool_Free(void* p_, void* pRamPool_)
+void RamPool_Free(void* pRamPool_, void* p_)
 {
-	if (pRamPool_ == nullptr)
-		pRamPool_ = CRamPoolImp::Instance();
-
 	return ((CRamPoolImp*)pRamPool_)->Free(p_);
 }
 
 void RamPool_Destroy(void* pRamPool_)
 {
-	if (pRamPool_ == nullptr)
-		pRamPool_ = CRamPoolImp::Instance();
-
 	return ((CRamPoolImp*)pRamPool_)->Destroy();
+}
+
+void* rp_malloc(size_t nSize_)
+{
+	return CRamPoolImp::Instance()->Malloc(nSize_);
+}
+
+void rp_free(void* p_)
+{
+	return CRamPoolImp::Instance()->Free(p_);
+}
+
+void rp_destroy()
+{
+	return CRamPoolImp::Instance()->Destroy();
 }
