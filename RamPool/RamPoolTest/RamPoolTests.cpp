@@ -22,6 +22,8 @@ void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 
 void RamPool_Test1()
 {
+	printf("=======test1 begin=======\n");
+
 	int _nSizes[100000];
 	srand((unsigned)time(0));
 
@@ -68,14 +70,10 @@ void RamPool_Test1()
 	{
 		MultiThreadRun(RunMMU);
 	});
-
-	//rp_clear();
 }
 
 void RamPool_Test2()
 {
-	printf("test2\n");
-
 	for (int _i = 0; _i < 100000; _i++)
 	{
 		rp_malloc(1000);
