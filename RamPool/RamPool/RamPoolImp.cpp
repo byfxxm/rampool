@@ -67,6 +67,5 @@ void CRamPoolImp::Free(void* p_)
 		return;
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
-	int _index = POOLINDEX(_pSlot->m_nSize);
-	m_FreeLists[_index].PushBack(_pSlot);
+	m_FreeLists[POOLINDEX(_pSlot->m_nSize)].PushBack(_pSlot);
 }
