@@ -69,5 +69,5 @@ void RamPool_Test1()
 		MultiThreadRun(RunMMU);
 	});
 
-	rp_clear();
+	//rp_clear();
 }

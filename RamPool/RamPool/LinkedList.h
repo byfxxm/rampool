@@ -24,7 +24,6 @@ public:
 	{
 		m_pHead = nullptr;
 		m_pTail = nullptr;
-		m_pCur = m_pHead;
 	}
 
 	~CLinkedList()
@@ -93,6 +92,5 @@ private:
 
 	Node<T>* m_pHead;
 	Node<T>* m_pTail;
-	Node<T>* m_pCur;
 	mutex m_Mutex;
 };
