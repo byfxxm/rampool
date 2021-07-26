@@ -17,12 +17,12 @@ void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 
 	auto _time3 = clock();
 
-	printf("time rate: %f\n", 1.0 * (_time2 - _time1) / (_time3 - _time2));
+	printf("time radio: %f\n", 1.0 * (_time2 - _time1) / (_time3 - _time2));
 }
 
 void RamPool_Test1()
 {
-	int _nSizes[1000];
+	int _nSizes[10000];
 	srand((unsigned)time(0));
 
 	for (auto& _size : _nSizes)
@@ -61,7 +61,7 @@ void RamPool_Test1()
 		}
 	};
 
-	RamPool_Compare(10, [&]()
+	RamPool_Compare(1, [&]()
 	{
 		MultiThreadRun(RunRamPool);
 	}, [&]()
