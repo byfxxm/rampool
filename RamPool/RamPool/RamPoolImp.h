@@ -14,6 +14,6 @@ public:
 	static CRamPoolImp* Instance();
 
 private:
-	CLinkedList m_BlockLists[BLOCKNUM];
-	CLinkedList m_FreeLists[BLOCKNUM];
+	CLinkedList m_BlockLists[POOLNUM];
+	CLinkedList m_FreeLists[POOLNUM];
 };

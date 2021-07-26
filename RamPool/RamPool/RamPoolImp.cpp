@@ -40,7 +40,7 @@ void* CRamPoolImp::Malloc(size_t nSize_)
 	if (nSize_ == 0)
 		return nullptr;
 
-	auto _index = BLOCKINDEX(nSize_);
+	auto _index = POOLINDEX(nSize_);
 
 	CSlot* _p = dynamic_cast<CSlot*>(m_FreeLists[_index].PopFront());
 	if (_p != nullptr)
@@ -67,6 +67,6 @@ void CRamPoolImp::Free(void* p_)
 		return;
 
 	CSlot* _pSlot = POINTER_TO_SLOT(p_);
-	int _index = BLOCKINDEX(_pSlot->m_nSize);
+	int _index = POOLINDEX(_pSlot->m_nSize);
 	m_FreeLists[_index].PushBack(_pSlot);
 }
