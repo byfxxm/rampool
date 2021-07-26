@@ -70,7 +70,7 @@ CNode* CLinkedList::Find(std::function<bool(CNode*)> func_)
 	return _p;
 }
 
-bool CLinkedList::IsEmpty()
+inline bool CLinkedList::IsEmpty()
 {
 	return m_pHead == nullptr;
 }
