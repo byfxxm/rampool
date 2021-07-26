@@ -10,8 +10,10 @@ public:
 	~CRamPoolImp();
 	void* Malloc(size_t);
 	void Free(void*);
+	void Clear();
+	static CRamPoolImp* Instance();
 
 private:
-	CLinkedList<CBlock*> m_BlockList[BLOCKNUM];
-	CLinkedList<CSlot*> m_FreeList[BLOCKNUM];
+	CLinkedList<CBlock*> m_BlockLists[BLOCKNUM];
+	CLinkedList<CSlot*> m_FreeLists[BLOCKNUM];
 };

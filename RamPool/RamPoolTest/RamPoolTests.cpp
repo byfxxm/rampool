@@ -28,12 +28,10 @@ void RamPool_Test1()
 	for (auto& _size : _nSizes)
 		_size = rand() % 10240;
 
-	void* _pPool = RamPool_Create();
-
-	auto RunRamPool = [&_pPool](int size_)
+	auto RunRamPool = [](int size_)
 	{
-		void* _p = RamPool_Malloc(_pPool, size_);
-		RamPool_Free(_pPool, _p);
+		void* _p = rp_malloc(size_);
+		rp_free(_p);
 	};
 	
 	auto RunMMU = [](int size_)
@@ -71,5 +69,5 @@ void RamPool_Test1()
 		MultiThreadRun(RunMMU);
 	});
 
-	RamPool_Delete(_pPool);
+	rp_clear();
 }
