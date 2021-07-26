@@ -15,7 +15,7 @@ CBlock::CBlock(int nSize_)
 	auto _nIndexOfMem = 0;
 	for (int _i = 0; _i < SLOTNUM; _i++)
 	{
-		m_pSlots[_i] = new (&m_pMem[_nIndexOfMem]) CSlot();
+		m_pSlots[_i] = new(&m_pMem[_nIndexOfMem]) CSlot();
 		m_pSlots[_i]->m_nSize = _nSize;
 		_nIndexOfMem += _nSlotSize;
 	}
