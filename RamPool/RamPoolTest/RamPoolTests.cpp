@@ -37,8 +37,8 @@ void RamPool_Test1()
 
 	auto RunRamPool = [](int size_)
 	{
-		void* _p = rp_malloc(size_);
-		rp_free(_p);
+		void* _p = RamPool_Malloc(size_);
+		RamPool_Free(_p);
 	};
 	
 	auto RunMMU = [](int size_)
@@ -85,23 +85,23 @@ void RamPool_Test2()
 
 	for (int _i = 0; _i < 100000; _i++)
 	{
-		rp_malloc(1000);
+		RamPool_Malloc(1000);
 	}
 
-	rp_destroy();
+	RamPool_Destroy();
 }
 
 void RamPool_Test3()
 {
-	void* p1 = rp_malloc(1000);
-	void* p2 = rp_malloc(1000);
-	void* p3 = rp_malloc(1000);
+	void* p1 = RamPool_Malloc(1000);
+	void* p2 = RamPool_Malloc(1000);
+	void* p3 = RamPool_Malloc(1000);
 
-	rp_free(p1);
-	rp_free(p1);
-	rp_free(p2);
-	rp_free(p2);
-	rp_free(p2);
-	rp_free(p3);
-	rp_free(p1);
+	RamPool_Free(p1);
+	RamPool_Free(p1);
+	RamPool_Free(p2);
+	RamPool_Free(p2);
+	RamPool_Free(p2);
+	RamPool_Free(p3);
+	RamPool_Free(p1);
 }

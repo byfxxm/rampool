@@ -14,10 +14,10 @@ CLinkedList::~CLinkedList()
 
 void CLinkedList::PushBack(CNode* p_)
 {
-	if (p_ == nullptr)
-		return;
-
 	unique_lock<mutex> _locker(m_Mutex);
+
+	if (p_ == nullptr || p_->m_pNext != nullptr || p_->m_pPrev != nullptr || p_ == m_pHead)
+		return;
 
 	if (IsEmpty())
 	{
@@ -25,9 +25,6 @@ void CLinkedList::PushBack(CNode* p_)
 		m_pHead = m_pTail = p_;
 		return;
 	}
-
-	if (p_->m_pNext != nullptr || p_->m_pPrev != nullptr || p_ == m_pHead)
-		return;
 
 	m_pTail->m_pNext = p_;
 	p_->m_pPrev = m_pTail;

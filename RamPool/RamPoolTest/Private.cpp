@@ -3,20 +3,20 @@
 
 void* operator new(size_t nSize_)
 {
-	return rp_malloc(nSize_);
+	return RamPool_Malloc(nSize_);
 }
 
 void operator delete(void* p_)
 {
-	return rp_free(p_);
+	return RamPool_Free(p_);
 }
 
 void* operator new[](size_t nSize_)
 {
-	return rp_malloc(nSize_);
+	return RamPool_Malloc(nSize_);
 }
 
 void operator delete[](void* p_)
 {
-	return rp_free(p_);
+	return RamPool_Free(p_);
 }
