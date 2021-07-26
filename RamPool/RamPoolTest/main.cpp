@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "../RamPool/RamPool.h"
 
 void RamPool_Test1();
 void RamPool_Test2();
