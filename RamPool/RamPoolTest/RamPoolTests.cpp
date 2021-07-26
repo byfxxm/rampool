@@ -22,8 +22,6 @@ void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 
 void RamPool_Test1()
 {
-	printf("=======test1 begin=======\n");
-
 	int _nSizes[100000];
 	srand((unsigned)time(0));
 
