@@ -53,7 +53,7 @@ CNode* CLinkedList::Find(std::function<bool(CNode*)> func_)
 {
 	unique_lock<mutex> _locker(m_Mutex);
 
-	CNode* _p = m_pHead;
+	auto _p = m_pHead;
 	while (_p != nullptr)
 	{
 		if (func_(_p))

@@ -42,13 +42,13 @@ void* CRamPoolImp::Malloc(size_t nSize_)
 
 	auto _index = POOLINDEX(nSize_);
 
-	CSlot* _p = dynamic_cast<CSlot*>(m_FreeLists[_index].PopFront());
+	auto _p = dynamic_cast<CSlot*>(m_FreeLists[_index].PopFront());
 	if (_p != nullptr)
 		return _p->m_Mem;
 
 	auto _pBlock = dynamic_cast<CBlock*>(m_BlockLists[_index].Find([](CNode* p_)->bool
 	{
-		CBlock* _p = dynamic_cast<CBlock*>(p_);
+		auto _p = dynamic_cast<CBlock*>(p_);
 		_ASSERT(_p != nullptr);
 		return !_p->IsFull();
 	}));
@@ -66,7 +66,7 @@ void CRamPoolImp::Free(void* p_)
 	if (p_ == nullptr)
 		return;
 
-	CSlot* _pSlot = POINTER_TO_SLOT(p_);
+	auto _pSlot = POINTER_TO_SLOT(p_);
 	int _index = POOLINDEX(_pSlot->m_nSize);
 	m_FreeLists[_index].PushBack(_pSlot);
 }

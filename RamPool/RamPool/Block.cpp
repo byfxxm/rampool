@@ -7,12 +7,12 @@ CBlock::CBlock(int nSize_)
 	m_nCurSlot = 0;
 	m_nSize = ROUND(nSize_);
 
-	int _nSlotSize = sizeof(CSlot) + m_nSize;
-	int _nMemSize = _nSlotSize * SLOTNUM;
+	auto _nSlotSize = sizeof(CSlot) + m_nSize;
+	auto _nMemSize = _nSlotSize * SLOTNUM;
 	m_pMem = (char*)VirtualAlloc(nullptr, _nMemSize, MEM_COMMIT, PAGE_READWRITE);
 	memset(m_pMem, 0, _nMemSize);
 
-	int _nIndexOfMem = 0;
+	auto _nIndexOfMem = 0;
 	for (int _i = 0; _i < SLOTNUM; _i++)
 	{
 		m_pSlots[_i] = new (&m_pMem[_nIndexOfMem]) CSlot();
