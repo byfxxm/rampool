@@ -71,3 +71,15 @@ void RamPool_Test1()
 
 	//rp_clear();
 }
+
+void RamPool_Test2()
+{
+	printf("test2\n");
+
+	for (int _i = 0; _i < 100000; _i++)
+	{
+		rp_malloc(1000);
+	}
+
+	rp_clear();
+}
