@@ -5,8 +5,7 @@
 CBlock::CBlock(int nSize_)
 {
 	m_nCurSlot = 0;
-
-	m_nSlotNum = 64;
+	m_nSlotNum = SLOTNUM;
 	//if (nSize_ <= MAXSIZE / 16)
 	//	m_nSlotNum = 1024;
 	//else if (nSize_ <= MAXSIZE / 8)

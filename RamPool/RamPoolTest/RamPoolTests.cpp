@@ -26,7 +26,7 @@ void RamPool_Test1()
 	srand((unsigned)time(0));
 
 	for (auto& _size : _nSizes)
-		_size = rand() % 10240;
+		_size = rand() % 10240 + 1;
 
 	auto RunRamPool = [](int size_)
 	{
