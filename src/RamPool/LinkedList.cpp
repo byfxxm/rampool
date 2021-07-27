@@ -14,7 +14,7 @@ CLinkedList::~CLinkedList()
 
 void CLinkedList::PushBack(CNode* p_)
 {
-	unique_lock<mutex> _locker(m_Mutex);
+	unique_lock<mutex> _lock(m_Mutex);
 
 	if (p_ == nullptr || p_->m_pNext != nullptr || p_->m_pPrev != nullptr || p_ == m_pHead)
 		return;
@@ -34,7 +34,7 @@ void CLinkedList::PushBack(CNode* p_)
 
 CNode* CLinkedList::PopFront()
 {
-	unique_lock<mutex> _locker(m_Mutex);
+	unique_lock<mutex> _lock(m_Mutex);
 
 	if (IsEmpty())
 		return nullptr;
@@ -53,7 +53,7 @@ CNode* CLinkedList::PopFront()
 
 CNode* CLinkedList::Find(std::function<bool(CNode*)> func_)
 {
-	unique_lock<mutex> _locker(m_Mutex);
+	unique_lock<mutex> _lock(m_Mutex);
 	auto _p = m_pHead;
 
 	while (_p != nullptr)
