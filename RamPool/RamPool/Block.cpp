@@ -2,20 +2,12 @@
 #include "Block.h"
 #include "Slot.h"
 
-CBlock::CBlock(int nSize_)
+CBlock::CBlock(int nSize_) : m_nCurSlot(0)
 {
-	m_nCurSlot = 0;
-	m_nSlotNum = SLOTNUM;
-	//if (nSize_ <= MAXSIZE / 16)
-	//	m_nSlotNum = 1024;
-	//else if (nSize_ <= MAXSIZE / 8)
-	//	m_nSlotNum = 512;
-	//else if (nSize_ <= MAXSIZE / 4)
-	//	m_nSlotNum = 256;
-	//else if (nSize_ <= MAXSIZE / 2)
-	//	m_nSlotNum = 128;
-	//else if (nSize_ <= MAXSIZE)
-	//	m_nSlotNum = 64;
+	if (nSize_ <= MAXSIZE / 8)
+		m_nSlotNum = 256;
+	else if (nSize_ <= MAXSIZE)
+		m_nSlotNum = 32;
 
 	auto _nSize = ROUND(nSize_);
 	auto _nSlotSize = sizeof(CSlot) + _nSize;
