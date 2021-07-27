@@ -12,7 +12,7 @@ void RamPool_Delete(void* pRamPool_)
 	delete (CRamPoolImp*)pRamPool_;
 }
 
-void* RamPool_Malloc(size_t nSize_, void* pRamPool_)
+void* RamPool_Malloc(void* pRamPool_, size_t nSize_)
 {
 	return ((CRamPoolImp*)pRamPool_)->Malloc(nSize_);
 }
