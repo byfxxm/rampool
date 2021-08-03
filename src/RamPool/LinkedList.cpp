@@ -14,8 +14,6 @@ CLinkedList::~CLinkedList()
 
 bool CLinkedList::PushBack(CNode* p_)
 {
-	unique_lock<mutex> _lock(m_Mutex);
-
 	if (p_ == nullptr || p_->m_pNext != nullptr || p_->m_pPrev != nullptr || p_ == m_pHead)
 		return false;
 
@@ -35,8 +33,6 @@ bool CLinkedList::PushBack(CNode* p_)
 
 CNode* CLinkedList::PopFront()
 {
-	unique_lock<mutex> _lock(m_Mutex);
-
 	if (IsEmpty())
 		return nullptr;
 

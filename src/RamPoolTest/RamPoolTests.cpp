@@ -22,7 +22,7 @@ void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 
 void RamPool_Test1()
 {
-	int _nSizes[100000];
+	int _nSizes[10000];
 	srand((unsigned)time(0));
 
 	for (auto& _size : _nSizes)

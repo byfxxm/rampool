@@ -16,6 +16,7 @@ public:
 private:
 	CLinkedList m_BlockList;
 	CLinkedList m_FreeList;
-	size_t m_nSize;
-	size_t m_nCount;
+	volatile size_t m_nSize;
+	volatile size_t m_nCount;
+	mutex m_Mutex;
 };

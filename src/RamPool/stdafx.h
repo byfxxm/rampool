@@ -6,6 +6,8 @@
 #include <crtdbg.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <functional>
+#include <mutex>
 
 #define GRANULARITY 16
 #define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
