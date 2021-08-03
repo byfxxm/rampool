@@ -12,6 +12,8 @@ public:
 	~CLinkedList();
 	void PushBack(CNode*);
 	CNode* PopFront();
+	CNode* Front();
+	CNode* Back();
 	CNode* Find(std::function<bool(CNode*)>);
 
 private:

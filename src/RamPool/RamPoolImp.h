@@ -1,5 +1,5 @@
 #pragma once
-#include "LinkedList.h"
+#include "Pool.h"
 
 class CBlock;
 class CSlot;
@@ -14,6 +14,5 @@ public:
 	static CRamPoolImp* Instance();
 
 private:
-	CLinkedList m_BlockLists[POOLNUM];
-	CLinkedList m_FreeLists[POOLNUM];
+	CPool m_Pools[POOLNUM];
 };

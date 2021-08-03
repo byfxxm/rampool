@@ -51,6 +51,16 @@ CNode* CLinkedList::PopFront()
 	return _pHead;
 }
 
+CNode* CLinkedList::Front()
+{
+	return m_pHead;
+}
+
+CNode* CLinkedList::Back()
+{
+	return m_pTail;
+}
+
 CNode* CLinkedList::Find(std::function<bool(CNode*)> func_)
 {
 	unique_lock<mutex> _lock(m_Mutex);

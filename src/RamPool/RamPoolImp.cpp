@@ -5,6 +5,12 @@
 
 CRamPoolImp::CRamPoolImp()
 {
+	int _size = 0;
+	for (int _i = 0; _i < _countof(m_Pools); _i++)
+	{
+		_size += GRANULARITY;
+		m_Pools[_i].SetSize(_size);
+	}
 }
 
 CRamPoolImp::~CRamPoolImp()
@@ -20,18 +26,9 @@ CRamPoolImp* CRamPoolImp::Instance()
 
 void CRamPoolImp::Destroy()
 {
-	for (auto& _list : m_BlockLists)
+	for (auto& _pool : m_Pools)
 	{
-		CNode* _p = nullptr;
-		while ((_p = _list.PopFront()) != nullptr)
-			delete _p;
-
-		new(&_list) CLinkedList();
-	}
-
-	for (auto& _list : m_FreeLists)
-	{
-		new(&_list) CLinkedList();
+		_pool.Destroy();
 	}
 }
 
@@ -41,24 +38,7 @@ void* CRamPoolImp::Malloc(size_t nSize_)
 		return nullptr;
 
 	auto _index = POOLINDEX(nSize_);
-
-	auto _p = dynamic_cast<CSlot*>(m_FreeLists[_index].PopFront());
-	if (_p != nullptr)
-		return _p->m_Mem;
-
-	auto _pBlock = dynamic_cast<CBlock*>(m_BlockLists[_index].Find([](CNode* p_)->bool
-	{
-		auto _p = dynamic_cast<CBlock*>(p_);
-		_ASSERT(_p != nullptr);
-		return !_p->IsFull();
-	}));
-
-	if (_pBlock != nullptr)
-		return _pBlock->Alloc();
-
-	_pBlock = new CBlock(nSize_);
-	m_BlockLists[_index].PushBack(_pBlock);
-	return _pBlock->Alloc();
+	return m_Pools[_index].Malloc();
 }
 
 void CRamPoolImp::Free(void* p_)
@@ -67,5 +47,6 @@ void CRamPoolImp::Free(void* p_)
 		return;
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
-	m_FreeLists[POOLINDEX(_pSlot->m_nSize)].PushBack(_pSlot);
+	auto _index = POOLINDEX(_pSlot->m_nSize);
+	m_Pools[_index].Free(p_);
 }

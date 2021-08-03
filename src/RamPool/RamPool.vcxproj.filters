@@ -36,6 +36,9 @@
     <ClInclude Include="Node.h">
       <Filter>1.imp</Filter>
     </ClInclude>
+    <ClInclude Include="Pool.h">
+      <Filter>1.imp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RamPoolImp.cpp">
@@ -54,6 +57,9 @@
       <Filter>0.dll</Filter>
     </ClCompile>
     <ClCompile Include="LinkedList.cpp">
+      <Filter>1.imp</Filter>
+    </ClCompile>
+    <ClCompile Include="Pool.cpp">
       <Filter>1.imp</Filter>
     </ClCompile>
   </ItemGroup>
