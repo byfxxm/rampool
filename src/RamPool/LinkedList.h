@@ -14,7 +14,6 @@ public:
 	CNode* PopFront();
 	CNode* Front();
 	CNode* Back();
-	CNode* Find(std::function<bool(CNode*)>);
 
 private:
 	bool IsEmpty();

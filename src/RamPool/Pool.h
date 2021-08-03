@@ -15,5 +15,4 @@ private:
 	CLinkedList m_BlockList;
 	CLinkedList m_FreeList;
 	int m_nSize;
-	int m_nCount;
 };

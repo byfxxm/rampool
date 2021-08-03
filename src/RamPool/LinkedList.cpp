@@ -61,22 +61,6 @@ CNode* CLinkedList::Back()
 	return m_pTail;
 }
 
-CNode* CLinkedList::Find(std::function<bool(CNode*)> func_)
-{
-	unique_lock<mutex> _lock(m_Mutex);
-	auto _p = m_pHead;
-
-	while (_p != nullptr)
-	{
-		if (func_(_p))
-			break;
-
-		_p = _p->m_pNext;
-	}
-
-	return _p;
-}
-
 inline bool CLinkedList::IsEmpty()
 {
 	return m_pHead == nullptr;

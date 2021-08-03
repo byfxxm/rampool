@@ -6,7 +6,6 @@
 CPool::CPool()
 {
 	m_nSize = 0;
-	m_nCount = 0;
 }
 
 CPool::~CPool()
