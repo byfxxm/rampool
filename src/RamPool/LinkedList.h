@@ -10,11 +10,10 @@ class CLinkedList
 public:
 	CLinkedList();
 	~CLinkedList();
-	void PushBack(CNode*);
+	bool PushBack(CNode*);
 	CNode* PopFront();
 	CNode* Front();
 	CNode* Back();
-	CNode* Find(std::function<bool(CNode*)>);
 
 private:
 	bool IsEmpty();

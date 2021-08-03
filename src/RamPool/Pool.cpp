@@ -20,6 +20,8 @@ void CPool::SetSize(int nSize_)
 
 void* CPool::Malloc()
 {
+	m_nCount++;
+
 	auto _p = dynamic_cast<CSlot*>(m_FreeList.PopFront());
 	if (_p != nullptr)
 		return _p->m_Mem;
@@ -37,7 +39,8 @@ void* CPool::Malloc()
 void CPool::Free(void* p_)
 {
 	auto _pSlot = POINTER_TO_SLOT(p_);
-	m_FreeList.PushBack(_pSlot);
+	if (m_FreeList.PushBack(_pSlot))
+		m_nCount--;
 }
 
 void CPool::Destroy()
