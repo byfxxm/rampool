@@ -25,6 +25,7 @@ size_t CPool::GetSize()
 
 void* CPool::Malloc()
 {
+	unique_lock<mutex> _lock(m_Mutex);
 	m_nCount++;
 
 	auto _p = dynamic_cast<CSlot*>(m_FreeList.PopFront());
@@ -43,13 +44,19 @@ void* CPool::Malloc()
 
 void CPool::Free(void* p_)
 {
+	unique_lock<mutex> _lock(m_Mutex);
+
 	auto _pSlot = POINTER_TO_SLOT(p_);
 	if (m_FreeList.PushBack(_pSlot))
 		m_nCount--;
+
+	_ASSERT((int)m_nCount >= 0);
 }
 
 void CPool::Destroy()
 {
+	unique_lock<mutex> _lock(m_Mutex);
+
 	CNode* _p = nullptr;
 	while ((_p = m_BlockList.PopFront()) != nullptr)
 		delete _p;
