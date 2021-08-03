@@ -19,7 +19,7 @@ bool CLinkedList::PushBack(CNode* p_)
 
 	if (IsEmpty())
 	{
-		_ASSERT(m_pHead == nullptr && m_pTail == nullptr);
+		assert(m_pHead == nullptr && m_pTail == nullptr);
 		m_pHead = m_pTail = p_;
 		return true;
 	}
