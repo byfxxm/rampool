@@ -72,9 +72,12 @@ void RamPool_Test1()
 
 void RamPool_Test2()
 {
-	for (int _i = 0; _i < 100000; _i++)
 	{
-		rp_malloc(1000);
+		shared_ptr<void> _p[100000];
+		for (int _i = 0; _i < _countof(_p); _i++)
+		{
+			_p[_i].reset(rp_malloc(1000), rp_free);
+		}
 	}
 
 	printf("leak size = %u\n", rp_leak());
