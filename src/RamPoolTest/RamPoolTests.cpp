@@ -97,4 +97,6 @@ void RamPool_Test3()
 	rp_free(p2);
 	rp_free(p3);
 	rp_free(p1);
+
+	printf("leak size = %u\n", rp_leak());
 }
