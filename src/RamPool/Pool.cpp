@@ -50,7 +50,7 @@ void CPool::Free(void* p_)
 	if (m_FreeList.PushBack(_pSlot))
 		m_nCount--;
 
-	_ASSERT((int)m_nCount >= 0);
+	assert((int)m_nCount >= 0);
 }
 
 void CPool::Destroy()
