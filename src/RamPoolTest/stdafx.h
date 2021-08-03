@@ -7,5 +7,3 @@
 #include <time.h>
 #include <thread>
 #include <condition_variable>
-
-#include "Private.h"

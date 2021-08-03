@@ -164,7 +164,6 @@
     <ClCompile Include="RamPoolTests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Private.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

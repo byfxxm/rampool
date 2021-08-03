@@ -32,8 +32,5 @@
     <ClInclude Include="stdafx.h">
       <Filter>0.pch</Filter>
     </ClInclude>
-    <ClInclude Include="Private.h">
-      <Filter>1.imp</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
