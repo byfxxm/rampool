@@ -6,10 +6,12 @@ class CPool
 public:
 	CPool();
 	~CPool();
-	void SetSize(int);
+	void SetSize(size_t);
+	size_t GetSize();
 	void* Malloc();
 	void Free(void*);
 	void Destroy();
+	size_t GetCount();
 
 private:
 	CLinkedList m_BlockList;

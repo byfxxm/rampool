@@ -77,6 +77,7 @@ void RamPool_Test2()
 		rp_malloc(1000);
 	}
 
+	printf("leak size = %u\n", rp_leak());
 	rp_destroy();
 }
 

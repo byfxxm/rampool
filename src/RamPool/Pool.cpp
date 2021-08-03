@@ -6,15 +6,21 @@
 CPool::CPool()
 {
 	m_nSize = 0;
+	m_nCount = 0;
 }
 
 CPool::~CPool()
 {
 }
 
-void CPool::SetSize(int nSize_)
+void CPool::SetSize(size_t nSize_)
 {
 	m_nSize = nSize_;
+}
+
+size_t CPool::GetSize()
+{
+	return m_nSize;
 }
 
 void* CPool::Malloc()
@@ -50,4 +56,10 @@ void CPool::Destroy()
 
 	new(&m_BlockList) CLinkedList();
 	new(&m_FreeList) CLinkedList();
+	m_nCount = 0;
+}
+
+size_t CPool::GetCount()
+{
+	return m_nCount;
 }

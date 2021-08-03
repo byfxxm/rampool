@@ -50,3 +50,14 @@ void CRamPoolImp::Free(void* p_)
 	auto _index = POOLINDEX(_pSlot->m_nSize);
 	m_Pools[_index].Free(p_);
 }
+
+size_t CRamPoolImp::Leak()
+{
+	size_t _total = 0;
+	for (auto& _pool : m_Pools)
+	{
+		_total += _pool.GetCount() * _pool.GetSize();
+	}
+
+	return _total;
+}
