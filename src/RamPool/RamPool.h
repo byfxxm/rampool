@@ -1,4 +1,6 @@
-﻿#ifdef RAMPOOL_EXPORTS
+﻿#pragma once
+
+#ifdef RAMPOOL_EXPORTS
 #define RAMPOOL_API extern "C" __declspec(dllexport)
 #else
 #define RAMPOOL_API extern "C" __declspec(dllimport)
