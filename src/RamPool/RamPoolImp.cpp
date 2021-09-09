@@ -56,7 +56,7 @@ void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 		return Malloc(nSize_);
 
 	auto _p = Malloc(nSize_);
-	memcpy(_p, p_, min(POINTER_TO_SLOT(p_)->m_nSize, nSize_));
+	memmove(_p, p_, min(POINTER_TO_SLOT(p_)->m_nSize, nSize_));
 	Free(p_);
 	return _p;
 }
