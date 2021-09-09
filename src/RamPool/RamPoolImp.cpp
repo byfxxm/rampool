@@ -60,7 +60,7 @@ void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 		return p_;
 
 	auto _p = Malloc(nSize_);
-	memmove(_p, p_, min(_pSlot->m_nSize, nSize_));
+	memmove(_p, p_, _pSlot->m_nSize);
 	Free(p_);
 	return _p;
 }
