@@ -7,7 +7,7 @@ class CSlot: public CNode
 public:
 	CSlot() {}
 	virtual ~CSlot() {}
-	int m_nSize;
+	size_t m_nSize;
 	char m_Mem[0];
 };
 

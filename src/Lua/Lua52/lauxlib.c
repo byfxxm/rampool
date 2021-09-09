@@ -915,7 +915,19 @@ LUALIB_API const char *luaL_gsub (lua_State *L, const char *s, const char *p,
   return lua_tostring(L, -1);
 }
 
-
+#define RAMPOOL
+#ifdef RAMPOOL
+#include "../../RamPool/RamPool.h"
+static void* l_alloc(void* ud, void* ptr, size_t osize, size_t nsize) {
+    (void)ud; (void)osize;  /* not used */
+    if (nsize == 0) {
+        rp_free(ptr);
+        return NULL;
+    }
+    else
+        return rp_realloc(ptr, nsize);
+}
+#else
 static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) {
   (void)ud; (void)osize;  /* not used */
   if (nsize == 0) {
@@ -925,6 +937,7 @@ static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) {
   else
     return realloc(ptr, nsize);
 }
+#endif
 
 
 static int panic (lua_State *L) {

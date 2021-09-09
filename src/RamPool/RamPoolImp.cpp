@@ -51,6 +51,17 @@ void CRamPoolImp::Free(void* p_)
 	m_Pools[_index].Free(p_);
 }
 
+void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
+{
+	if (p_ == nullptr)
+		return Malloc(nSize_);
+
+	auto _p = Malloc(nSize_);
+	memcpy(_p, p_, min(POINTER_TO_SLOT(p_)->m_nSize, nSize_));
+	Free(p_);
+	return _p;
+}
+
 size_t CRamPoolImp::Leak()
 {
 	size_t _total = 0;

@@ -10,6 +10,7 @@ public:
 	~CRamPoolImp();
 	void* Malloc(size_t);
 	void Free(void*);
+	void* Realloc(void*, size_t);
 	void Destroy();
 	size_t Leak();
 	static CRamPoolImp* Instance();
