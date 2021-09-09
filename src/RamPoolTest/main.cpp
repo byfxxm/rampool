@@ -4,6 +4,7 @@
 void RamPool_Test1();
 void RamPool_Test2();
 void RamPool_Test3();
+void RamPool_Test4();
 
 int main()
 {
@@ -12,7 +13,8 @@ int main()
 		RamPool_Test1();
 		RamPool_Test2();
 		RamPool_Test3();
-	} while (true);
+		RamPool_Test4();
+	} while (false);
 
 	return 0;
 }

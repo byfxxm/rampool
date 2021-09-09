@@ -10,5 +10,3 @@ public:
 	size_t m_nSize;
 	char m_Mem[0];
 };
-
-#define POINTER_TO_SLOT(p) ((CSlot*)((char*)(p) - sizeof(CSlot)))

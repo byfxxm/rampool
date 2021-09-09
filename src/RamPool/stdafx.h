@@ -12,3 +12,4 @@
 #define POOLNUM (MAXSIZE / GRANULARITY)
 #define POOLINDEX(size) (ROUND(size) / GRANULARITY - 1)
 #define SLOTNUM 64
+#define POINTER_TO_SLOT(p) ((CSlot*)((char*)(p) - sizeof(CSlot)))

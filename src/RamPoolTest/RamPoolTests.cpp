@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "../RamPool/RamPool.h"
+#include "../Lua/Lua52/lua.hpp"
 
 using namespace std;
 
@@ -97,6 +98,24 @@ void RamPool_Test3()
 	rp_free(p2);
 	rp_free(p3);
 	rp_free(p1);
+
+	printf("leak size = %u\n", rp_leak());
+}
+
+void RamPool_Test4()
+{
+	auto _pLua = luaL_newstate();
+	luaL_openlibs(_pLua);
+
+	auto _pSubLua1 = lua_newthread(_pLua);
+	auto _pSubLua2 = lua_newthread(_pLua);
+
+	luaL_dostring(_pSubLua1, "function F1()"\
+		"print('hello')"\
+		"end");
+
+	luaL_dostring(_pSubLua2, "F1()");
+	//lua_close(_pLua);
 
 	printf("leak size = %u\n", rp_leak());
 }
