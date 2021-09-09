@@ -16,6 +16,7 @@ public:
 	virtual ~CSlot() = default;
 
 	valid_t m_nValid;
+	size_t m_nSize;
 	size_t m_nActualSize;
 
 	char m_Mem[0];

@@ -22,6 +22,7 @@ CBlock::CBlock(int nSize_) : m_nCurSlot(0), m_nSlotNum(0)
 	for (int _i = 0; _i < m_nSlotNum; _i++)
 	{
 		m_ppSlots[_i] = new(&m_pMem[_nIndexOfMem]) CSlot();
+		m_ppSlots[_i]->m_nSize = _nSize;
 		_nIndexOfMem += _nSlotSize;
 	}
 }

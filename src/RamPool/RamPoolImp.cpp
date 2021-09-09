@@ -47,8 +47,7 @@ void CRamPoolImp::Free(void* p_)
 		return;
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
-	auto _index = POOLINDEX(_pSlot->m_nActualSize);
-	m_Pools[_index].Free(p_);
+	m_Pools[POOLINDEX(_pSlot->m_nSize)].Free(p_);
 }
 
 void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
@@ -57,7 +56,7 @@ void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 		return Malloc(nSize_);
 
 	auto _p = Malloc(nSize_);
-	memcpy(_p, p_, min(POINTER_TO_SLOT(p_)->m_nActualSize, nSize_));
+	memcpy(_p, p_, min(POINTER_TO_SLOT(p_)->m_nSize, nSize_));
 	Free(p_);
 	return _p;
 }
