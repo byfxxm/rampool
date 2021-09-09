@@ -114,8 +114,9 @@ void RamPool_Test4()
 	auto _pSubLua1 = lua_newthread(_pLua);
 	auto _pSubLua2 = lua_newthread(_pLua);
 
-	luaL_dostring(_pSubLua1, "function F1()"\
-		"print('hello')"\
+	luaL_dostring(_pSubLua1, "function F1()\n"\
+		"print('hello')\n"\
+		"print(debug.traceback('world'))\n"\
 		"end");
 
 	luaL_dostring(_pSubLua2, "F1()");
