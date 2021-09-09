@@ -2,18 +2,20 @@
 #include "Block.h"
 #include "Slot.h"
 
-CBlock::CBlock(int nSize_) : m_nCurSlot(0)
+CBlock::CBlock(int nSize_) : m_nCurSlot(0), m_nSlotNum(0)
 {
 	if (nSize_ <= MAXSIZE / 8)
 		m_nSlotNum = 256;
 	else if (nSize_ <= MAXSIZE)
 		m_nSlotNum = 32;
+	else
+		assert(false);
 
 	auto _nSize = ROUND(nSize_);
 	auto _nSlotSize = sizeof(CSlot) + _nSize;
 	auto _nMemSize = _nSlotSize * m_nSlotNum;
 	m_pMem = (char*)VirtualAlloc(nullptr, _nMemSize, MEM_COMMIT, PAGE_READWRITE);
-	memset((void*)m_pMem, 0, _nMemSize);
+	m_pMem && memset((void*)m_pMem, 0, _nMemSize);
 
 	m_ppSlots = new CSlot*[m_nSlotNum];
 	auto _nIndexOfMem = 0;
