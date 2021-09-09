@@ -31,11 +31,12 @@ CBlock::~CBlock()
 	VirtualFree(m_pMem, 0, MEM_RELEASE);
 }
 
-void* CBlock::Alloc()
+void* CBlock::Alloc(size_t nSize_)
 {
 	if (IsFull())
 		return nullptr;
-			
+	
+	m_ppSlots[m_nCurSlot]->m_nActualSize = nSize_;
 	return m_ppSlots[m_nCurSlot++]->m_Mem;
 }
 

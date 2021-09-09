@@ -23,7 +23,7 @@ size_t CPool::GetSize()
 	return m_nSize;
 }
 
-void* CPool::Malloc()
+void* CPool::Malloc(size_t nSize_)
 {
 	unique_lock<mutex> _lock(m_Mutex);
 	m_nCount++;
@@ -39,7 +39,7 @@ void* CPool::Malloc()
 		m_BlockList.PushBack(_pBlock);
 	}
 
-	return _pBlock->Alloc();
+	return _pBlock->Alloc(nSize_);
 }
 
 void CPool::Free(void* p_)

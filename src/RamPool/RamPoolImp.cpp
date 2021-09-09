@@ -38,7 +38,7 @@ void* CRamPoolImp::Malloc(size_t nSize_)
 		return nullptr;
 
 	auto _index = POOLINDEX(nSize_);
-	return m_Pools[_index].Malloc();
+	return m_Pools[_index].Malloc(nSize_);
 }
 
 void CRamPoolImp::Free(void* p_)

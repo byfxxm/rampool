@@ -5,8 +5,11 @@
 class CSlot: public CNode
 {
 public:
-	CSlot() {}
-	virtual ~CSlot() {}
+	CSlot() = default;
+	virtual ~CSlot() = default;
+
 	size_t m_nSize;
+	size_t m_nActualSize;
+
 	char m_Mem[0];
 };

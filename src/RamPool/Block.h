@@ -7,7 +7,7 @@ class CBlock: public CNode
 public:
 	CBlock(int);
 	virtual ~CBlock();
-	void* Alloc();
+	void* Alloc(size_t);
 	bool IsFull();
 
 private:

@@ -8,7 +8,7 @@ public:
 	~CPool();
 	void SetSize(size_t);
 	size_t GetSize();
-	void* Malloc();
+	void* Malloc(size_t);
 	void Free(void*);
 	void Destroy();
 	size_t GetCount();
