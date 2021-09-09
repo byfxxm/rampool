@@ -37,6 +37,11 @@ size_t RamPool_Leak(void* pRamPool_)
 	return ((CRamPoolImp*)pRamPool_)->Leak();
 }
 
+size_t RamPool_Size(void* pRamPool_, void* p_)
+{
+	return ((CRamPoolImp*)pRamPool_)->Size(p_);
+}
+
 void* rp_malloc(size_t nSize_)
 {
 	return CRamPoolImp::Instance()->Malloc(nSize_);
@@ -60,4 +65,9 @@ void rp_destroy()
 size_t rp_leak()
 {
 	return CRamPoolImp::Instance()->Leak();
+}
+
+size_t rp_size(void* p_)
+{
+	return CRamPoolImp::Instance()->Size(p_);
 }

@@ -10,8 +10,8 @@ int main()
 {
 	do
 	{
-		RamPool_Test1();
-		RamPool_Test2();
+		//RamPool_Test1();
+		//RamPool_Test2();
 		RamPool_Test3();
 		RamPool_Test4();
 	} while (false);

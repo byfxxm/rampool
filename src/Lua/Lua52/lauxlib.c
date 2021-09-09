@@ -925,7 +925,9 @@ static void* l_alloc(void* ud, void* ptr, size_t osize, size_t nsize) {
         return NULL;
     }
     else
+    {
         return rp_realloc(ptr, nsize);
+    }
 }
 #else
 static void *l_alloc (void *ud, void *ptr, size_t osize, size_t nsize) {

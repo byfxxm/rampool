@@ -47,6 +47,8 @@ void CPool::Free(void* p_)
 	unique_lock<mutex> _lock(m_Mutex);
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
+	_pSlot->m_nValid = valid_t::SLOT_DELETED;
+
 	if (m_FreeList.PushBack(_pSlot))
 		m_nCount--;
 

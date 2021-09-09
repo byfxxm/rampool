@@ -87,11 +87,15 @@ void RamPool_Test2()
 
 void RamPool_Test3()
 {
-	void* p1 = rp_malloc(1000);
+	void* p1 = rp_malloc(1001);
 	void* p2 = rp_malloc(1000);
 	void* p3 = rp_malloc(1000);
+	void* p4 = malloc(100);
 
+	cout << rp_size(p4) << endl;
+	cout << rp_size(p1) << endl;
 	rp_free(p1);
+	cout << rp_size(p1) << endl;
 	rp_free(p1);
 	rp_free(p2);
 	rp_free(p2);
@@ -115,7 +119,7 @@ void RamPool_Test4()
 		"end");
 
 	luaL_dostring(_pSubLua2, "F1()");
-	//lua_close(_pLua);
+	lua_close(_pLua);
 
 	printf("leak size = %u\n", rp_leak());
 }

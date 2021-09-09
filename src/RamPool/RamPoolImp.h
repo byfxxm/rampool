@@ -13,6 +13,7 @@ public:
 	void* Realloc(void*, size_t);
 	void Destroy();
 	size_t Leak();
+	size_t Size(void*);
 	static CRamPoolImp* Instance();
 
 private:
