@@ -55,8 +55,12 @@ void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 	if (p_ == nullptr)
 		return Malloc(nSize_);
 
+	auto _pSlot = POINTER_TO_SLOT(p_);
+	if (nSize_ <= _pSlot->m_nSize)
+		return p_;
+
 	auto _p = Malloc(nSize_);
-	memmove(_p, p_, min(POINTER_TO_SLOT(p_)->m_nSize, nSize_));
+	memmove(_p, p_, min(_pSlot->m_nSize, nSize_));
 	Free(p_);
 	return _p;
 }
