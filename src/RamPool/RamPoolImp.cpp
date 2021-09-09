@@ -47,8 +47,7 @@ void CRamPoolImp::Free(void* p_)
 		return;
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
-	auto _index = POOLINDEX(_pSlot->m_nActualSize);
-	m_Pools[_index].Free(p_);
+	m_Pools[POOLINDEX(_pSlot->m_nSize)].Free(p_);
 }
 
 void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
