@@ -81,7 +81,10 @@ void RamPool_Test2()
 		}
 	}
 
-	printf("leak size = %u\n", rp_leak());
+	size_t _count = 0;
+	size_t _leaksize = 0;
+	rp_leak(&_count, &_leaksize);
+	printf("leak count = %u : leak size = %u\n", _count, _leaksize);
 	rp_destroy();
 }
 
@@ -103,7 +106,7 @@ void RamPool_Test3()
 	rp_free(p3);
 	rp_free(p1);
 
-	printf("leak size = %u\n", rp_leak());
+	//printf("leak size = %u\n", rp_leak());
 }
 
 void RamPool_Test4()
@@ -114,6 +117,11 @@ void RamPool_Test4()
 	auto _pSubLua1 = lua_newthread(_pLua);
 	auto _pSubLua2 = lua_newthread(_pLua);
 
+	//luaL_dostring(_pSubLua2, "while( true )\n"\
+	//	"do\n"\
+	//	"	print(\"循环将永远执行下去\")\n"\
+	//	"end");
+
 	luaL_dostring(_pSubLua1, "function F1()\n"\
 		"print('hello')\n"\
 		"print(debug.traceback('world'))\n"\
@@ -122,5 +130,31 @@ void RamPool_Test4()
 	luaL_dostring(_pSubLua2, "F1()");
 	lua_close(_pLua);
 
-	printf("leak size = %u\n", rp_leak());
+	size_t _count = 0;
+	size_t _leaksize = 0;
+	rp_leak(&_count, &_leaksize);
+	printf("leak count = %u : leak size = %u\n", _count, _leaksize);
+}
+
+void RamPool_Test5()
+{
+	lua_State* L = luaL_newstate();    //初始化lua
+	luaL_openlibs(L);    //载入所有lua标准库
+
+	string s;
+	while (getline(cin, s))    //从cin中读入一行到s
+	{
+		//载入s里的lua代码后执行
+		bool err = luaL_loadbuffer(L, s.c_str(), s.length(),
+			"line") || lua_pcall(L, 0, 0, 0);
+		if (err)
+		{
+			//如果错误，显示
+			cerr << lua_tostring(L, -1);
+			//弹出错误信息所在的最上层栈
+			lua_pop(L, 1);
+		}
+	}
+
+	lua_close(L);//关闭
 }

@@ -62,15 +62,16 @@ void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 	return _p;
 }
 
-size_t CRamPoolImp::Leak()
+void CRamPoolImp::Leak(size_t* pCount_, size_t* pTotalSize_)
 {
-	size_t _total = 0;
+	!!pCount_ && (*pCount_ = 0, 0);
+	!!pTotalSize_ && (*pTotalSize_ = 0, 0);
+
 	for (auto& _pool : m_Pools)
 	{
-		_total += _pool.GetCount() * _pool.GetSize();
+		!!pCount_ && (*pCount_ += _pool.GetCount());
+		!!pTotalSize_ && (*pTotalSize_ += _pool.GetCount() * _pool.GetSize());
 	}
-
-	return _total;
 }
 
 size_t CRamPoolImp::Size(void* p_)

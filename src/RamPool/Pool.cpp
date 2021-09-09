@@ -31,6 +31,7 @@ void* CPool::Malloc(size_t nSize_)
 	auto _p = dynamic_cast<CSlot*>(m_FreeList.PopFront());
 	if (_p != nullptr)
 	{
+		assert(_p->m_nValid == valid_t::SLOT_DELETED);
 		_p->m_nValid = valid_t::SLOT_USED;
 		return _p->m_Mem;
 	}
@@ -55,6 +56,8 @@ void CPool::Free(void* p_)
 
 	if (m_FreeList.PushBack(_pSlot))
 		m_nCount--;
+	else
+		assert(false);
 
 	assert((int)m_nCount >= 0);
 }

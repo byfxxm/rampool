@@ -34,9 +34,8 @@ CBlock::~CBlock()
 
 void* CBlock::Alloc(size_t nSize_)
 {
-	if (IsFull())
-		return nullptr;
-	
+	assert(!IsFull());
+	assert(m_ppSlots[m_nCurSlot]->m_nValid == valid_t::SLOT_UNUSE);
 	m_ppSlots[m_nCurSlot]->m_nActualSize = nSize_;
 	m_ppSlots[m_nCurSlot]->m_nValid = valid_t::SLOT_USED;
 	return m_ppSlots[m_nCurSlot++]->m_Mem;
