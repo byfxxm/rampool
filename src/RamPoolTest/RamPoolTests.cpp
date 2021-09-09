@@ -133,7 +133,7 @@ void RamPool_Test4()
 	size_t _count = 0;
 	size_t _leaksize = 0;
 	rp_leak(&_count, &_leaksize);
-	printf("leak count = %u : leak size = %u\n", _count, _leaksize);
+	printf("leak count = %u, leak size = %u\n", _count, _leaksize);
 }
 
 void RamPool_Test5()
