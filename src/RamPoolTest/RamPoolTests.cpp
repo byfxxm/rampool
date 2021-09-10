@@ -26,7 +26,7 @@ void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 
 	auto _time3 = clock();
 
-	printf("time radio: %f\n", 1.0 * (_time2 - _time1) / (_time3 - _time2));
+	printf("time radio: %f\n", 1.0 * ((double)_time2 - _time1) / ((double)_time3 - _time2));
 }
 
 void RamPool_Test1()
