@@ -12,7 +12,7 @@ enum class valid_t
 class CSlot : public CNode
 {
 public:
-	CSlot() = default;
+	CSlot() : m_nValid(valid_t::SLOT_UNUSE), m_nSize(0), m_nActualSize(0) {}
 	virtual ~CSlot() = default;
 
 	valid_t m_nValid;
