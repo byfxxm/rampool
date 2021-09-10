@@ -5,9 +5,9 @@
 CBlock::CBlock(int nSize_) : m_nCurSlot(0), m_nSlotNum(0)
 {
 	if (nSize_ <= MAXSIZE / 8)
-		m_nSlotNum = 256;
+		m_nSlotNum = 64;
 	else if (nSize_ <= MAXSIZE)
-		m_nSlotNum = 32;
+		m_nSlotNum = 8;
 	else
 		assert(false);
 

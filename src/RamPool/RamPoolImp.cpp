@@ -35,7 +35,7 @@ void CRamPoolImp::Destroy()
 void* CRamPoolImp::Malloc(size_t nSize_)
 {
 	if (nSize_ == 0 || nSize_ > MAXSIZE)
-		return nullptr;
+		abort();
 
 	auto _index = POOLINDEX(nSize_);
 	return m_Pools[_index].Malloc(nSize_);
@@ -57,7 +57,10 @@ void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
 	if (nSize_ <= _pSlot->m_nSize)
+	{
+		_pSlot->m_nActualSize = nSize_;
 		return p_;
+	}
 
 	auto _p = Malloc(nSize_);
 	memmove(_p, p_, _pSlot->m_nSize);
