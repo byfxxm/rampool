@@ -12,7 +12,8 @@ public:
 
 private:
 	char* m_pMem;
+	size_t m_nMemSize;
 	CSlot** m_ppSlots;
-	int m_nSlotNum;
-	int m_nCurSlot;
+	size_t m_nSlotNum;
+	size_t m_nCurSlot;
 };

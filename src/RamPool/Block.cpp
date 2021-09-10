@@ -13,13 +13,13 @@ CBlock::CBlock(int nSize_) : m_nCurSlot(0), m_nSlotNum(0)
 
 	auto _nSize = ROUND(nSize_);
 	auto _nSlotSize = sizeof(CSlot) + _nSize;
-	auto _nMemSize = _nSlotSize * m_nSlotNum;
-	m_pMem = (char*)VirtualAlloc(nullptr, _nMemSize, MEM_COMMIT, PAGE_READWRITE);
-	m_pMem && memset((void*)m_pMem, 0, _nMemSize);
+	m_nMemSize = _nSlotSize * m_nSlotNum;
+	m_pMem = (char*)VirtualAlloc(nullptr, m_nMemSize, MEM_COMMIT, PAGE_READWRITE);
+	m_pMem && memset(m_pMem, 0, m_nMemSize);
 
 	m_ppSlots = new CSlot*[m_nSlotNum];
 	auto _nIndexOfMem = 0;
-	for (int _i = 0; _i < m_nSlotNum; _i++)
+	for (size_t _i = 0; _i < m_nSlotNum; _i++)
 	{
 		m_ppSlots[_i] = new(&m_pMem[_nIndexOfMem]) CSlot();
 		m_ppSlots[_i]->m_nSize = _nSize;
