@@ -4,6 +4,14 @@
 
 using namespace std;
 
+void Leak(void* pRp_)
+{
+	size_t _count = 0;
+	size_t _leaksize = 0;
+	pRp_ ? RamPool_Leak(pRp_, &_count, &_leaksize) : rp_leak(&_count, &_leaksize);
+	printf("leak count = %u, leak size = %u\n", _count, _leaksize);
+}
+
 void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 {
 	auto _time1 = clock();
@@ -81,10 +89,7 @@ void RamPool_Test2()
 		}
 	}
 
-	size_t _count = 0;
-	size_t _leaksize = 0;
-	rp_leak(&_count, &_leaksize);
-	printf("leak count = %u : leak size = %u\n", _count, _leaksize);
+	Leak(nullptr);
 	rp_destroy();
 }
 
@@ -99,14 +104,10 @@ void RamPool_Test3()
 	cout << rp_size(p1) << endl;
 	rp_free(p1);
 	cout << rp_size(p1) << endl;
-	rp_free(p1);
-	rp_free(p2);
-	rp_free(p2);
 	rp_free(p2);
 	rp_free(p3);
-	rp_free(p1);
 
-	//printf("leak size = %u\n", rp_leak());
+	Leak(nullptr);
 }
 
 void RamPool_Test4()
@@ -117,11 +118,6 @@ void RamPool_Test4()
 	auto _pSubLua1 = lua_newthread(_pLua);
 	auto _pSubLua2 = lua_newthread(_pLua);
 
-	//luaL_dostring(_pSubLua2, "while( true )\n"\
-	//	"do\n"\
-	//	"	print(\"循环将永远执行下去\")\n"\
-	//	"end");
-
 	luaL_dostring(_pSubLua1, "function F1()\n"\
 		"print('hello')\n"\
 		"print(debug.traceback('world'))\n"\
@@ -130,10 +126,7 @@ void RamPool_Test4()
 	luaL_dostring(_pSubLua2, "F1()");
 	lua_close(_pLua);
 
-	size_t _count = 0;
-	size_t _leaksize = 0;
-	rp_leak(&_count, &_leaksize);
-	printf("leak count = %u, leak size = %u\n", _count, _leaksize);
+	Leak(nullptr);
 }
 
 void RamPool_Test5()
