@@ -27,9 +27,7 @@ CRamPoolImp* CRamPoolImp::Instance()
 void CRamPoolImp::Destroy()
 {
 	for (auto& _pool : m_Pools)
-	{
 		_pool.Destroy();
-	}
 }
 
 void* CRamPoolImp::Malloc(size_t nSize_)
