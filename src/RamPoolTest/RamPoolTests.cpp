@@ -132,23 +132,8 @@ void RamPool_Test4()
 
 void RamPool_Test5()
 {
-	lua_State* L = luaL_newstate();    //初始化lua
-	luaL_openlibs(L);    //载入所有lua标准库
-
-	string s;
-	while (getline(cin, s))    //从cin中读入一行到s
-	{
-		//载入s里的lua代码后执行
-		bool err = luaL_loadbuffer(L, s.c_str(), s.length(),
-			"line") || lua_pcall(L, 0, 0, 0);
-		if (err)
-		{
-			//如果错误，显示
-			cerr << lua_tostring(L, -1);
-			//弹出错误信息所在的最上层栈
-			lua_pop(L, 1);
-		}
-	}
-
-	lua_close(L);//关闭
+	auto _pRamPool1 = RamPool_Create();
+	auto _pRamPool2 = RamPool_Create();
+	auto _p = RamPool_Malloc(_pRamPool1, 100);
+	RamPool_Free(_pRamPool2, _p);
 }
