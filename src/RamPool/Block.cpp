@@ -2,7 +2,7 @@
 #include "Block.h"
 #include "Slot.h"
 
-CBlock::CBlock(size_t nSize_) : m_nCurSlot(0), m_nSlotNum(0)
+CBlock::CBlock(size_t nSize_, void* pOwner_) : m_nCurSlot(0), m_nSlotNum(0)
 {
 	if (nSize_ <= MAXSIZE / 8)
 		m_nSlotNum = 64;
@@ -23,6 +23,7 @@ CBlock::CBlock(size_t nSize_) : m_nCurSlot(0), m_nSlotNum(0)
 	{
 		m_ppSlots[_i] = new(&m_pMem[_nIndexOfMem]) CSlot();
 		m_ppSlots[_i]->m_nSize = _nSize;
+		m_ppSlots[_i]->m_pOwner = pOwner_;
 		_nIndexOfMem += _nSlotSize;
 	}
 }

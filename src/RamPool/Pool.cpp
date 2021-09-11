@@ -39,7 +39,7 @@ void* CPool::Malloc(size_t nSize_)
 	auto _pBlock = dynamic_cast<CBlock*>(m_BlockList.Back());
 	if (_pBlock == nullptr || _pBlock->IsFull())
 	{
-		_pBlock = new CBlock(m_nSize);
+		_pBlock = new CBlock(m_nSize, this);
 		m_BlockList.PushBack(_pBlock);
 	}
 
@@ -51,6 +51,7 @@ void CPool::Free(void* p_)
 	unique_lock<mutex> _lock(m_Mutex);
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
+	assert(_pSlot->m_pOwner == this);
 	assert(_pSlot->m_nValid == valid_t::SLOT_USED);
 	_pSlot->m_nValid = valid_t::SLOT_DELETED;
 

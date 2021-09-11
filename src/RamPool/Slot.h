@@ -12,9 +12,10 @@ enum class valid_t
 class CSlot : public CNode
 {
 public:
-	CSlot() : m_nValid(valid_t::SLOT_UNUSE), m_nSize(0), m_nActualSize(0) {}
-	virtual ~CSlot() = default;
+	CSlot() = default;
+	virtual ~CSlot() override = default;
 
+	void* m_pOwner;
 	valid_t m_nValid;
 	size_t m_nSize;
 	size_t m_nActualSize;

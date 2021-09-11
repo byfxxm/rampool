@@ -5,8 +5,8 @@ class CSlot;
 class CBlock: public CNode
 {
 public:
-	CBlock(size_t);
-	virtual ~CBlock();
+	CBlock(size_t, void*);
+	virtual ~CBlock() override;
 	void* Alloc(size_t);
 	bool IsFull();
 
