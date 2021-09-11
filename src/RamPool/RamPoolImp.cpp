@@ -32,9 +32,7 @@ void CRamPoolImp::Destroy()
 
 void* CRamPoolImp::Malloc(size_t nSize_)
 {
-	if (nSize_ == 0 || nSize_ > MAXSIZE)
-		abort();
-
+	assert(nSize_ > 0 && nSize_ <= MAXSIZE);
 	auto _index = POOLINDEX(nSize_);
 	return m_Pools[_index].Malloc(nSize_);
 }
