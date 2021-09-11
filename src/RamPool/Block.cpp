@@ -2,7 +2,7 @@
 #include "Block.h"
 #include "Slot.h"
 
-CBlock::CBlock(int nSize_) : m_nCurSlot(0), m_nSlotNum(0)
+CBlock::CBlock(size_t nSize_) : m_nCurSlot(0), m_nSlotNum(0)
 {
 	if (nSize_ <= MAXSIZE / 8)
 		m_nSlotNum = 64;

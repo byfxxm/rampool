@@ -5,8 +5,8 @@
 
 CRamPoolImp::CRamPoolImp()
 {
-	int _size = 0;
-	for (int _i = 0; _i < _countof(m_Pools); _i++)
+	size_t _size = 0;
+	for (size_t _i = 0; _i < _countof(m_Pools); _i++)
 	{
 		_size += GRANULARITY;
 		m_Pools[_i].SetSize(_size);
