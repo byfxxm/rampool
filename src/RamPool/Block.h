@@ -2,7 +2,7 @@
 #include "Node.h"
 
 class CSlot;
-class CBlock: public CNode
+class CBlock : public CNode
 {
 public:
 	CBlock(size_t, void*);
