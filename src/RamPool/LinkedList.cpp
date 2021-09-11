@@ -2,10 +2,8 @@
 #include "LinkedList.h"
 #include "Node.h"
 
-CLinkedList::CLinkedList()
+CLinkedList::CLinkedList() : m_pHead(nullptr), m_pTail(nullptr)
 {
-	m_pHead = nullptr;
-	m_pTail = nullptr;
 }
 
 CLinkedList::~CLinkedList()
