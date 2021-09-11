@@ -4,11 +4,11 @@
 
 using namespace std;
 
-void Leak(void* pRp_)
+void Leak(void* pRamPool_)
 {
 	size_t _count = 0;
 	size_t _leaksize = 0;
-	pRp_ ? RamPool_Leak(pRp_, &_count, &_leaksize) : rp_leak(&_count, &_leaksize);
+	pRamPool_ ? RamPool_Leak(pRamPool_, &_count, &_leaksize) : rp_leak(&_count, &_leaksize);
 	printf("leak count = %u, leak size = %u\n", _count, _leaksize);
 }
 
@@ -106,6 +106,7 @@ void RamPool_Test3()
 	cout << rp_size(p1) << endl;
 	rp_free(p2);
 	rp_free(p3);
+	free(p4);
 
 	Leak(nullptr);
 }
