@@ -15,7 +15,7 @@ int main()
 		RamPool_Test2();
 		RamPool_Test3();
 		RamPool_Test4();
-		//RamPool_Test5();
+		RamPool_Test5();
 	} while (true);
 
 	return 0;

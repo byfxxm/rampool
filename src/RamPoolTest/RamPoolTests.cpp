@@ -2,7 +2,17 @@
 #include "../RamPool/RamPool.h"
 #include "../Lua/Lua52/lua.hpp"
 
-using namespace std;
+void* LuaAlloc(void* ud, void* ptr, size_t osize, size_t nsize)
+{
+	if (nsize == 0) {
+		rp_free(ptr);
+		return NULL;
+	}
+	else
+	{
+		return rp_realloc(ptr, nsize);
+	}
+}
 
 void Leak(void* pRamPool_)
 {
@@ -113,7 +123,7 @@ void RamPool_Test3()
 
 void RamPool_Test4()
 {
-	auto _pLua = luaL_newstate();
+	auto _pLua = lua_newstate(LuaAlloc, nullptr);
 	luaL_openlibs(_pLua);
 
 	auto _pSubLua1 = lua_newthread(_pLua);
@@ -132,8 +142,4 @@ void RamPool_Test4()
 
 void RamPool_Test5()
 {
-	auto _pRamPool1 = RamPool_Create();
-	auto _pRamPool2 = RamPool_Create();
-	auto _p = RamPool_Malloc(_pRamPool1, 100);
-	RamPool_Free(_pRamPool2, _p);
 }
