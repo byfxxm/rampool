@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <mutex>
 #include <cassert>
+using namespace std;
 
 #define GRANULARITY 16
 #define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))

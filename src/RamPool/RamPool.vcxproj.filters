@@ -33,9 +33,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>0.dll</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>2.imp</Filter>
-    </ClInclude>
     <ClInclude Include="Pool.h">
       <Filter>2.imp</Filter>
     </ClInclude>
@@ -55,9 +52,6 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>0.dll</Filter>
-    </ClCompile>
-    <ClCompile Include="LinkedList.cpp">
-      <Filter>2.imp</Filter>
     </ClCompile>
     <ClCompile Include="Pool.cpp">
       <Filter>2.imp</Filter>

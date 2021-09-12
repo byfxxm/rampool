@@ -158,7 +158,6 @@
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="Node.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="RamPool.h" />
@@ -168,7 +167,6 @@
   <ItemGroup>
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="LinkedList.cpp" />
     <ClCompile Include="Pool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

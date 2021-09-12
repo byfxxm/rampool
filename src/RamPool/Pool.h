@@ -1,5 +1,7 @@
 #pragma once
 #include "LinkedList.h"
+#include "Block.h"
+#include "Slot.h"
 
 class CPool
 {
@@ -14,8 +16,8 @@ public:
 	size_t GetCount();
 
 private:
-	CLinkedList m_BlockList;
-	CLinkedList m_FreeList;
+	CLinkedList<CBlock> m_BlockList;
+	CLinkedList<CSlot> m_FreeList;
 	volatile size_t m_nSize;
 	volatile size_t m_nCount;
 	mutex m_Mutex;

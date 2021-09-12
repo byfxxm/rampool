@@ -1,20 +1,74 @@
 #pragma once
 
-class CNode;
-using namespace std;
-
+template<typename Ty_>
 class CLinkedList
 {
 public:
-	CLinkedList();
-	~CLinkedList();
-	bool PushBack(CNode*);
-	CNode* PopFront();
-	CNode* Front();
-	CNode* Back();
+	class CNode
+	{
+	public:
+		CNode() : m_pPrev(nullptr), m_pNext(nullptr) {}
+		virtual ~CNode() {}
+
+		CNode* m_pPrev;
+		CNode* m_pNext;
+	};
+
+	CLinkedList() : m_pHead(nullptr), m_pTail(nullptr) {}
+	~CLinkedList() = default;
+
+	bool PushBack(Ty_* p_)
+	{
+		if (p_ == nullptr || p_->m_pNext != nullptr || p_->m_pPrev != nullptr || p_ == m_pHead)
+			return false;
+
+		if (IsEmpty())
+		{
+			assert(m_pHead == nullptr && m_pTail == nullptr);
+			m_pHead = m_pTail = p_;
+			return true;
+		}
+
+		m_pTail->m_pNext = p_;
+		p_->m_pPrev = m_pTail;
+		p_->m_pNext = nullptr;
+		m_pTail = p_;
+		return true;
+	}
+
+	Ty_* PopFront()
+	{
+		if (IsEmpty())
+			return nullptr;
+
+		auto _pHead = m_pHead;
+		m_pHead = m_pHead->m_pNext;
+
+		if (m_pHead == nullptr)
+			m_pTail = nullptr;
+		else
+			m_pHead->m_pPrev = nullptr;
+
+		_pHead->m_pPrev = _pHead->m_pNext = nullptr;
+		return (Ty_*)_pHead;
+	}
+
+	Ty_* Front()
+	{
+		return (Ty_*)m_pHead;
+	}
+
+	Ty_* Back()
+	{
+		return (Ty_*)m_pTail;
+	}
+
+	bool IsEmpty()
+	{
+		return m_pHead == nullptr;
+	}
 
 private:
-	bool IsEmpty();
 	CNode* m_pHead;
 	CNode* m_pTail;
 };

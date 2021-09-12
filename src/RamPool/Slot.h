@@ -1,6 +1,6 @@
 #pragma once
 #pragma warning(disable:4200)
-#include "Node.h"
+#include "LinkedList.h"
 
 enum class valid_t
 {
@@ -9,7 +9,7 @@ enum class valid_t
 	SLOT_DELETED = 0x7EDEDEDE,
 };
 
-class CSlot : public CNode
+class CSlot : public CLinkedList<CSlot>::CNode
 {
 public:
 	CSlot() : m_pOwner(nullptr), m_nValid(valid_t::SLOT_UNUSE), m_nSize(0), m_nActualSize(0) {}
