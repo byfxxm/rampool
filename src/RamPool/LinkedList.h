@@ -8,7 +8,7 @@ public:
 	{
 	public:
 		CNode() : m_pPrev(nullptr), m_pNext(nullptr) {}
-		virtual ~CNode() {}
+		virtual ~CNode() = default;
 
 		CNode* m_pPrev;
 		CNode* m_pNext;
