@@ -1,8 +1,6 @@
 #pragma once
 #include "Pool.h"
 
-class CBlock;
-class CSlot;
 class CRamPoolImp
 {
 public:
