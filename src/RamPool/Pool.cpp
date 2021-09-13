@@ -27,7 +27,7 @@ void* CPool::Malloc(size_t nSize_)
 	m_nCount++;
 
 	auto _pSlot = m_FreeList.PopFront();
-	if (_pSlot != nullptr)
+	if (_pSlot)
 	{
 		assert(_pSlot->m_nValid == valid_t::SLOT_DELETED);
 		_pSlot->m_nValid = valid_t::SLOT_USED;
@@ -36,7 +36,7 @@ void* CPool::Malloc(size_t nSize_)
 	}
 
 	auto _pBlock = m_BlockList.Back();
-	if (_pBlock == nullptr || _pBlock->IsFull())
+	if (!_pBlock || _pBlock->IsFull())
 	{
 		_pBlock = new CBlock(m_nSize, this);
 		m_BlockList.PushBack(_pBlock);
@@ -67,7 +67,7 @@ void CPool::Destroy()
 	unique_lock<mutex> _lock(m_Mutex);
 
 	CBlock* _p = nullptr;
-	while ((_p = m_BlockList.PopFront()) != nullptr)
+	while ((_p = m_BlockList.PopFront()))
 		delete _p;
 
 	new(&m_BlockList) CLinkedList<CBlock>();

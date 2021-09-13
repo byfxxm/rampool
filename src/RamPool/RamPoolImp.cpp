@@ -41,7 +41,7 @@ void* CRamPoolImp::Malloc(size_t nSize_)
 
 void CRamPoolImp::Free(void* p_)
 {
-	if (p_ == nullptr)
+	if (!p_)
 		return;
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
@@ -50,7 +50,7 @@ void CRamPoolImp::Free(void* p_)
 
 void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 {
-	if (p_ == nullptr)
+	if (!p_)
 		return Malloc(nSize_);
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
@@ -68,13 +68,13 @@ void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 
 void CRamPoolImp::Leak(size_t* pCount_, size_t* pTotalSize_)
 {
-	!!pCount_ && (*pCount_ = 0, 0);
-	!!pTotalSize_ && (*pTotalSize_ = 0, 0);
+	pCount_ && (*pCount_ = 0, 0);
+	pTotalSize_ && (*pTotalSize_ = 0, 0);
 
 	for (auto& _pool : m_Pools)
 	{
-		!!pCount_ && (*pCount_ += _pool.GetCount());
-		!!pTotalSize_ && (*pTotalSize_ += _pool.GetCount() * _pool.GetSize());
+		pCount_ && (*pCount_ += _pool.GetCount());
+		pTotalSize_ && (*pTotalSize_ += _pool.GetCount() * _pool.GetSize());
 	}
 }
 

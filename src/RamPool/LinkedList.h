@@ -19,12 +19,12 @@ public:
 
 	bool PushBack(Ty_* p_)
 	{
-		if (p_ == nullptr || p_->m_pNext != nullptr || p_->m_pPrev != nullptr || p_ == m_pHead)
+		if (!p_ || p_->m_pNext || p_->m_pPrev || p_ == m_pHead)
 			return false;
 
 		if (IsEmpty())
 		{
-			assert(m_pHead == nullptr && m_pTail == nullptr);
+			assert(!m_pHead && !m_pTail);
 			m_pHead = m_pTail = p_;
 			return true;
 		}
@@ -44,7 +44,7 @@ public:
 		auto _pHead = m_pHead;
 		m_pHead = m_pHead->m_pNext;
 
-		if (m_pHead == nullptr)
+		if (!m_pHead)
 			m_pTail = nullptr;
 		else
 			m_pHead->m_pPrev = nullptr;
