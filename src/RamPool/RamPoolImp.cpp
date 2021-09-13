@@ -54,10 +54,11 @@ void* CRamPoolImp::Realloc(void* p_, size_t nSize_)
 		return Malloc(nSize_);
 
 	auto _pSlot = POINTER_TO_SLOT(p_);
+	assert(_pSlot->m_pOwner == &m_Pools[POOLINDEX(_pSlot->m_nSize)]);
+	assert(_pSlot->m_nValid == valid_t::SLOT_USED);
+
 	if (nSize_ <= _pSlot->m_nSize)
 	{
-		assert(_pSlot->m_pOwner == &m_Pools[POOLINDEX(_pSlot->m_nSize)]);
-		assert(_pSlot->m_nValid == valid_t::SLOT_USED);
 		_pSlot->m_nActualSize = nSize_;
 		return p_;
 	}
