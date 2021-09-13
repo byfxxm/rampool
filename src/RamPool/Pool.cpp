@@ -31,6 +31,7 @@ void* CPool::Malloc(size_t nSize_)
 	{
 		assert(_pSlot->m_nValid == valid_t::SLOT_DELETED);
 		_pSlot->m_nValid = valid_t::SLOT_USED;
+		_pSlot->m_nActualSize = nSize_;
 		return _pSlot->m_Mem;
 	}
 
