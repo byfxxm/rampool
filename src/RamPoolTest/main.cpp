@@ -16,6 +16,7 @@ int main()
 		RamPool_Test3();
 		RamPool_Test4();
 		RamPool_Test5();
+		rp_destroy();
 	} while (true);
 
 	return 0;

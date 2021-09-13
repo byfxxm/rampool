@@ -15,7 +15,7 @@ CBlock::CBlock(size_t nSize_, void* pOwner_) : m_nCurSlot(0), m_nSlotNum(0)
 	auto _nSlotSize = sizeof(CSlot) + _nSize;
 	m_nMemSize = _nSlotSize * m_nSlotNum;
 	m_pMem = (char*)VirtualAlloc(nullptr, m_nMemSize, MEM_COMMIT, PAGE_READWRITE);
-	m_pMem && memset(m_pMem, 0, m_nMemSize);
+	m_pMem ? memset(m_pMem, 0, m_nMemSize) : throw bad_alloc();
 
 	m_ppSlots = new CSlot*[m_nSlotNum];
 	auto _nIndexOfMem = 0;
