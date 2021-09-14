@@ -123,7 +123,8 @@ void RamPool_Test3()
 
 void RamPool_Test4()
 {
-	auto _pLua = lua_newstate(LuaAlloc, nullptr);
+	//auto _pLua = lua_newstate(LuaAlloc, nullptr);
+	auto _pLua = luaL_newstate();
 	luaL_openlibs(_pLua);
 
 	auto _pSubLua1 = lua_newthread(_pLua);
@@ -143,39 +144,45 @@ void RamPool_Test4()
 void ReplaceIATEntryInOneMod(PCSTR callee_, PROC pfOld_, PROC pfNew_, PCSTR caller_)
 {
 	HMODULE hmodCaller_ = GetModuleHandle(caller_);
-
-	ULONG ulSize;
-	PIMAGE_IMPORT_DESCRIPTOR pImportDesc = NULL;
-	pImportDesc = (PIMAGE_IMPORT_DESCRIPTOR)ImageDirectoryEntryToData(hmodCaller_, TRUE, IMAGE_DIRECTORY_ENTRY_IMPORT, &ulSize);
-
-	if (!pImportDesc)
+	if (!hmodCaller_)
 		return;
 
-	for (; pImportDesc->Name; pImportDesc++)
+	ULONG _ulSize;
+	PIMAGE_IMPORT_DESCRIPTOR _pImportDesc = NULL;
+	_pImportDesc = (PIMAGE_IMPORT_DESCRIPTOR)ImageDirectoryEntryToData(hmodCaller_, TRUE, IMAGE_DIRECTORY_ENTRY_IMPORT, &_ulSize);
+
+	if (!_pImportDesc)
+		return;
+
+	for (; _pImportDesc->Name; _pImportDesc++)
 	{
-		PSTR pszModName = (PSTR)((PBYTE)hmodCaller_ + pImportDesc->Name);
-		if (lstrcmpi(pszModName, callee_) == 0)
+		PSTR _pszModName = (PSTR)((PBYTE)hmodCaller_ + _pImportDesc->Name);
+		if (lstrcmpi(_pszModName, callee_))
+			continue;
+
+		PIMAGE_THUNK_DATA pThunk = (PIMAGE_THUNK_DATA)((PBYTE)hmodCaller_ + _pImportDesc->FirstThunk);
+		for (; pThunk->u1.Function; pThunk++)
 		{
-			PIMAGE_THUNK_DATA pThunk = (PIMAGE_THUNK_DATA)((PBYTE)hmodCaller_ + pImportDesc->FirstThunk);
-			for (; pThunk->u1.Function; pThunk++)
+			PROC* _ppfn = (PROC*)&pThunk->u1.Function;
+			if (*_ppfn == pfOld_)
 			{
-				PROC* ppfn = (PROC*)&pThunk->u1.Function;
-				BOOL bFound = (*ppfn == pfOld_);
-				if (bFound)
+				if (!WriteProcessMemory(GetCurrentProcess(), _ppfn, &pfNew_, sizeof(pfNew_), NULL)
+					&& (ERROR_NOACCESS == GetLastError()))
 				{
-					if (!WriteProcessMemory(GetCurrentProcess(), ppfn, &pfNew_, sizeof(pfNew_), NULL)
-						&& (ERROR_NOACCESS == GetLastError()))
+					DWORD _dwOldProtect;
+					if (VirtualProtect(_ppfn, sizeof(*_ppfn), PAGE_WRITECOPY, &_dwOldProtect))
 					{
-						DWORD dwOldProtect;
-						if (VirtualProtect(ppfn, sizeof(*ppfn), PAGE_WRITECOPY, &dwOldProtect))
-						{
-							WriteProcessMemory(GetCurrentProcess(), ppfn, &pfNew_, sizeof(pfNew_), NULL);
-							VirtualProtect(ppfn, sizeof(pfNew_), dwOldProtect, &dwOldProtect);
-						}
+						WriteProcessMemory(GetCurrentProcess(), _ppfn, &pfNew_, sizeof(pfNew_), NULL);
+						VirtualProtect(_ppfn, sizeof(pfNew_), _dwOldProtect, &_dwOldProtect);
 					}
-					return;
 				}
+				return;
 			}
 		}
 	}
+}
+
+void RamPool_Test5()
+{
+	ReplaceIATEntryInOneMod("Ucrtbased.dll", (PROC)realloc, (PROC)rp_realloc, "RamPool.dll");
 }

@@ -5,7 +5,7 @@ void RamPool_Test1();
 void RamPool_Test2();
 void RamPool_Test3();
 void RamPool_Test4();
-//void ReplaceIATEntryInOneMod(PCSTR callee_, PROC pfOld_, PROC pfNew_, PCSTR caller_);
+void RamPool_Test5();
 
 int main()
 {
@@ -15,8 +15,7 @@ int main()
 		RamPool_Test2();
 		RamPool_Test3();
 		RamPool_Test4();
-		//ReplaceIATEntryInOneMod("Everything.exe");
-		rp_destroy();
+		//RamPool_Test5();
 	} while (true);
 
 	return 0;
