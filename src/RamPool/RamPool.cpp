@@ -32,9 +32,9 @@ void RamPool_Destroy(void* pRamPool_)
 	return ((CRamPoolImp*)pRamPool_)->Destroy();
 }
 
-void RamPool_Leak(void* pRamPool_, size_t* pCount_, size_t* pTotalSize_)
+void RamPool_Leak(void* pRamPool_, LeakInfo* pLeakInfo_)
 {
-	return ((CRamPoolImp*)pRamPool_)->Leak(pCount_, pTotalSize_);
+	return ((CRamPoolImp*)pRamPool_)->Leak(pLeakInfo_);
 }
 
 size_t RamPool_Size(void* pRamPool_, void* p_)
@@ -62,9 +62,9 @@ void rp_destroy()
 	return CRamPoolImp::Instance()->Destroy();
 }
 
-void rp_leak(size_t* pCount_, size_t* pTotalSize_)
+void rp_leak(LeakInfo* pLeakInfo_)
 {
-	return CRamPoolImp::Instance()->Leak(pCount_, pTotalSize_);
+	return CRamPoolImp::Instance()->Leak(pLeakInfo_);
 }
 
 size_t rp_size(void* p_)

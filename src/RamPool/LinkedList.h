@@ -19,11 +19,8 @@ public:
 
 	bool PushBack(Ty_* p_)
 	{
-		if (!p_)
+		if (!p_ || p_->m_pNext || p_->m_pPrev || p_ == m_pHead)
 			return false;
-
-		assert(!p_->m_pNext && !p_->m_pPrev);
-		assert(p_ != m_pHead);
 
 		if (IsEmpty())
 		{

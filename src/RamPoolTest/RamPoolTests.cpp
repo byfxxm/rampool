@@ -16,10 +16,9 @@ void* LuaAlloc(void* ud, void* ptr, size_t osize, size_t nsize)
 
 void Leak(void* pRamPool_)
 {
-	size_t _count = 0;
-	size_t _leaksize = 0;
-	pRamPool_ ? RamPool_Leak(pRamPool_, &_count, &_leaksize) : rp_leak(&_count, &_leaksize);
-	printf("leak count = %u, leak size = %u\n", _count, _leaksize);
+	LeakInfo _info;
+	pRamPool_ ? RamPool_Leak(pRamPool_, &_info) : rp_leak(&_info);
+	printf("leak count = %u, leak size = %u, leak actual size = %u\n", _info.nCount, _info.nTotalSize, _info.nTotalActualSize);
 }
 
 void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
@@ -100,31 +99,30 @@ void RamPool_Test2()
 	}
 
 	Leak(nullptr);
-	rp_destroy();
+	//rp_destroy();
 }
 
 void RamPool_Test3()
 {
 	void* p1 = rp_malloc(1001);
-	void* p2 = rp_malloc(1000);
-	void* p3 = rp_malloc(1000);
-	void* p4 = malloc(100);
+	void* p2 = rp_malloc(40);
+	void* p3 = rp_malloc(11000);
 
-	cout << rp_size(p4) << endl;
-	cout << rp_size(p1) << endl;
-	rp_free(p1);
-	cout << rp_size(p1) << endl;
-	rp_free(p2);
-	rp_free(p3);
-	free(p4);
+	//cout << rp_size(p4) << endl;
+	//cout << rp_size(p1) << endl;
+	//rp_free(p1);
+	//cout << rp_size(p1) << endl;
+	//rp_free(p2);
+	//rp_free(p3);
+	//free(p4);
 
 	Leak(nullptr);
 }
 
 void RamPool_Test4()
 {
-	//auto _pLua = lua_newstate(LuaAlloc, nullptr);
-	auto _pLua = luaL_newstate();
+	auto _pLua = lua_newstate(LuaAlloc, nullptr);
+	//auto _pLua = luaL_newstate();
 	luaL_openlibs(_pLua);
 
 	auto _pSubLua1 = lua_newthread(_pLua);

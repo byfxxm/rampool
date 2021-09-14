@@ -1,4 +1,5 @@
 #pragma once
+#include "RamPool.h"
 #include "Pool.h"
 
 class CRamPoolImp
@@ -10,7 +11,7 @@ public:
 	void Free(void*);
 	void* Realloc(void*, size_t);
 	void Destroy();
-	void Leak(size_t*, size_t*);
+	void Leak(LeakInfo*);
 	size_t Size(void*);
 	static CRamPoolImp* Instance();
 
