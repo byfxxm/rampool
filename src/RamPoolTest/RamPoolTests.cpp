@@ -111,6 +111,7 @@ void RamPool_Test3()
 
 	rp_free(p3);
 	Leak(nullptr);
+	rp_destroy();
 }
 
 void RamPool_Test4()

@@ -54,6 +54,7 @@ void CPool::Free(void* p_)
 	assert(_pSlot->m_pOwner == this);
 	assert(_pSlot->m_nValid == valid_t::SLOT_USED);
 	_pSlot->m_nValid = valid_t::SLOT_DELETED;
+
 	if (!m_FreeList.PushBack(_pSlot))
 		assert(false);
 
