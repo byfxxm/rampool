@@ -3,7 +3,7 @@
 #include "Block.h"
 #include "Slot.h"
 
-CPool::CPool() : m_nSize(0), m_nCount(0)
+CPool::CPool() : m_nSize(0), m_nCount(0), m_nTotal(0)
 {
 }
 
@@ -25,6 +25,7 @@ void* CPool::Malloc(size_t nSize_)
 {
 	unique_lock<mutex> _lock(m_Mutex);
 	m_nCount++;
+	m_nTotal += nSize_;
 
 	auto _pSlot = m_FreeList.PopFront();
 	if (_pSlot)
@@ -54,11 +55,11 @@ void CPool::Free(void* p_)
 	assert(_pSlot->m_nValid == valid_t::SLOT_USED);
 	_pSlot->m_nValid = valid_t::SLOT_DELETED;
 
-	if (m_FreeList.PushBack(_pSlot))
-		m_nCount--;
-	else
+	if (!m_FreeList.PushBack(_pSlot))
 		assert(false);
 
+	m_nCount--;
+	m_nTotal -= _pSlot->m_nActualSize;
 	assert((int)m_nCount >= 0);
 }
 
@@ -73,9 +74,15 @@ void CPool::Destroy()
 	new(&m_BlockList) CLinkedList<CBlock>();
 	new(&m_FreeList) CLinkedList<CSlot>();
 	m_nCount = 0;
+	m_nTotal = 0;
 }
 
 size_t CPool::GetCount()
 {
 	return m_nCount;
+}
+
+size_t& CPool::Total()
+{
+	return m_nTotal;
 }

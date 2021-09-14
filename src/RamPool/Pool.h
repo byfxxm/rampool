@@ -14,11 +14,13 @@ public:
 	void Free(void*);
 	void Destroy();
 	size_t GetCount();
+	size_t& Total();
 
 private:
 	CLinkedList<CBlock> m_BlockList;
 	CLinkedList<CSlot> m_FreeList;
 	volatile size_t m_nSize;
 	volatile size_t m_nCount;
+	size_t m_nTotal;
 	mutex m_Mutex;
 };
