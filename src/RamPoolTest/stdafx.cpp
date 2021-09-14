@@ -17,3 +17,5 @@
 #pragma comment(lib, "../Release/Lua.lib")
 #endif
 #endif
+
+#pragma comment(lib, "DbgHelp.lib")

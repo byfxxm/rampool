@@ -140,6 +140,42 @@ void RamPool_Test4()
 	Leak(nullptr);
 }
 
-void RamPool_Test5()
+void ReplaceIATEntryInOneMod(PCSTR callee_, PROC pfOld_, PROC pfNew_, PCSTR caller_)
 {
+	HMODULE hmodCaller_ = GetModuleHandle(caller_);
+
+	ULONG ulSize;
+	PIMAGE_IMPORT_DESCRIPTOR pImportDesc = NULL;
+	pImportDesc = (PIMAGE_IMPORT_DESCRIPTOR)ImageDirectoryEntryToData(hmodCaller_, TRUE, IMAGE_DIRECTORY_ENTRY_IMPORT, &ulSize);
+
+	if (!pImportDesc)
+		return;
+
+	for (; pImportDesc->Name; pImportDesc++)
+	{
+		PSTR pszModName = (PSTR)((PBYTE)hmodCaller_ + pImportDesc->Name);
+		if (lstrcmpi(pszModName, callee_) == 0)
+		{
+			PIMAGE_THUNK_DATA pThunk = (PIMAGE_THUNK_DATA)((PBYTE)hmodCaller_ + pImportDesc->FirstThunk);
+			for (; pThunk->u1.Function; pThunk++)
+			{
+				PROC* ppfn = (PROC*)&pThunk->u1.Function;
+				BOOL bFound = (*ppfn == pfOld_);
+				if (bFound)
+				{
+					if (!WriteProcessMemory(GetCurrentProcess(), ppfn, &pfNew_, sizeof(pfNew_), NULL)
+						&& (ERROR_NOACCESS == GetLastError()))
+					{
+						DWORD dwOldProtect;
+						if (VirtualProtect(ppfn, sizeof(*ppfn), PAGE_WRITECOPY, &dwOldProtect))
+						{
+							WriteProcessMemory(GetCurrentProcess(), ppfn, &pfNew_, sizeof(pfNew_), NULL);
+							VirtualProtect(ppfn, sizeof(pfNew_), dwOldProtect, &dwOldProtect);
+						}
+					}
+					return;
+				}
+			}
+		}
+	}
 }

@@ -9,4 +9,5 @@
 #include <condition_variable>
 #include <iostream>
 #include <string>
+#include <DbgHelp.h>
 using namespace std;
