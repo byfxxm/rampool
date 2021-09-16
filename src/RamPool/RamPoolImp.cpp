@@ -82,6 +82,8 @@ void CRamPoolImp::Leak(LeakInfo* pLeakInfo_)
 		pLeakInfo_->nTotalSize += _pool.GetCount() * _pool.GetSize();
 		pLeakInfo_->nTotalActualSize += _pool.Total();
 	}
+
+	assert(pLeakInfo_->nTotalActualSize <= pLeakInfo_->nTotalSize);
 }
 
 size_t CRamPoolImp::Size(void* p_)

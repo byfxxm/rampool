@@ -80,12 +80,12 @@ void RamPool_Test1()
 	};
 
 	RamPool_Compare(1, [&]()
-	{
-		MultiThreadRun(RunRamPool);
-	}, [&]()
-	{
-		MultiThreadRun(RunMMU);
-	});
+		{
+			MultiThreadRun(RunRamPool);
+		}, [&]()
+		{
+			MultiThreadRun(RunMMU);
+		});
 }
 
 void RamPool_Test2()
