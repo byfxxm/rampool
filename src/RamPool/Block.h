@@ -2,18 +2,16 @@
 #include "LinkedList.h"
 #include "Slot.h"
 
-class CBlock : public CLinkedList<CBlock>::CNode
+struct Block : public CLinkedList<Block>::Node
 {
-public:
-	CBlock(size_t, void*);
-	virtual ~CBlock() override;
+	Block(size_t, void*);
+	~Block();
 	void* Alloc(size_t);
 	bool IsFull();
 
-private:
 	char* m_pMem;
 	size_t m_nMemSize;
-	CSlot** m_ppSlots;
+	Slot** m_ppSlots;
 	size_t m_nSlotNum;
 	size_t m_nCurSlot;
 };
