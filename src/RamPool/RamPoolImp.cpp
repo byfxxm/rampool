@@ -95,3 +95,9 @@ size_t CRamPoolImp::Size(void* p_)
 
 	return _pSlot->m_nActualSize;
 }
+
+void CRamPoolImp::GC()
+{
+	for (auto& _pool : m_Pools)
+		_pool.GC();
+}

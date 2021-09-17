@@ -15,10 +15,11 @@ public:
 	void Destroy();
 	size_t GetCount();
 	size_t& Total();
+	void GC();
 
 private:
-	CLinkedList<CBlock> m_BlockList;
-	CLinkedList<CSlot> m_FreeList;
+	CLinkedList<Block> m_BlockList;
+	CLinkedList<Slot> m_FreeList;
 	volatile size_t m_nSize;
 	volatile size_t m_nCount;
 	size_t m_nTotal;

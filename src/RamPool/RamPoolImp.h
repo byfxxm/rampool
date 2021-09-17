@@ -14,6 +14,7 @@ public:
 	void Destroy();
 	void Leak(LeakInfo*);
 	size_t Size(void*);
+	void GC();
 
 private:
 	CPool m_Pools[POOLNUM];

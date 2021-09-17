@@ -4,14 +4,11 @@ template<typename Ty_>
 class CLinkedList
 {
 public:
-	class CNode
+	struct Node
 	{
-	public:
-		CNode() : m_pPrev(nullptr), m_pNext(nullptr) {}
-		virtual ~CNode() = default;
-
-		CNode* m_pPrev;
-		CNode* m_pNext;
+		Node() : m_pPrev(nullptr), m_pNext(nullptr) {}
+		Node* m_pPrev;
+		Node* m_pNext;
 	};
 
 	CLinkedList() : m_pHead(nullptr), m_pTail(nullptr) {}
@@ -69,6 +66,6 @@ public:
 	}
 
 private:
-	CNode* m_pHead;
-	CNode* m_pTail;
+	Node* m_pHead;
+	Node* m_pTail;
 };
