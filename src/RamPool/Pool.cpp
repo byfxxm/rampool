@@ -89,5 +89,32 @@ size_t& CPool::Total()
 
 void CPool::GC()
 {
+	unique_lock<mutex> _lock(m_Mutex);
 
+	Block* _pNext = NULL;
+	for (auto _pBlock = m_BlockList.Front(); _pBlock; _pBlock = _pNext)
+	{
+		_pNext = _pBlock->m_pNext;
+
+		size_t _index = 0;
+		for (; _index < _pBlock->m_nCurSlot; _index++)
+		{
+			assert(_pBlock->m_ppSlots[_index]->m_nValid != valid_t::SLOT_UNUSE);
+			if (_pBlock->m_ppSlots[_index]->m_nValid == valid_t::SLOT_USED)
+				break;
+		}
+
+		if (_index == _pBlock->m_nCurSlot)
+		{
+			memset(_pBlock->m_pMem, 0, _pBlock->m_nMemSize);
+			for (auto _pSlot = m_FreeList.Front(); _pSlot; _pSlot = _pSlot->m_pNext)
+			{
+				if (_pSlot->m_nValid == valid_t::SLOT_UNUSE)
+					m_FreeList.Erase(_pSlot);
+			}
+
+			m_BlockList.Erase(_pBlock);
+			delete _pBlock;
+		}
+	}
 }

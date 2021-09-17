@@ -7,8 +7,8 @@ public:
 	struct Node
 	{
 		Node() : m_pPrev(nullptr), m_pNext(nullptr) {}
-		Node* m_pPrev;
-		Node* m_pNext;
+		Ty_* m_pPrev;
+		Ty_* m_pNext;
 	};
 
 	CLinkedList() : m_pHead(nullptr), m_pTail(nullptr) {}
@@ -47,17 +47,17 @@ public:
 			m_pHead->m_pPrev = nullptr;
 
 		_pHead->m_pPrev = _pHead->m_pNext = nullptr;
-		return (Ty_*)_pHead;
+		return _pHead;
 	}
 
 	Ty_* Front()
 	{
-		return (Ty_*)m_pHead;
+		return m_pHead;
 	}
 
 	Ty_* Back()
 	{
-		return (Ty_*)m_pTail;
+		return m_pTail;
 	}
 
 	bool IsEmpty()
@@ -65,7 +65,22 @@ public:
 		return m_pHead == nullptr;
 	}
 
+	void Erase(Ty_* p_)
+	{
+		assert(p_);
+
+		if (p_->m_pPrev)
+			p_->m_pPrev->m_pNext = p_->m_pNext;
+		else
+			m_pHead = p_->m_pNext;
+
+		if (p_->m_pNext)
+			p_->m_pNext->m_pPrev = p_->m_pPrev;
+		else
+			m_pTail = p_->m_pPrev;
+	}
+
 private:
-	Node* m_pHead;
-	Node* m_pTail;
+	Ty_* m_pHead;
+	Ty_* m_pTail;
 };

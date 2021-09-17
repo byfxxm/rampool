@@ -110,8 +110,11 @@ void RamPool_Test3()
 	void* p4 = rp_malloc(1234);
 
 	rp_free(p3);
+	rp_free(p1);
+	rp_free(p2);
+	rp_free(p4);
 	Leak(nullptr);
-	rp_destroy();
+	//rp_destroy();
 }
 
 void RamPool_Test4()
@@ -134,48 +137,22 @@ void RamPool_Test4()
 	Leak(nullptr);
 }
 
-void ReplaceIATEntryInOneMod(PCSTR callee_, PROC pfOld_, PROC pfNew_, PCSTR caller_)
-{
-	HMODULE hmodCaller_ = GetModuleHandle(caller_);
-	if (!hmodCaller_)
-		return;
-
-	ULONG _ulSize;
-	PIMAGE_IMPORT_DESCRIPTOR _pImportDesc = NULL;
-	_pImportDesc = (PIMAGE_IMPORT_DESCRIPTOR)ImageDirectoryEntryToData(hmodCaller_, TRUE, IMAGE_DIRECTORY_ENTRY_IMPORT, &_ulSize);
-
-	if (!_pImportDesc)
-		return;
-
-	for (; _pImportDesc->Name; _pImportDesc++)
-	{
-		PSTR _pszModName = (PSTR)((PBYTE)hmodCaller_ + _pImportDesc->Name);
-		if (lstrcmpi(_pszModName, callee_))
-			continue;
-
-		PIMAGE_THUNK_DATA pThunk = (PIMAGE_THUNK_DATA)((PBYTE)hmodCaller_ + _pImportDesc->FirstThunk);
-		for (; pThunk->u1.Function; pThunk++)
-		{
-			PROC* _ppfn = (PROC*)&pThunk->u1.Function;
-			if (*_ppfn == pfOld_)
-			{
-				if (!WriteProcessMemory(GetCurrentProcess(), _ppfn, &pfNew_, sizeof(pfNew_), NULL)
-					&& (ERROR_NOACCESS == GetLastError()))
-				{
-					DWORD _dwOldProtect;
-					if (VirtualProtect(_ppfn, sizeof(*_ppfn), PAGE_WRITECOPY, &_dwOldProtect))
-					{
-						WriteProcessMemory(GetCurrentProcess(), _ppfn, &pfNew_, sizeof(pfNew_), NULL);
-						VirtualProtect(_ppfn, sizeof(pfNew_), _dwOldProtect, &_dwOldProtect);
-					}
-				}
-				return;
-			}
-		}
-	}
-}
-
 void RamPool_Test5()
 {
-	ReplaceIATEntryInOneMod("Ucrtbased.dll", (PROC)realloc, (PROC)rp_realloc, "RamPool.dll");
+	void* _p[100000];
+
+	for (int _i = 0; _i < _countof(_p); _i++)
+	{
+		_p[_i] = rp_malloc(20);
+	}
+
+	for (int _i = 0; _i < _countof(_p); _i++)
+	{
+		rp_free(_p[_i]);
+	}
+
+	rp_gc();
+	//rp_destroy();
+
+	Leak(nullptr);
 }
