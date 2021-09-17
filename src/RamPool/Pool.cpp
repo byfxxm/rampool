@@ -106,7 +106,9 @@ void CPool::GC()
 
 		if (_index == _pBlock->m_nCurSlot)
 		{
-			memset(_pBlock->m_pMem, 0, _pBlock->m_nMemSize);
+			for (size_t _i = 0; _i < _pBlock->m_nCurSlot; _i++)
+				_pBlock->m_ppSlots[_i]->m_nValid = valid_t::SLOT_UNUSE;
+
 			for (auto _pSlot = m_FreeList.Front(); _pSlot; _pSlot = _pSlot->m_pNext)
 			{
 				if (_pSlot->m_nValid == valid_t::SLOT_UNUSE)
