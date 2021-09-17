@@ -82,7 +82,7 @@ size_t CPool::GetCount()
 	return m_nCount;
 }
 
-size_t& CPool::Total()
+volatile size_t& CPool::Total()
 {
 	return m_nTotal;
 }

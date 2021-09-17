@@ -5,7 +5,6 @@
 #include <windows.h>
 #include <mutex>
 #include <cassert>
-using namespace std;
 
 #define GRANULARITY 16
 #define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
@@ -14,3 +13,5 @@ using namespace std;
 #define POOLINDEX(size) (ROUND(size) / GRANULARITY - 1)
 #define SLOTNUM 64
 #define POINTER_TO_SLOT(p) ((Slot*)((char*)(p) - sizeof(Slot)))
+
+using namespace std;
