@@ -92,9 +92,9 @@ void RamPool_Test2()
 {
 	{
 		shared_ptr<void> _p[100000];
-		for (int _i = 0; _i < _countof(_p); _i++)
+		for (auto& _pi : _p)
 		{
-			_p[_i].reset(rp_malloc(1000), rp_free);
+			_pi.reset(rp_malloc(1000), rp_free);
 		}
 	}
 
@@ -132,6 +132,7 @@ void RamPool_Test4()
 		"end");
 
 	luaL_dostring(_pSubLua2, "F1()");
+	rp_gc();
 	lua_close(_pLua);
 
 	Leak(nullptr);
