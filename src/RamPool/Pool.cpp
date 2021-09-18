@@ -3,14 +3,6 @@
 #include "Block.h"
 #include "Slot.h"
 
-CPool::CPool()
-{
-}
-
-CPool::~CPool()
-{
-}
-
 void CPool::SetSize(size_t nSize_)
 {
 	m_nSize = nSize_;
