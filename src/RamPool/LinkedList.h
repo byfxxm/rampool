@@ -60,7 +60,7 @@ public:
 		return m_pTail;
 	}
 
-	bool IsEmpty()
+	inline bool IsEmpty()
 	{
 		return m_pHead == nullptr;
 	}
