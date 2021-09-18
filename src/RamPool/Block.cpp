@@ -2,7 +2,7 @@
 #include "Block.h"
 #include "Slot.h"
 
-Block::Block(size_t nSize_, void* pOwner_) : m_nCurSlot(0), m_nSlotNum(0)
+Block::Block(size_t nSize_, void* pOwner_)
 {
 	if (nSize_ <= MAXSIZE / 8)
 		m_nSlotNum = 32;

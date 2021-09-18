@@ -11,11 +11,9 @@ enum class valid_t
 
 struct Slot : public CLinkedList<Slot>::Node
 {
-	Slot() : m_pOwner(nullptr), m_nValid(valid_t::SLOT_UNUSE), m_nSize(0), m_nActualSize(0) {}
-
-	const void* m_pOwner;
-	valid_t m_nValid;
-	size_t m_nSize;
-	size_t m_nActualSize;
+	valid_t m_nValid = valid_t::SLOT_UNUSE;
+	const void* m_pOwner = nullptr;
+	size_t m_nSize = 0;
+	size_t m_nActualSize = 0;
 	char m_Mem[0];
 };

@@ -9,9 +9,9 @@ struct Block : public CLinkedList<Block>::Node
 	void* Alloc(size_t);
 	bool IsFull();
 
-	char* m_pMem;
-	size_t m_nMemSize;
-	Slot** m_ppSlots;
-	size_t m_nSlotNum;
-	size_t m_nCurSlot;
+	char* m_pMem = nullptr;
+	size_t m_nMemSize = 0;
+	Slot** m_ppSlots = nullptr;
+	size_t m_nSlotNum = 0;
+	size_t m_nCurSlot = 0;
 };

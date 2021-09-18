@@ -6,12 +6,11 @@ class CLinkedList
 public:
 	struct Node
 	{
-		Node() : m_pPrev(nullptr), m_pNext(nullptr) {}
-		Ty_* m_pPrev;
-		Ty_* m_pNext;
+		Ty_* m_pPrev = nullptr;
+		Ty_* m_pNext = nullptr;
 	};
 
-	CLinkedList() : m_pHead(nullptr), m_pTail(nullptr) {}
+	CLinkedList() = default;
 	~CLinkedList() = default;
 
 	bool PushBack(Ty_* p_)
@@ -81,6 +80,6 @@ public:
 	}
 
 private:
-	Ty_* m_pHead;
-	Ty_* m_pTail;
+	Ty_* m_pHead = nullptr;
+	Ty_* m_pTail = nullptr;
 };

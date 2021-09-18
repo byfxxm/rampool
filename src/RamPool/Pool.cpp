@@ -3,7 +3,7 @@
 #include "Block.h"
 #include "Slot.h"
 
-CPool::CPool() : m_nSize(0), m_nCount(0), m_nTotal(0)
+CPool::CPool()
 {
 }
 
