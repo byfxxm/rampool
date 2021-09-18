@@ -6,8 +6,8 @@
 class CPool
 {
 public:
-	CPool();
-	~CPool();
+	CPool() = default;
+	~CPool() = default;
 	void SetSize(size_t);
 	size_t GetSize();
 	void* Malloc(size_t);
