@@ -15,7 +15,10 @@ public:
 	void Leak(LeakInfo*);
 	size_t Size(void*);
 	void GC();
+	void AutoGC(bool);
 
 private:
 	CPool m_Pools[POOLNUM];
+	thread m_thdAutoGC;
+	volatile bool m_bAutoGC = false;
 };

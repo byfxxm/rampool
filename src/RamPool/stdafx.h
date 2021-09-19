@@ -12,5 +12,6 @@
 #define POOLNUM (MAXSIZE / GRANULARITY)
 #define POOLINDEX(size) (ROUND(size) / GRANULARITY - 1)
 #define POINTER_TO_SLOT(p) ((Slot*)((char*)(p) - sizeof(Slot)))
+#define AUTOGC_THRESHOLD 100
 
 using namespace std;

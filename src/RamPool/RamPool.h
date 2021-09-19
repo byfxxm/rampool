@@ -27,6 +27,7 @@ extern "C"
 	RAMPOOL_API void RamPool_Leak(void* pRamPool_, LeakInfo* pLeakInfo_);
 	RAMPOOL_API size_t RamPool_Size(void* pRamPool_, void* p_);
 	RAMPOOL_API void RamPool_GC(void* pRamPool_);
+	RAMPOOL_API void RamPool_AutoGC(void* pRamPool_, bool b_);
 
 	RAMPOOL_API void* rp_malloc(size_t nSize_);
 	RAMPOOL_API void rp_free(void* p_);
@@ -35,6 +36,7 @@ extern "C"
 	RAMPOOL_API void rp_leak(LeakInfo* pLeakInfo_);
 	RAMPOOL_API size_t rp_size(void* p_);
 	RAMPOOL_API void rp_gc();
+	RAMPOOL_API void rp_auto_gc(bool b_);
 
 #ifdef __cplusplus
 }

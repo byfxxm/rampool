@@ -112,3 +112,8 @@ void CPool::GC()
 		}
 	}
 }
+
+bool CPool::NeedGC()
+{
+	return m_FreeList.GetCount() >= AUTOGC_THRESHOLD;
+}
