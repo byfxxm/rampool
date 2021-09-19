@@ -124,7 +124,6 @@ void CRamPoolImp::AutoGC(bool b_)
 					this_thread::yield();
 				}
 			});
-
 		m_thdAutoGC.swap(_thd);
 	}
 	else
