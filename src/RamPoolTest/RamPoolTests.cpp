@@ -151,7 +151,7 @@ void RamPool_Test5()
 		rp_free(_p[_i]);
 	}
 
-	rp_gc();
+	//rp_gc();
 	//rp_destroy();
 
 	Leak(nullptr);
