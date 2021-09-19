@@ -1,8 +1,8 @@
 ﻿#include "stdafx.h"
 
-BOOL APIENTRY DllMain(HMODULE hModule_, DWORD  ul_reason_for_call_, LPVOID lpReserved_)
+BOOL APIENTRY DllMain(HMODULE hModule_, DWORD  nReason_, LPVOID lpReserved_)
 {
-	switch (ul_reason_for_call_)
+	switch (nReason_)
 	{
 	case DLL_PROCESS_ATTACH:
 	case DLL_THREAD_ATTACH:
