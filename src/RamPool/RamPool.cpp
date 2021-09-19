@@ -47,6 +47,11 @@ void RamPool_GC(void* pRamPool_)
 	return ((CRamPoolImp*)pRamPool_)->GC();
 }
 
+void RamPool_AutoGC(void* pRamPool_, bool b_)
+{
+	return ((CRamPoolImp*)pRamPool_)->AutoGC(b_);
+}
+
 void* rp_malloc(size_t nSize_)
 {
 	return CRamPoolImp::Instance()->Malloc(nSize_);
@@ -80,4 +85,9 @@ size_t rp_size(void* p_)
 void rp_gc()
 {
 	return CRamPoolImp::Instance()->GC();
+}
+
+void rp_auto_gc(bool b_)
+{
+	return CRamPoolImp::Instance()->AutoGC(b_);
 }

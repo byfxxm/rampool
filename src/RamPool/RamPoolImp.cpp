@@ -101,3 +101,35 @@ void CRamPoolImp::GC()
 	for (auto& _pool : m_Pools)
 		_pool.GC();
 }
+
+void CRamPoolImp::AutoGC(bool b_)
+{
+	m_bAutoGC = b_;
+
+	if (m_bAutoGC)
+	{
+		if (m_thdAutoGC.joinable())
+			return;
+
+		thread _thd([this]()
+			{
+				while (m_bAutoGC)
+				{
+					for (auto& _pool : m_Pools)
+					{
+						if (_pool.NeedGC())
+							_pool.GC();
+					}
+					
+					this_thread::yield();
+				}
+			});
+
+		m_thdAutoGC.swap(_thd);
+	}
+	else
+	{
+		if (m_thdAutoGC.joinable())
+			m_thdAutoGC.join();
+	}
+}

@@ -18,6 +18,8 @@ public:
 		if (!p_ || p_->m_pNext || p_->m_pPrev || p_ == m_pHead)
 			return false;
 
+		m_nCount++;
+
 		if (IsEmpty())
 		{
 			assert(!m_pHead && !m_pTail);
@@ -36,6 +38,8 @@ public:
 	{
 		if (IsEmpty())
 			return nullptr;
+
+		m_nCount--;
 
 		auto _pHead = m_pHead;
 		m_pHead = m_pHead->m_pNext;
@@ -67,6 +71,7 @@ public:
 	void Erase(Ty_* p_)
 	{
 		assert(p_);
+		m_nCount--;
 
 		if (p_->m_pPrev)
 			p_->m_pPrev->m_pNext = p_->m_pNext;
@@ -79,7 +84,13 @@ public:
 			m_pTail = p_->m_pPrev;
 	}
 
+	size_t GetCount()
+	{
+		return m_nCount;
+	}
+
 private:
 	Ty_* m_pHead = nullptr;
 	Ty_* m_pTail = nullptr;
+	size_t m_nCount = 0;
 };

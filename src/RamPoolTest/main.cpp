@@ -11,11 +11,13 @@ int main()
 {
 	do
 	{
+		rp_auto_gc(true);
 		RamPool_Test1();
 		RamPool_Test2();
 		RamPool_Test3();
 		RamPool_Test4();
 		RamPool_Test5();
+		rp_auto_gc(false);
 	} while (true);
 
 	return 0;

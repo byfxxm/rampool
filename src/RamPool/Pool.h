@@ -16,6 +16,7 @@ public:
 	size_t GetCount();
 	volatile size_t& Total();
 	void GC();
+	bool NeedGC();
 
 private:
 	mutex m_Mutex;

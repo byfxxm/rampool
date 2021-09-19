@@ -132,7 +132,6 @@ void RamPool_Test4()
 		"end");
 
 	luaL_dostring(_pSubLua2, "F1()");
-	rp_gc();
 	lua_close(_pLua);
 
 	Leak(nullptr);
