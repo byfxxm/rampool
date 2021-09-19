@@ -12,29 +12,29 @@
     <Filter Include="1.public">
       <UniqueIdentifier>{652edd48-787d-4fa2-95f2-698adaccff02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2.imp">
+    <Filter Include="2.implement">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RamPoolImp.h">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="LinkedList.h">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="Slot.h">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>0.dll</Filter>
     </ClInclude>
     <ClInclude Include="Pool.h">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="RamPool.h">
       <Filter>1.public</Filter>
@@ -42,22 +42,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RamPoolImp.cpp">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>0.dll</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>0.dll</Filter>
     </ClCompile>
     <ClCompile Include="Pool.cpp">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="RamPool.cpp">
-      <Filter>2.imp</Filter>
+      <Filter>2.implement</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
