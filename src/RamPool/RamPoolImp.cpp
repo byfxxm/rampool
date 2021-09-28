@@ -111,7 +111,7 @@ void CRamPoolImp::AutoGC(bool b_)
 		if (m_thdAutoGC.joinable())
 			return;
 
-		thread _thd([this]()
+		m_thdAutoGC = thread([this]()
 			{
 				while (m_bAutoGC)
 				{
@@ -120,12 +120,10 @@ void CRamPoolImp::AutoGC(bool b_)
 						if (_pool.NeedGC())
 							_pool.GC();
 					}
-					
+
 					this_thread::yield();
 				}
 			});
-
-		m_thdAutoGC.swap(_thd);
 	}
 	else
 	{
