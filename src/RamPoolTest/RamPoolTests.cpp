@@ -64,13 +64,11 @@ void RamPool_Test1()
 
 		for (int _i = 0; _i < _countof(_ths); _i++)
 		{
-			thread _th([&]()
+			_ths[_i] = thread([&]()
 			{
 				for (int _j = 0; _j < _countof(_nSizes); _j++)
 					fRun_(_nSizes[_j]);
 			});
-
-			_ths[_i].swap(_th);
 		}
 
 		for (auto& _th : _ths)
