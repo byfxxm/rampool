@@ -127,9 +127,12 @@ void RamPool_Test4()
 	luaL_dostring(_pSubLua1, "function F1()\n"\
 		"print('hello')\n"\
 		"print(debug.traceback('world'))\n"\
+		"end\n"\
+		"function F2()\n"\
+		"F1()\n"\
 		"end");
 
-	luaL_dostring(_pSubLua2, "F1()");
+	luaL_dostring(_pSubLua2, "F2()");
 	lua_close(_pLua);
 
 	Leak(nullptr);
