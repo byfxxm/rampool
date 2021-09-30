@@ -74,7 +74,7 @@ size_t CPool::GetCount()
 	return m_nCount;
 }
 
-volatile size_t& CPool::Total()
+atomic<size_t>& CPool::Total()
 {
 	return m_nTotal;
 }

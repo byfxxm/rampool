@@ -20,5 +20,5 @@ public:
 private:
 	CPool m_Pools[POOLNUM];
 	thread m_thdAutoGC;
-	volatile bool m_bAutoGC = false;
+	atomic<bool> m_bAutoGC = false;
 };

@@ -14,7 +14,7 @@ public:
 	void Free(void*);
 	void Destroy();
 	size_t GetCount();
-	volatile size_t& Total();
+	atomic<size_t>& Total();
 	void GC();
 	bool NeedGC();
 
@@ -22,7 +22,7 @@ private:
 	mutex m_Mutex;
 	CLinkedList<Block> m_BlockList;
 	CLinkedList<Slot> m_FreeList;
-	volatile size_t m_nSize = 0;
-	volatile size_t m_nCount = 0;
-	volatile size_t m_nTotal = 0;
+	atomic<size_t> m_nSize = 0;
+	atomic<size_t> m_nCount = 0;
+	atomic<size_t> m_nTotal = 0;
 };
