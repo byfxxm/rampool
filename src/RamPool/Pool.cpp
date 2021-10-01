@@ -61,8 +61,8 @@ void CPool::Destroy()
 	while ((_p = m_BlockList.PopFront()))
 		delete _p;
 
-	new(&m_BlockList) CLinkedList<Block>();
-	new(&m_FreeList) CLinkedList<Slot>();
+	new(&m_BlockList) CLinkList<Block>();
+	new(&m_FreeList) CLinkList<Slot>();
 	m_nCount = 0;
 	m_nTotal = 0;
 }

@@ -2,7 +2,7 @@
 #include "LinkedList.h"
 #include "Slot.h"
 
-struct Block : public CLinkedList<Block>::Node
+struct Block : public CLinkList<Block>::Node
 {
 	Block(size_t, void*);
 	~Block();

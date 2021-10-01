@@ -1,7 +1,7 @@
 #pragma once
 
 template<typename Ty_>
-class CLinkedList
+class CLinkList
 {
 public:
 	struct Node
@@ -10,8 +10,8 @@ public:
 		Ty_* m_pNext = nullptr;
 	};
 
-	CLinkedList() = default;
-	~CLinkedList() = default;
+	CLinkList() = default;
+	~CLinkList() = default;
 
 	void PushBack(Ty_* p_)
 	{

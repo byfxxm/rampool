@@ -20,8 +20,8 @@ public:
 
 private:
 	mutex m_Mutex;
-	CLinkedList<Block> m_BlockList;
-	CLinkedList<Slot> m_FreeList;
+	CLinkList<Block> m_BlockList;
+	CLinkList<Slot> m_FreeList;
 	atomic<size_t> m_nSize = 0;
 	atomic<size_t> m_nCount = 0;
 	atomic<size_t> m_nTotal = 0;
