@@ -138,8 +138,25 @@ void RamPool_Test5()
 {
 	for (int _i = 0; _i < 100000; _i++)
 	{
-		rp_malloc(20);
+		rp_malloc(_i % 1000 + 1);
 	}
 
 	rp_destroy();
+}
+
+void RamPool_Test6()
+{
+	void* _p[100000];
+
+	for (auto& _i : _p)
+	{
+		_i = rp_malloc(20);
+	}
+
+	for (auto& _i : _p)
+	{
+		rp_free(_i);
+	}
+
+	rp_gc();
 }
