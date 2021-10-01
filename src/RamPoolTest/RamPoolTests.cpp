@@ -97,7 +97,6 @@ void RamPool_Test2()
 	}
 
 	Leak(nullptr);
-	//rp_destroy();
 }
 
 void RamPool_Test3()
@@ -112,13 +111,11 @@ void RamPool_Test3()
 	rp_free(p2);
 	rp_free(p4);
 	Leak(nullptr);
-	//rp_destroy();
 }
 
 void RamPool_Test4()
 {
 	auto _pLua = lua_newstate(LuaAlloc, nullptr);
-	//auto _pLua = luaL_newstate();
 	luaL_openlibs(_pLua);
 
 	auto _pSubLua1 = lua_newthread(_pLua);
@@ -140,13 +137,10 @@ void RamPool_Test4()
 
 void RamPool_Test5()
 {
-	void* _p[16000];
-
-	for (int _i = 0; _i < _countof(_p); _i++)
+	for (int _i = 0; _i < 100000; _i++)
 	{
-		_p[_i] = rp_malloc(20);
+		rp_malloc(20);
 	}
 
 	rp_destroy();
-	Leak(nullptr);
 }
