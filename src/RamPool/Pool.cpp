@@ -47,9 +47,7 @@ void CPool::Free(void* p_)
 	assert(_pSlot->m_nValid == valid_t::SLOT_USED);
 	_pSlot->m_nValid = valid_t::SLOT_DELETED;
 
-	if (!m_FreeList.PushBack(_pSlot))
-		assert(false);
-
+	m_FreeList.PushBack(_pSlot);
 	m_nCount--;
 	m_nTotal -= _pSlot->m_nActualSize;
 	assert((int)m_nCount >= 0);

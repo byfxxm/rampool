@@ -13,25 +13,22 @@ public:
 	CLinkedList() = default;
 	~CLinkedList() = default;
 
-	bool PushBack(Ty_* p_)
+	void PushBack(Ty_* p_)
 	{
-		if (!p_ || p_->m_pNext || p_->m_pPrev || p_ == m_pHead)
-			return false;
-
+		assert(p_);
 		m_nCount++;
 
 		if (IsEmpty())
 		{
 			assert(!m_pHead && !m_pTail);
 			m_pHead = m_pTail = p_;
-			return true;
+			return;
 		}
 
 		m_pTail->m_pNext = p_;
 		p_->m_pPrev = m_pTail;
 		p_->m_pNext = nullptr;
 		m_pTail = p_;
-		return true;
 	}
 
 	Ty_* PopFront()
