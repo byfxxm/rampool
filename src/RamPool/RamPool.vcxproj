@@ -157,8 +157,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
+    <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Pool.h" />
-    <ClInclude Include="Stack.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="RamPool.h" />
     <ClInclude Include="RamPoolImp.h" />
