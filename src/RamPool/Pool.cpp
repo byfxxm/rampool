@@ -58,10 +58,11 @@ void CPool::Destroy()
 {
 	unique_lock<mutex> _lock(m_Mutex);
 
-	for (Block* _p = nullptr; _p; _p = m_BlockStack.Top())
+	Block* _p = nullptr;
+	while (_p = m_BlockStack.Top())
 	{
-		delete _p;
 		m_BlockStack.Pop();
+		delete _p;
 	}
 
 	new(&m_BlockStack) CStack<Block>();

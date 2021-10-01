@@ -147,13 +147,6 @@ void RamPool_Test5()
 		_p[_i] = rp_malloc(20);
 	}
 
-	for (int _i = 0; _i < _countof(_p); _i++)
-	{
-		rp_free(_p[_i]);
-	}
-
-	//rp_gc();
-	//rp_destroy();
-
+	rp_destroy();
 	Leak(nullptr);
 }
