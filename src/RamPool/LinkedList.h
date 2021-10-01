@@ -81,7 +81,7 @@ public:
 			m_pTail = p_->m_pPrev;
 	}
 
-	size_t GetCount()
+	size_t Count()
 	{
 		return m_nCount;
 	}
