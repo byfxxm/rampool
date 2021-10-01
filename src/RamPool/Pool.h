@@ -20,8 +20,8 @@ public:
 
 private:
 	mutex m_Mutex;
-	CStack<Block> m_BlockList;
-	CStack<Slot> m_FreeList;
+	CStack<Block> m_BlockStack;
+	CStack<Slot> m_FreeStack;
 	atomic<size_t> m_nSize = 0;
 	atomic<size_t> m_nCount = 0;
 	atomic<size_t> m_nTotal = 0;

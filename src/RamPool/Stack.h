@@ -18,7 +18,7 @@ public:
 		assert(p_);
 		m_nCount++;
 		p_->m_pNext = m_pTop;
-		m_pTop && (m_pTop->m_pPrev = p_);
+		m_pTop && (m_pTop->m_pPrev = p_, 0);
 		m_pTop = p_;
 	}
 
@@ -27,7 +27,7 @@ public:
 		assert(m_pTop);
 		m_nCount--;
 		m_pTop = m_pTop->m_pNext;
-		m_pTop && (m_pTop->m_pPrev = nullptr);
+		m_pTop && (m_pTop->m_pPrev = nullptr, 0);
 	}
 
 	Ty_* Top()
