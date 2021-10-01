@@ -1,5 +1,5 @@
 #pragma once
-#include "LinkedList.h"
+#include "Stack.h"
 #include "Block.h"
 #include "Slot.h"
 
@@ -20,8 +20,8 @@ public:
 
 private:
 	mutex m_Mutex;
-	CLinkedList<Block> m_BlockList;
-	CLinkedList<Slot> m_FreeList;
+	CStack<Block> m_BlockList;
+	CStack<Slot> m_FreeList;
 	atomic<size_t> m_nSize = 0;
 	atomic<size_t> m_nCount = 0;
 	atomic<size_t> m_nTotal = 0;

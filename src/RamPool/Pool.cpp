@@ -19,20 +19,21 @@ void* CPool::Malloc(size_t nSize_)
 	m_nCount++;
 	m_nTotal += nSize_;
 
-	auto _pSlot = m_FreeList.PopFront();
+	auto _pSlot = m_FreeList.Top();
 	if (_pSlot)
 	{
+		m_FreeList.Pop();
 		assert(_pSlot->m_nValid == valid_t::SLOT_DELETED);
 		_pSlot->m_nValid = valid_t::SLOT_USED;
 		_pSlot->m_nActualSize = nSize_;
 		return _pSlot->m_Mem;
 	}
 
-	auto _pBlock = m_BlockList.Back();
+	auto _pBlock = m_BlockList.Top();
 	if (!_pBlock || _pBlock->IsFull())
 	{
 		_pBlock = new Block(m_nSize, this);
-		m_BlockList.PushBack(_pBlock);
+		m_BlockList.Push(_pBlock);
 	}
 
 	return _pBlock->Alloc(nSize_);
@@ -47,7 +48,7 @@ void CPool::Free(void* p_)
 	assert(_pSlot->m_nValid == valid_t::SLOT_USED);
 	_pSlot->m_nValid = valid_t::SLOT_DELETED;
 
-	m_FreeList.PushBack(_pSlot);
+	m_FreeList.Push(_pSlot);
 	m_nCount--;
 	m_nTotal -= _pSlot->m_nActualSize;
 	assert((int)m_nCount >= 0);
@@ -58,11 +59,14 @@ void CPool::Destroy()
 	unique_lock<mutex> _lock(m_Mutex);
 
 	Block* _p = nullptr;
-	while ((_p = m_BlockList.PopFront()))
+	while ((_p = m_BlockList.Top()))
+	{
 		delete _p;
+		m_BlockList.Pop();
+	}
 
-	new(&m_BlockList) CLinkedList<Block>();
-	new(&m_FreeList) CLinkedList<Slot>();
+	new(&m_BlockList) CStack<Block>();
+	new(&m_FreeList) CStack<Slot>();
 	m_nCount = 0;
 	m_nTotal = 0;
 }
@@ -82,7 +86,7 @@ void CPool::GC()
 	unique_lock<mutex> _lock(m_Mutex);
 
 	Block* _pNext = NULL;
-	for (auto _pBlock = m_BlockList.Front(); _pBlock; _pBlock = _pNext)
+	for (auto _pBlock = m_BlockList.Top(); _pBlock; _pBlock = _pNext)
 	{
 		_pNext = _pBlock->m_pNext;
 
@@ -99,7 +103,7 @@ void CPool::GC()
 			for (size_t _i = 0; _i < _pBlock->m_nCurSlot; _i++)
 				_pBlock->m_ppSlots[_i]->m_nValid = valid_t::SLOT_UNUSE;
 
-			for (auto _pSlot = m_FreeList.Front(); _pSlot; _pSlot = _pSlot->m_pNext)
+			for (auto _pSlot = m_FreeList.Top(); _pSlot; _pSlot = _pSlot->m_pNext)
 			{
 				if (_pSlot->m_nValid == valid_t::SLOT_UNUSE)
 					m_FreeList.Erase(_pSlot);
@@ -113,5 +117,5 @@ void CPool::GC()
 
 bool CPool::NeedGC()
 {
-	return m_FreeList.GetCount() >= AUTOGC_THRESHOLD;
+	return m_FreeList.Count() >= AUTOGC_THRESHOLD;
 }

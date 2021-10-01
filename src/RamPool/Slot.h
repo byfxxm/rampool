@@ -1,6 +1,6 @@
 #pragma once
 #pragma warning(disable:4200)
-#include "LinkedList.h"
+#include "Stack.h"
 
 enum class valid_t
 {
@@ -9,7 +9,7 @@ enum class valid_t
 	SLOT_DELETED = 0x7EDEDEDE,
 };
 
-struct Slot : public CLinkedList<Slot>::Node
+struct Slot : public CStack<Slot>::Node
 {
 	const void* m_pOwner = nullptr;
 	valid_t m_nValid = valid_t::SLOT_UNUSE;

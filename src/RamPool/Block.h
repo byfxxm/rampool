@@ -1,8 +1,8 @@
 #pragma once
-#include "LinkedList.h"
+#include "Stack.h"
 #include "Slot.h"
 
-struct Block : public CLinkedList<Block>::Node
+struct Block : public CStack<Block>::Node
 {
 	Block(size_t, void*);
 	~Block();
