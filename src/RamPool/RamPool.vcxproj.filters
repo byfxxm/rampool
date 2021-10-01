@@ -21,7 +21,7 @@
     <ClInclude Include="RamPoolImp.h">
       <Filter>2.implement</Filter>
     </ClInclude>
-    <ClInclude Include="LinkedList.h">
+    <ClInclude Include="LinkList.h">
       <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">

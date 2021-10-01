@@ -1,6 +1,6 @@
 #pragma once
 #pragma warning(disable:4200)
-#include "LinkedList.h"
+#include "LinkList.h"
 
 enum class valid_t
 {

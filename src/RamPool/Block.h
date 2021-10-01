@@ -1,5 +1,5 @@
 #pragma once
-#include "LinkedList.h"
+#include "LinkList.h"
 #include "Slot.h"
 
 struct Block : public CLinkList<Block>::Node
