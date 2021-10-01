@@ -5,16 +5,16 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="0.dll">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="1.public">
-      <UniqueIdentifier>{652edd48-787d-4fa2-95f2-698adaccff02}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2.implement">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="0.public">
+      <UniqueIdentifier>{652edd48-787d-4fa2-95f2-698adaccff02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1.dll">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -28,13 +28,13 @@
       <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>0.dll</Filter>
+      <Filter>1.dll</Filter>
     </ClInclude>
     <ClInclude Include="Pool.h">
       <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="RamPool.h">
-      <Filter>1.public</Filter>
+      <Filter>0.public</Filter>
     </ClInclude>
     <ClInclude Include="Stack.h">
       <Filter>2.implement</Filter>
@@ -45,13 +45,13 @@
       <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>0.dll</Filter>
+      <Filter>1.dll</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>0.dll</Filter>
+      <Filter>1.dll</Filter>
     </ClCompile>
     <ClCompile Include="Pool.cpp">
       <Filter>2.implement</Filter>
