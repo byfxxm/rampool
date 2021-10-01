@@ -120,13 +120,22 @@ void RamPool_Test4()
 	auto _pSubLua1 = lua_newthread(_pLua);
 	auto _pSubLua2 = lua_newthread(_pLua);
 
-	luaL_dostring(_pSubLua1, "function F1()\n"\
-		"print('hello')\n"\
-		"print(debug.traceback('world'))\n"\
-		"end\n"\
-		"function F2()\n"\
-		"F1()\n"\
-		"end");
+	if (luaL_dostring(_pSubLua1,
+		"function F1()\n\
+			print('hello')\n\
+			print(debug.traceback('world'))\n\
+		end\n\
+		tab = {'abc', 'haha', 9527}\n\
+		function F2()\n\
+			for i, v in ipairs(tab) do\n\
+				print(v)\n\
+			end\n\
+			F1()\n\
+		end"))
+	{
+		auto _s = lua_tostring(_pSubLua1, -1);
+		cout << _s << endl;
+	}
 
 	luaL_dostring(_pSubLua2, "F2()");
 	lua_close(_pLua);
