@@ -58,8 +58,7 @@ void CPool::Destroy()
 {
 	unique_lock<mutex> _lock(m_Mutex);
 
-	Block* _p = nullptr;
-	while ((_p = m_BlockList.Top()))
+	for (Block* _p = nullptr; _p; _p = m_BlockList.Top())
 	{
 		delete _p;
 		m_BlockList.Pop();
