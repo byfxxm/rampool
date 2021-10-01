@@ -40,7 +40,7 @@ void RamPool_Compare(int times_, function<void()>f1_, function<void()>f2_)
 
 void RamPool_Test1()
 {
-	int _nSizes[10000];
+	int _nSizes[16000];
 	srand((unsigned)time(0));
 
 	for (auto& _size : _nSizes)
@@ -89,7 +89,7 @@ void RamPool_Test1()
 void RamPool_Test2()
 {
 	{
-		shared_ptr<void> _p[100000];
+		shared_ptr<void> _p[16000];
 		for (auto& _pi : _p)
 		{
 			_pi.reset(rp_malloc(1000), rp_free);
@@ -140,7 +140,7 @@ void RamPool_Test4()
 
 void RamPool_Test5()
 {
-	void* _p[100000];
+	void* _p[16000];
 
 	for (int _i = 0; _i < _countof(_p); _i++)
 	{
