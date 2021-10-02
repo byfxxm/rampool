@@ -16,7 +16,7 @@ size_t pool::get_size()
 void* pool::malloc(size_t size)
 {
 	unique_lock<mutex> lck(__mtx);
-	__count++;
+	++__count;
 	__total += size;
 
 	auto slt = __free_stack.top();
@@ -49,7 +49,7 @@ void pool::free(void* p)
 	slt->valid = valid_t::SLOT_DELETED;
 
 	__free_stack.push(slt);
-	__count--;
+	--__count;
 	__total -= slt->actual_size;
 	assert((int)__count >= 0);
 }
@@ -91,7 +91,7 @@ void pool::gc()
 		next = blk->next;
 
 		size_t idx = 0;
-		for (; idx < blk->cur_slot; idx++)
+		for (; idx < blk->cur_slot; ++idx)
 		{
 			assert(blk->slots[idx]->valid != valid_t::SLOT_UNUSE);
 			if (blk->slots[idx]->valid == valid_t::SLOT_USED)
@@ -100,7 +100,7 @@ void pool::gc()
 
 		if (idx == blk->cur_slot)
 		{
-			for (size_t i = 0; i < blk->cur_slot; i++)
+			for (size_t i = 0; i < blk->cur_slot; ++i)
 				blk->slots[i]->valid = valid_t::SLOT_UNUSE;
 
 			for (auto slt = __free_stack.top(); slt; slt = slt->next)

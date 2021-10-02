@@ -19,7 +19,7 @@ block::block(size_t size, void* owner)
 
 	slots = new slot * [slot_num];
 	auto index_of_mem = 0;
-	for (size_t i = 0; i < slot_num; i++)
+	for (size_t i = 0; i < slot_num; ++i)
 	{
 		slots[i] = new(&mem[index_of_mem]) slot();
 		slots[i]->normalize_size = round_size;

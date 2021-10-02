@@ -13,7 +13,7 @@ public:
 	void push(ty* p)
 	{
 		assert(p);
-		__count++;
+		++__count;
 		p->next = __top;
 		__top && (__top->prev = p, 0);
 		__top = p;
@@ -22,7 +22,7 @@ public:
 	void pop()
 	{
 		assert(__top);
-		__count--;
+		--__count;
 		__top = __top->next;
 		__top && (__top->prev = nullptr, 0);
 	}
@@ -35,7 +35,7 @@ public:
 	void erase(ty* p)
 	{
 		assert(p);
-		__count--;
+		--__count;
 
 		if (p->prev)
 			p->prev->next = p->next;
