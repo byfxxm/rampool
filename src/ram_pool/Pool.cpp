@@ -19,38 +19,38 @@ void* pool::malloc(size_t size)
 	_count++;
 	_total += size;
 
-	auto _pSlot = _free_stack.Top();
-	if (_pSlot)
+	auto slt = _free_stack.Top();
+	if (slt)
 	{
 		_free_stack.Pop();
 		assert(_pSlot->valid == valid_t::SLOT_DELETED);
-		_pSlot->valid = valid_t::SLOT_USED;
-		_pSlot->actual_size = size;
-		return _pSlot->mem;
+		slt->valid = valid_t::SLOT_USED;
+		slt->actual_size = size;
+		return slt->mem;
 	}
 
-	auto _pBlock = _block_stack.Top();
-	if (!_pBlock || _pBlock->is_full())
+	auto blk = _block_stack.Top();
+	if (!blk || blk->is_full())
 	{
-		_pBlock = new block(_size, this);
-		_block_stack.Push(_pBlock);
+		blk = new block(_size, this);
+		_block_stack.Push(blk);
 	}
 
-	return _pBlock->alloc(size);
+	return blk->alloc(size);
 }
 
 void pool::free(void* p)
 {
 	unique_lock<mutex> lck(_mtx);
 
-	auto _pSlot = POINTER_TO_SLOT(p);
-	assert(_pSlot->owner == this);
-	assert(_pSlot->valid == valid_t::SLOT_USED);
-	_pSlot->valid = valid_t::SLOT_DELETED;
+	auto slt = POINTER_TO_SLOT(p);
+	assert(slt->owner == this);
+	assert(slt->valid == valid_t::SLOT_USED);
+	slt->valid = valid_t::SLOT_DELETED;
 
-	_free_stack.Push(_pSlot);
+	_free_stack.Push(slt);
 	_count--;
-	_total -= _pSlot->actual_size;
+	_total -= slt->actual_size;
 	assert((int)_count >= 0);
 }
 
@@ -58,11 +58,11 @@ void pool::destroy()
 {
 	unique_lock<mutex> lck(_mtx);
 
-	block* _p = nullptr;
-	while (_p = _block_stack.Top())
+	block* blk = nullptr;
+	while (blk = _block_stack.Top())
 	{
 		_block_stack.Pop();
-		delete _p;
+		delete blk;
 	}
 
 	new(&_block_stack) stack<block>();
@@ -86,22 +86,22 @@ void pool::gc()
 	unique_lock<mutex> lck(_mtx);
 
 	block* next = NULL;
-	for (auto bl = _block_stack.Top(); bl; bl = next)
+	for (auto blk = _block_stack.Top(); blk; blk = next)
 	{
-		next = bl->m_pNext;
+		next = blk->m_pNext;
 
 		size_t ind = 0;
-		for (; ind < bl->cur_slot; ind++)
+		for (; ind < blk->cur_slot; ind++)
 		{
-			assert(bl->slots[ind]->valid != valid_t::SLOT_UNUSE);
-			if (bl->slots[ind]->valid == valid_t::SLOT_USED)
+			assert(blk->slots[ind]->valid != valid_t::SLOT_UNUSE);
+			if (blk->slots[ind]->valid == valid_t::SLOT_USED)
 				break;
 		}
 
-		if (ind == bl->cur_slot)
+		if (ind == blk->cur_slot)
 		{
-			for (size_t _i = 0; _i < bl->cur_slot; _i++)
-				bl->slots[_i]->valid = valid_t::SLOT_UNUSE;
+			for (size_t _i = 0; _i < blk->cur_slot; _i++)
+				blk->slots[_i]->valid = valid_t::SLOT_UNUSE;
 
 			for (auto _pSlot = _free_stack.Top(); _pSlot; _pSlot = _pSlot->m_pNext)
 			{
@@ -109,8 +109,8 @@ void pool::gc()
 					_free_stack.Erase(_pSlot);
 			}
 
-			_block_stack.Erase(bl);
-			delete bl;
+			_block_stack.Erase(blk);
+			delete blk;
 		}
 	}
 }

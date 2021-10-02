@@ -12,6 +12,7 @@ int main()
 {
 	do
 	{
+		rp_auto_gc(true);
 		test1();
 		test2();
 		test3();
