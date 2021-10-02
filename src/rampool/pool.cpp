@@ -103,10 +103,10 @@ void pool::gc()
 			for (size_t i = 0; i < blk->cur_slot; i++)
 				blk->slots[i]->valid = valid_t::SLOT_UNUSE;
 
-			for (auto _pSlot = _free_stack.top(); _pSlot; _pSlot = _pSlot->next)
+			for (auto slt = _free_stack.top(); slt; slt = slt->next)
 			{
-				if (_pSlot->valid == valid_t::SLOT_UNUSE)
-					_free_stack.erase(_pSlot);
+				if (slt->valid == valid_t::SLOT_UNUSE)
+					_free_stack.erase(slt);
 			}
 
 			_block_stack.erase(blk);
