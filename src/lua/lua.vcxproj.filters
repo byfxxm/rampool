@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="lua52">
+      <UniqueIdentifier>{1f083ef3-3ea2-4b41-8334-e84de4493468}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Lua52\lapi.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lauxlib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lbaselib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lbitlib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lcode.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lcorolib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lctype.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\ldblib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\ldebug.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\ldo.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\ldump.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lfunc.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lgc.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\linit.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\liolib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\llex.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lmathlib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lmem.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\loadlib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lobject.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lopcodes.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\loslib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lparser.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lstate.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lstring.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lstrlib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\ltable.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\ltablib.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\ltm.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lua.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\luac.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lundump.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lvm.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua52\lzio.c">
+      <Filter>lua52</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lua52\lapi.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lauxlib.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lcode.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lctype.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\ldebug.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\ldo.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lfunc.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lgc.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\llex.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\llimits.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lmem.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lobject.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lopcodes.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lparser.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lstate.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lstring.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\ltable.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\ltm.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lua.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lua.hpp">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\luaconf.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lualib.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lundump.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lvm.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua52\lzio.h">
+      <Filter>lua52</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Lua52\Makefile" />
+  </ItemGroup>
+</Project>
