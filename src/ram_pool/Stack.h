@@ -6,55 +6,55 @@ class stack
 public:
 	struct node
 	{
-		ty* m_pPrev = nullptr;
-		ty* m_pNext = nullptr;
+		ty* prev = nullptr;
+		ty* next = nullptr;
 	};
 
 	stack() = default;
 	~stack() = default;
 
-	void Push(ty* p)
+	void push(ty* p)
 	{
 		assert(p);
 		_count++;
-		p->m_pNext = m_pTop;
-		m_pTop && (m_pTop->m_pPrev = p, 0);
-		m_pTop = p;
+		p->next = _top;
+		_top && (_top->prev = p, 0);
+		_top = p;
 	}
 
-	void Pop()
+	void pop()
 	{
-		assert(m_pTop);
+		assert(_top);
 		_count--;
-		m_pTop = m_pTop->m_pNext;
-		m_pTop && (m_pTop->m_pPrev = nullptr, 0);
+		_top = _top->next;
+		_top && (_top->prev = nullptr, 0);
 	}
 
-	ty* Top()
+	ty* top()
 	{
-		return m_pTop;
+		return _top;
 	}
 
-	void Erase(ty* p)
+	void erase(ty* p)
 	{
 		assert(p);
 		_count--;
 
-		if (p->m_pPrev)
-			p->m_pPrev->m_pNext = p->m_pNext;
+		if (p->prev)
+			p->prev->next = p->next;
 		else
-			m_pTop = p->m_pNext;
+			_top = p->next;
 
-		if (p->m_pNext)
-			p->m_pNext->m_pPrev = p->m_pPrev;
+		if (p->next)
+			p->next->prev = p->prev;
 	}
 
-	size_t Count()
+	size_t count()
 	{
 		return _count;
 	}
 
 private:
-	ty* m_pTop = nullptr;
+	ty* _top = nullptr;
 	size_t _count = 0;
 };
