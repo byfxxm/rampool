@@ -19,11 +19,11 @@ block::block(size_t size, void* owner)
 
 	slots = new slot * [slot_num];
 	auto index_of_mem = 0;
-	for (size_t _i = 0; _i < slot_num; _i++)
+	for (size_t i = 0; i < slot_num; i++)
 	{
-		slots[_i] = new(&mem[index_of_mem]) slot();
-		slots[_i]->normalize_size = round_size;
-		slots[_i]->owner = owner;
+		slots[i] = new(&mem[index_of_mem]) slot();
+		slots[i]->normalize_size = round_size;
+		slots[i]->owner = owner;
 		index_of_mem += slot_size;
 	}
 }

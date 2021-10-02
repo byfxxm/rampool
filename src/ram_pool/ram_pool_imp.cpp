@@ -6,10 +6,10 @@
 ram_pool_imp::ram_pool_imp()
 {
 	size_t size = 0;
-	for (size_t _i = 0; _i < _countof(_pools); _i++)
+	for (size_t i = 0; i < _countof(_pools); i++)
 	{
 		size += GRANULARITY;
-		_pools[_i].set_size(size);
+		_pools[i].set_size(size);
 	}
 }
 

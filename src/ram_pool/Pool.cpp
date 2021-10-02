@@ -100,8 +100,8 @@ void pool::gc()
 
 		if (ind == blk->cur_slot)
 		{
-			for (size_t _i = 0; _i < blk->cur_slot; _i++)
-				blk->slots[_i]->valid = valid_t::SLOT_UNUSE;
+			for (size_t i = 0; i < blk->cur_slot; i++)
+				blk->slots[i]->valid = valid_t::SLOT_UNUSE;
 
 			for (auto _pSlot = _free_stack.Top(); _pSlot; _pSlot = _pSlot->m_pNext)
 			{
