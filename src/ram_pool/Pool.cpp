@@ -91,17 +91,17 @@ void pool::gc()
 		next = bl->m_pNext;
 
 		size_t ind = 0;
-		for (; ind < bl->_cur_slot; ind++)
+		for (; ind < bl->cur_slot; ind++)
 		{
-			assert(bl->_slots[ind]->valid != valid_t::SLOT_UNUSE);
-			if (bl->_slots[ind]->valid == valid_t::SLOT_USED)
+			assert(bl->slots[ind]->valid != valid_t::SLOT_UNUSE);
+			if (bl->slots[ind]->valid == valid_t::SLOT_USED)
 				break;
 		}
 
-		if (ind == bl->_cur_slot)
+		if (ind == bl->cur_slot)
 		{
-			for (size_t _i = 0; _i < bl->_cur_slot; _i++)
-				bl->_slots[_i]->valid = valid_t::SLOT_UNUSE;
+			for (size_t _i = 0; _i < bl->cur_slot; _i++)
+				bl->slots[_i]->valid = valid_t::SLOT_UNUSE;
 
 			for (auto _pSlot = _free_stack.Top(); _pSlot; _pSlot = _pSlot->m_pNext)
 			{

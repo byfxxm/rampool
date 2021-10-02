@@ -9,9 +9,9 @@ struct block : public stack<block>::node
 	void* alloc(size_t);
 	bool is_full();
 
-	char* _mem = nullptr;
-	size_t _mem_size = 0;
-	slot** _slots = nullptr;
-	size_t _slot_num = 0;
-	size_t _cur_slot = 0;
+	char* mem = nullptr;
+	size_t mem_size = 0;
+	slot** slots = nullptr;
+	size_t slot_num = 0;
+	size_t cur_slot = 0;
 };
