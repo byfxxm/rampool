@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../ram_pool/ram_pool.h"
+#include "../rampool/rampool.h"
 
 void* operator new(size_t nSize_)
 {

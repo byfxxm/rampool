@@ -21,7 +21,7 @@
     <ClCompile Include="main.cpp">
       <Filter>1.imp</Filter>
     </ClCompile>
-    <ClCompile Include="ram_pool_tests.cpp">
+    <ClCompile Include="rampool_tests.cpp">
       <Filter>1.imp</Filter>
     </ClCompile>
     <ClCompile Include="private.cpp">

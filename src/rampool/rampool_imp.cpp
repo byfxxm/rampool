@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "ram_pool_imp.h"
+#include "rampool_imp.h"
 #include "block.h"
 #include "slot.h"
 
-ram_pool_imp::ram_pool_imp()
+rampool_imp::rampool_imp()
 {
 	size_t size = 0;
 	for (size_t i = 0; i < _countof(_pools); i++)
@@ -13,24 +13,24 @@ ram_pool_imp::ram_pool_imp()
 	}
 }
 
-ram_pool_imp::~ram_pool_imp()
+rampool_imp::~rampool_imp()
 {
 	destroy();
 }
 
-ram_pool_imp* ram_pool_imp::instance()
+rampool_imp* rampool_imp::instance()
 {
-	static ram_pool_imp inst;
+	static rampool_imp inst;
 	return &inst;
 }
 
-void ram_pool_imp::destroy()
+void rampool_imp::destroy()
 {
 	for (auto& pl : _pools)
 		pl.destroy();
 }
 
-void* ram_pool_imp::malloc(size_t size)
+void* rampool_imp::malloc(size_t size)
 {
 	if (size == 0 || size > MAXSIZE)
 		throw std::bad_alloc();
@@ -39,7 +39,7 @@ void* ram_pool_imp::malloc(size_t size)
 	return _pools[ind].malloc(size);
 }
 
-void ram_pool_imp::free(void* p)
+void rampool_imp::free(void* p)
 {
 	if (!p)
 		return;
@@ -48,7 +48,7 @@ void ram_pool_imp::free(void* p)
 	_pools[POOLINDEX(slt->normalize_size)].free(p);
 }
 
-void* ram_pool_imp::realloc(void* p, size_t size)
+void* rampool_imp::realloc(void* p, size_t size)
 {
 	if (!p)
 		return malloc(size);
@@ -70,7 +70,7 @@ void* ram_pool_imp::realloc(void* p, size_t size)
 	return pm;
 }
 
-void ram_pool_imp::leak(leak_info* info)
+void rampool_imp::leak(leak_info* info)
 {
 	if (!info)
 		return;
@@ -86,7 +86,7 @@ void ram_pool_imp::leak(leak_info* info)
 	assert(info->total_actual_size <= info->total_size);
 }
 
-size_t ram_pool_imp::size(void* p)
+size_t rampool_imp::size(void* p)
 {
 	auto slt = POINTER_TO_SLOT(p);
 
@@ -96,13 +96,13 @@ size_t ram_pool_imp::size(void* p)
 	return slt->actual_size;
 }
 
-void ram_pool_imp::gc()
+void rampool_imp::gc()
 {
 	for (auto& pl : _pools)
 		pl.gc();
 }
 
-void ram_pool_imp::auto_gc(bool b)
+void rampool_imp::auto_gc(bool b)
 {
 	_is_auto_gc = b;
 

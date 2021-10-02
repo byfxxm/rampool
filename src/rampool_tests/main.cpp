@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#include "../ram_pool/ram_pool.h"
+#include "../rampool/rampool.h"
 
 void test1();
 void test2();

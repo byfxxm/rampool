@@ -1,13 +1,13 @@
 #pragma once
-#include "ram_pool.h"
+#include "rampool.h"
 #include "pool.h"
 
-class ram_pool_imp
+class rampool_imp
 {
 public:
-	ram_pool_imp();
-	~ram_pool_imp();
-	static ram_pool_imp* instance();
+	rampool_imp();
+	~rampool_imp();
+	static rampool_imp* instance();
 	void* malloc(size_t);
 	void free(void*);
 	void* realloc(void*, size_t);

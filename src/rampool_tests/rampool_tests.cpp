@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../ram_pool/ram_pool.h"
+#include "../rampool/rampool.h"
 #include "../lua/lua52/lua.hpp"
 
 void* lua_alloc(void* ud, void* ptr, size_t osize, size_t nsize)

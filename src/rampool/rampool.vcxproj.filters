@@ -18,7 +18,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ram_pool_imp.h">
+    <ClInclude Include="rampool_imp.h">
       <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="block.h">
@@ -33,7 +33,7 @@
     <ClInclude Include="pool.h">
       <Filter>2.implement</Filter>
     </ClInclude>
-    <ClInclude Include="ram_pool.h">
+    <ClInclude Include="rampool.h">
       <Filter>0.public</Filter>
     </ClInclude>
     <ClInclude Include="stack.h">
@@ -41,7 +41,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ram_pool_imp.cpp">
+    <ClCompile Include="rampool_imp.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
@@ -56,7 +56,7 @@
     <ClCompile Include="pool.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
-    <ClCompile Include="ram_pool.cpp">
+    <ClCompile Include="rampool.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
   </ItemGroup>
