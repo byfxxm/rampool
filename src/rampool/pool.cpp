@@ -90,15 +90,15 @@ void pool::gc()
 	{
 		next = blk->next;
 
-		size_t ind = 0;
-		for (; ind < blk->cur_slot; ind++)
+		size_t idx = 0;
+		for (; idx < blk->cur_slot; idx++)
 		{
-			assert(blk->slots[ind]->valid != valid_t::SLOT_UNUSE);
-			if (blk->slots[ind]->valid == valid_t::SLOT_USED)
+			assert(blk->slots[idx]->valid != valid_t::SLOT_UNUSE);
+			if (blk->slots[idx]->valid == valid_t::SLOT_USED)
 				break;
 		}
 
-		if (ind == blk->cur_slot)
+		if (idx == blk->cur_slot)
 		{
 			for (size_t i = 0; i < blk->cur_slot; i++)
 				blk->slots[i]->valid = valid_t::SLOT_UNUSE;

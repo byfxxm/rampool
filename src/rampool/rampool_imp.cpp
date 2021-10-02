@@ -35,8 +35,8 @@ void* rampool_imp::malloc(size_t size)
 	if (size == 0 || size > MAXSIZE)
 		throw std::bad_alloc();
 
-	auto ind = POOLINDEX(size);
-	return _pools[ind].malloc(size);
+	auto idx = POOLINDEX(size);
+	return _pools[idx].malloc(size);
 }
 
 void rampool_imp::free(void* p)
