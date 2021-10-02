@@ -21,10 +21,10 @@
     <ClCompile Include="main.cpp">
       <Filter>1.imp</Filter>
     </ClCompile>
-    <ClCompile Include="RamPoolTests.cpp">
+    <ClCompile Include="ram_pool_tests.cpp">
       <Filter>1.imp</Filter>
     </ClCompile>
-    <ClCompile Include="Private.cpp">
+    <ClCompile Include="private.cpp">
       <Filter>1.imp</Filter>
     </ClCompile>
   </ItemGroup>

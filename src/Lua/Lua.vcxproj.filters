@@ -112,7 +112,6 @@
     <ClCompile Include="Lua52\lzio.c">
       <Filter>lua52</Filter>
     </ClCompile>
-    <ClCompile Include="import.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lua52\lapi.h">

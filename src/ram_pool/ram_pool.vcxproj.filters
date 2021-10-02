@@ -18,45 +18,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RamPoolImp.h">
+    <ClInclude Include="ram_pool_imp.h">
       <Filter>2.implement</Filter>
     </ClInclude>
-    <ClInclude Include="Block.h">
+    <ClInclude Include="block.h">
       <Filter>2.implement</Filter>
     </ClInclude>
-    <ClInclude Include="Slot.h">
+    <ClInclude Include="slot.h">
       <Filter>2.implement</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>1.dll</Filter>
     </ClInclude>
-    <ClInclude Include="Pool.h">
+    <ClInclude Include="pool.h">
       <Filter>2.implement</Filter>
     </ClInclude>
-    <ClInclude Include="RamPool.h">
+    <ClInclude Include="ram_pool.h">
       <Filter>0.public</Filter>
     </ClInclude>
-    <ClInclude Include="Stack.h">
+    <ClInclude Include="stack.h">
       <Filter>2.implement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RamPoolImp.cpp">
+    <ClCompile Include="ram_pool_imp.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>1.dll</Filter>
     </ClCompile>
-    <ClCompile Include="Block.cpp">
+    <ClCompile Include="block.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>1.dll</Filter>
     </ClCompile>
-    <ClCompile Include="Pool.cpp">
+    <ClCompile Include="pool.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
-    <ClCompile Include="RamPool.cpp">
+    <ClCompile Include="ram_pool.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
   </ItemGroup>

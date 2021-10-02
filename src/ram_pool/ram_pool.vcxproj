@@ -156,18 +156,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Block.h" />
-    <ClInclude Include="Pool.h" />
-    <ClInclude Include="Stack.h" />
+    <ClInclude Include="block.h" />
+    <ClInclude Include="pool.h" />
+    <ClInclude Include="stack.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="RamPool.h" />
-    <ClInclude Include="RamPoolImp.h" />
-    <ClInclude Include="Slot.h" />
+    <ClInclude Include="ram_pool.h" />
+    <ClInclude Include="ram_pool_imp.h" />
+    <ClInclude Include="slot.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="block.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="Pool.cpp" />
+    <ClCompile Include="pool.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -176,8 +176,8 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="RamPool.cpp" />
-    <ClCompile Include="RamPoolImp.cpp" />
+    <ClCompile Include="ram_pool.cpp" />
+    <ClCompile Include="ram_pool_imp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

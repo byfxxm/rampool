@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31605.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RamPool", "RamPool\RamPool.vcxproj", "{EAA6F5B4-2F64-4375-BEFB-341EF66C808B}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RamPoolTest", "RamPoolTest\RamPoolTest.vcxproj", "{B1D21D84-6017-4E67-AA25-29933613064C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua", "lua\Lua.vcxproj", "{2801DC07-4540-45EA-BC58-D03FA40DB580}"
 	ProjectSection(ProjectDependencies) = postProject
-		{2801DC07-4540-45EA-BC58-D03FA40DB580} = {2801DC07-4540-45EA-BC58-D03FA40DB580}
 		{EAA6F5B4-2F64-4375-BEFB-341EF66C808B} = {EAA6F5B4-2F64-4375-BEFB-341EF66C808B}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "Lua\Lua.vcxproj", "{2801DC07-4540-45EA-BC58-D03FA40DB580}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ram_pool", "ram_pool\ram_pool.vcxproj", "{EAA6F5B4-2F64-4375-BEFB-341EF66C808B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ram_pool_tests", "ram_pool_tests\ram_pool_tests.vcxproj", "{B1D21D84-6017-4E67-AA25-29933613064C}"
 	ProjectSection(ProjectDependencies) = postProject
+		{2801DC07-4540-45EA-BC58-D03FA40DB580} = {2801DC07-4540-45EA-BC58-D03FA40DB580}
 		{EAA6F5B4-2F64-4375-BEFB-341EF66C808B} = {EAA6F5B4-2F64-4375-BEFB-341EF66C808B}
 	EndProjectSection
 EndProject
@@ -22,6 +22,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2801DC07-4540-45EA-BC58-D03FA40DB580}.Debug|x86.ActiveCfg = Debug|Win32
+		{2801DC07-4540-45EA-BC58-D03FA40DB580}.Debug|x86.Build.0 = Debug|Win32
+		{2801DC07-4540-45EA-BC58-D03FA40DB580}.Release|x86.ActiveCfg = Release|Win32
+		{2801DC07-4540-45EA-BC58-D03FA40DB580}.Release|x86.Build.0 = Release|Win32
 		{EAA6F5B4-2F64-4375-BEFB-341EF66C808B}.Debug|x86.ActiveCfg = Debug|Win32
 		{EAA6F5B4-2F64-4375-BEFB-341EF66C808B}.Debug|x86.Build.0 = Debug|Win32
 		{EAA6F5B4-2F64-4375-BEFB-341EF66C808B}.Release|x86.ActiveCfg = Release|Win32
@@ -30,10 +34,6 @@ Global
 		{B1D21D84-6017-4E67-AA25-29933613064C}.Debug|x86.Build.0 = Debug|Win32
 		{B1D21D84-6017-4E67-AA25-29933613064C}.Release|x86.ActiveCfg = Release|Win32
 		{B1D21D84-6017-4E67-AA25-29933613064C}.Release|x86.Build.0 = Release|Win32
-		{2801DC07-4540-45EA-BC58-D03FA40DB580}.Debug|x86.ActiveCfg = Debug|Win32
-		{2801DC07-4540-45EA-BC58-D03FA40DB580}.Debug|x86.Build.0 = Debug|Win32
-		{2801DC07-4540-45EA-BC58-D03FA40DB580}.Release|x86.ActiveCfg = Release|Win32
-		{2801DC07-4540-45EA-BC58-D03FA40DB580}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
