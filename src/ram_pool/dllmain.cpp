@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 
-BOOL APIENTRY DllMain(HMODULE module, DWORD  reason, LPVOID reserved)
+BOOL APIENTRY DllMain(HMODULE module, DWORD reason, LPVOID reserved)
 {
 	switch (reason)
 	{
