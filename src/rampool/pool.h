@@ -6,8 +6,6 @@
 class pool
 {
 public:
-	pool() = default;
-	~pool() = default;
 	void set_size(size_t);
 	size_t get_size();
 	void* malloc(size_t);

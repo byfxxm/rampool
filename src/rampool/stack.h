@@ -10,9 +10,6 @@ public:
 		ty* next = nullptr;
 	};
 
-	stack() = default;
-	~stack() = default;
-
 	void push(ty* p)
 	{
 		assert(p);
