@@ -5,35 +5,35 @@
 
 void pool::set_size(size_t size)
 {
-	_size = size;
+	__size = size;
 }
 
 size_t pool::get_size()
 {
-	return _size;
+	return __size;
 }
 
 void* pool::malloc(size_t size)
 {
-	unique_lock<mutex> lck(_mtx);
-	_count++;
-	_total += size;
+	unique_lock<mutex> lck(__mtx);
+	__count++;
+	__total += size;
 
-	auto slt = _free_stack.top();
+	auto slt = __free_stack.top();
 	if (slt)
 	{
-		_free_stack.pop();
+		__free_stack.pop();
 		assert(slt->valid == valid_t::SLOT_DELETED);
 		slt->valid = valid_t::SLOT_USED;
 		slt->actual_size = size;
 		return slt->mem;
 	}
 
-	auto blk = _block_stack.top();
+	auto blk = __block_stack.top();
 	if (!blk || blk->is_full())
 	{
-		blk = new block(_size, this);
-		_block_stack.push(blk);
+		blk = new block(__size, this);
+		__block_stack.push(blk);
 	}
 
 	return blk->alloc(size);
@@ -41,52 +41,52 @@ void* pool::malloc(size_t size)
 
 void pool::free(void* p)
 {
-	unique_lock<mutex> lck(_mtx);
+	unique_lock<mutex> lck(__mtx);
 
 	auto slt = POINTER_TO_SLOT(p);
 	assert(slt->owner == this);
 	assert(slt->valid == valid_t::SLOT_USED);
 	slt->valid = valid_t::SLOT_DELETED;
 
-	_free_stack.push(slt);
-	_count--;
-	_total -= slt->actual_size;
-	assert((int)_count >= 0);
+	__free_stack.push(slt);
+	__count--;
+	__total -= slt->actual_size;
+	assert((int)__count >= 0);
 }
 
 void pool::destroy()
 {
-	unique_lock<mutex> lck(_mtx);
+	unique_lock<mutex> lck(__mtx);
 
 	block* blk = nullptr;
-	while (blk = _block_stack.top())
+	while (blk = __block_stack.top())
 	{
-		_block_stack.pop();
+		__block_stack.pop();
 		delete blk;
 	}
 
-	new(&_block_stack) stack<block>();
-	new(&_free_stack) stack<slot>();
-	_count = 0;
-	_total = 0;
+	new(&__block_stack) stack<block>();
+	new(&__free_stack) stack<slot>();
+	__count = 0;
+	__total = 0;
 }
 
 size_t pool::count()
 {
-	return _count;
+	return __count;
 }
 
 atomic<size_t>& pool::total()
 {
-	return _total;
+	return __total;
 }
 
 void pool::gc()
 {
-	unique_lock<mutex> lck(_mtx);
+	unique_lock<mutex> lck(__mtx);
 
 	block* next = NULL;
-	for (auto blk = _block_stack.top(); blk; blk = next)
+	for (auto blk = __block_stack.top(); blk; blk = next)
 	{
 		next = blk->next;
 
@@ -103,13 +103,13 @@ void pool::gc()
 			for (size_t i = 0; i < blk->cur_slot; i++)
 				blk->slots[i]->valid = valid_t::SLOT_UNUSE;
 
-			for (auto slt = _free_stack.top(); slt; slt = slt->next)
+			for (auto slt = __free_stack.top(); slt; slt = slt->next)
 			{
 				if (slt->valid == valid_t::SLOT_UNUSE)
-					_free_stack.erase(slt);
+					__free_stack.erase(slt);
 			}
 
-			_block_stack.erase(blk);
+			__block_stack.erase(blk);
 			delete blk;
 		}
 	}
@@ -117,5 +117,5 @@ void pool::gc()
 
 bool pool::need_gc()
 {
-	return _free_stack.count() >= AUTOGC_THRESHOLD;
+	return __free_stack.count() >= AUTOGC_THRESHOLD;
 }

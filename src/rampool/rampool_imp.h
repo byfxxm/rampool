@@ -18,7 +18,7 @@ public:
 	void auto_gc(bool);
 
 private:
-	pool _pools[POOLNUM];
-	thread _auto_gc_thrd;
-	atomic<bool> _is_auto_gc = false;
+	pool __pools[POOLNUM];
+	thread __auto_gc_thrd;
+	atomic<bool> __is_auto_gc = false;
 };

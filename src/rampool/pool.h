@@ -19,10 +19,10 @@ public:
 	bool need_gc();
 
 private:
-	mutex _mtx;
-	stack<block> _block_stack;
-	stack<slot> _free_stack;
-	atomic<size_t> _size = 0;
-	atomic<size_t> _count = 0;
-	atomic<size_t> _total = 0;
+	mutex __mtx;
+	stack<block> __block_stack;
+	stack<slot> __free_stack;
+	atomic<size_t> __size = 0;
+	atomic<size_t> __count = 0;
+	atomic<size_t> __total = 0;
 };

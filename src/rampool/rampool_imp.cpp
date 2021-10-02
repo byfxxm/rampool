@@ -6,10 +6,10 @@
 rampool_imp::rampool_imp()
 {
 	size_t size = 0;
-	for (size_t i = 0; i < _countof(_pools); i++)
+	for (size_t i = 0; i < _countof(__pools); i++)
 	{
 		size += GRANULARITY;
-		_pools[i].set_size(size);
+		__pools[i].set_size(size);
 	}
 }
 
@@ -26,7 +26,7 @@ rampool_imp* rampool_imp::instance()
 
 void rampool_imp::destroy()
 {
-	for (auto& pl : _pools)
+	for (auto& pl : __pools)
 		pl.destroy();
 }
 
@@ -36,7 +36,7 @@ void* rampool_imp::malloc(size_t size)
 		throw std::bad_alloc();
 
 	auto idx = POOLINDEX(size);
-	return _pools[idx].malloc(size);
+	return __pools[idx].malloc(size);
 }
 
 void rampool_imp::free(void* p)
@@ -45,7 +45,7 @@ void rampool_imp::free(void* p)
 		return;
 
 	auto slt = POINTER_TO_SLOT(p);
-	_pools[POOLINDEX(slt->normalize_size)].free(p);
+	__pools[POOLINDEX(slt->normalize_size)].free(p);
 }
 
 void* rampool_imp::realloc(void* p, size_t size)
@@ -54,12 +54,12 @@ void* rampool_imp::realloc(void* p, size_t size)
 		return malloc(size);
 
 	auto slt = POINTER_TO_SLOT(p);
-	assert(slt->owner == &_pools[POOLINDEX(slt->normalize_size)]);
+	assert(slt->owner == &__pools[POOLINDEX(slt->normalize_size)]);
 	assert(slt->valid == valid_t::SLOT_USED);
 
 	if (size <= slt->normalize_size)
 	{
-		_pools[POOLINDEX(slt->normalize_size)].total() += size - slt->actual_size;
+		__pools[POOLINDEX(slt->normalize_size)].total() += size - slt->actual_size;
 		slt->actual_size = size;
 		return p;
 	}
@@ -76,7 +76,7 @@ void rampool_imp::leak(leak_info* info)
 		return;
 
 	memset(info, 0, sizeof(leak_info));
-	for (auto& pl : _pools)
+	for (auto& pl : __pools)
 	{
 		info->count += pl.count();
 		info->total_size += pl.count() * pl.get_size();
@@ -98,24 +98,24 @@ size_t rampool_imp::size(void* p)
 
 void rampool_imp::gc()
 {
-	for (auto& pl : _pools)
+	for (auto& pl : __pools)
 		pl.gc();
 }
 
 void rampool_imp::auto_gc(bool b)
 {
-	_is_auto_gc = b;
+	__is_auto_gc = b;
 
-	if (_is_auto_gc)
+	if (__is_auto_gc)
 	{
-		if (_auto_gc_thrd.joinable())
+		if (__auto_gc_thrd.joinable())
 			return;
 
-		_auto_gc_thrd = thread([this]()
+		__auto_gc_thrd = thread([this]()
 			{
-				while (_is_auto_gc)
+				while (__is_auto_gc)
 				{
-					for (auto& pl : _pools)
+					for (auto& pl : __pools)
 					{
 						if (pl.need_gc())
 							pl.gc();
@@ -127,7 +127,7 @@ void rampool_imp::auto_gc(bool b)
 	}
 	else
 	{
-		if (_auto_gc_thrd.joinable())
-			_auto_gc_thrd.join();
+		if (__auto_gc_thrd.joinable())
+			__auto_gc_thrd.join();
 	}
 }

@@ -16,34 +16,34 @@ public:
 	void push(ty* p)
 	{
 		assert(p);
-		_count++;
-		p->next = _top;
-		_top && (_top->prev = p, 0);
-		_top = p;
+		__count++;
+		p->next = __top;
+		__top && (__top->prev = p, 0);
+		__top = p;
 	}
 
 	void pop()
 	{
-		assert(_top);
-		_count--;
-		_top = _top->next;
-		_top && (_top->prev = nullptr, 0);
+		assert(__top);
+		__count--;
+		__top = __top->next;
+		__top && (__top->prev = nullptr, 0);
 	}
 
 	ty* top()
 	{
-		return _top;
+		return __top;
 	}
 
 	void erase(ty* p)
 	{
 		assert(p);
-		_count--;
+		__count--;
 
 		if (p->prev)
 			p->prev->next = p->next;
 		else
-			_top = p->next;
+			__top = p->next;
 
 		if (p->next)
 			p->next->prev = p->prev;
@@ -51,10 +51,10 @@ public:
 
 	size_t count()
 	{
-		return _count;
+		return __count;
 	}
 
 private:
-	ty* _top = nullptr;
-	size_t _count = 0;
+	ty* __top = nullptr;
+	size_t __count = 0;
 };
