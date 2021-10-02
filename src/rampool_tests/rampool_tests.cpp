@@ -21,7 +21,7 @@ void leak(void* heap)
 	printf("leak count = %u, leak size = %u, leak actual size = %u\n", info.count, info.total_size, info.total_actual_size);
 }
 
-void ram_pool_compare(int times, function<void()>f1, function<void()>f2)
+void rampool_compare(int times, function<void()>f1, function<void()>f2)
 {
 	auto _time1 = clock();
 
@@ -77,7 +77,7 @@ void test1()
 		}
 	};
 
-	ram_pool_compare(1, [&]()
+	rampool_compare(1, [&]()
 		{
 			multi_thread_run(RunRamPool);
 		}, [&]()
