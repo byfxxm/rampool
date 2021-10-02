@@ -19,24 +19,24 @@ extern "C"
 	};
 
 	RAMPOOL_API void* rp_heap_create();
-	RAMPOOL_API void rp_heap_delete(void*);
-	RAMPOOL_API void* rp_heap_malloc(void*, size_t);
-	RAMPOOL_API void rp_heap_free(void*, void*);
-	RAMPOOL_API void* rp_heap_realloc(void*, void*, size_t);
-	RAMPOOL_API void rp_heap_destroy(void*);
-	RAMPOOL_API void rp_heap_leak(void*, leak_info*);
-	RAMPOOL_API size_t rp_heap_size(void*, void*);
-	RAMPOOL_API void rp_heap_gc(void*);
-	RAMPOOL_API void rp_heap_auto_gc(void*, bool);
+	RAMPOOL_API void rp_heap_delete(void* heap);
+	RAMPOOL_API void* rp_heap_malloc(void* heap, size_t size);
+	RAMPOOL_API void rp_heap_free(void* heap, void* p);
+	RAMPOOL_API void* rp_heap_realloc(void* heap, void* p, size_t size);
+	RAMPOOL_API void rp_heap_destroy(void* heap);
+	RAMPOOL_API void rp_heap_leak(void* heap, leak_info* info);
+	RAMPOOL_API size_t rp_heap_size(void* heap, void* p);
+	RAMPOOL_API void rp_heap_gc(void* heap);
+	RAMPOOL_API void rp_heap_auto_gc(void* heap, bool b);
 
-	RAMPOOL_API void* rp_malloc(size_t);
-	RAMPOOL_API void rp_free(void*);
-	RAMPOOL_API void* rp_realloc(void*, size_t);
+	RAMPOOL_API void* rp_malloc(size_t size);
+	RAMPOOL_API void rp_free(void* p);
+	RAMPOOL_API void* rp_realloc(void* p, size_t size);
 	RAMPOOL_API void rp_destroy();
-	RAMPOOL_API void rp_leak(leak_info*);
-	RAMPOOL_API size_t rp_size(void*);
+	RAMPOOL_API void rp_leak(leak_info* info);
+	RAMPOOL_API size_t rp_size(void* p);
 	RAMPOOL_API void rp_gc();
-	RAMPOOL_API void rp_auto_gc(bool);
+	RAMPOOL_API void rp_auto_gc(bool b);
 
 #ifdef __cplusplus
 }
