@@ -24,9 +24,6 @@
     <ClCompile Include="rampool_tests.cpp">
       <Filter>1.imp</Filter>
     </ClCompile>
-    <ClCompile Include="private.cpp">
-      <Filter>1.imp</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
