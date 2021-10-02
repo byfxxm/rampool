@@ -23,7 +23,7 @@ void* pool::malloc(size_t size)
 	if (slt)
 	{
 		_free_stack.pop();
-		assert(_pSlot->valid == valid_t::SLOT_DELETED);
+		assert(slt->valid == valid_t::SLOT_DELETED);
 		slt->valid = valid_t::SLOT_USED;
 		slt->actual_size = size;
 		return slt->mem;
