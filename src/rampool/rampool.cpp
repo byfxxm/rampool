@@ -1,5 +1,4 @@
 ﻿#include "stdafx.h"
-#include "rampool.h"
 #include "rampool_imp.h"
 
 void* rp_heap_create()
