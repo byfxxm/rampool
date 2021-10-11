@@ -2,9 +2,9 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#include <atomic>
-#include <mutex>
 #include <cassert>
+#include <mutex>
+#include <atomic>
 
 #define GRANULARITY 16
 #define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
