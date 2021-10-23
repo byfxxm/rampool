@@ -15,7 +15,7 @@ public:
 		assert(p);
 		++__count;
 		p->next = __top;
-		__top && (__top->prev = p, 0);
+		__top && (__top->prev = p);
 		__top = p;
 	}
 
@@ -24,7 +24,7 @@ public:
 		assert(__top);
 		--__count;
 		__top = __top->next;
-		__top && (__top->prev = nullptr, 0);
+		__top && (__top->prev = nullptr);
 	}
 
 	ty* top()
