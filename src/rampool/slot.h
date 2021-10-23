@@ -5,8 +5,8 @@
 enum class valid_t
 {
 	SLOT_UNUSE = 0,
-	SLOT_USED = 0x7BABABAB,
-	SLOT_DELETED = 0x7EDEDEDE,
+	SLOT_USED = 'used',
+	SLOT_DELETED = 'dele',
 };
 
 struct slot : public stack<slot>::node
