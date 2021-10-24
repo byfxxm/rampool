@@ -44,10 +44,7 @@ void rampool_imp::free(void* p)
 	if (!p)
 		return;
 
-	auto slt = POINTER_TO_SLOT(p);
-	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
-		throw exception("invalid ptr");
-
+	auto slt = __slot_cast(p);
 	__pools[POOLINDEX(slt->normalize_size)].free(p);
 }
 
@@ -56,9 +53,7 @@ void* rampool_imp::realloc(void* p, size_t size)
 	if (!p)
 		return malloc(size);
 
-	auto slt = POINTER_TO_SLOT(p);
-	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
-		throw exception("invalid ptr");
+	auto slt = __slot_cast(p);
 
 	if (size <= slt->normalize_size)
 	{
@@ -91,12 +86,7 @@ void rampool_imp::leak(leak_info* info)
 
 size_t rampool_imp::size(void* p)
 {
-	auto slt = POINTER_TO_SLOT(p);
-
-	if (slt->valid != valid_t::SLOT_USED)
-		return 0;
-
-	return slt->actual_size;
+	return __slot_cast(p)->actual_size;
 }
 
 void rampool_imp::gc()
@@ -133,4 +123,14 @@ void rampool_imp::auto_gc(bool b)
 		if (__auto_gc_thrd.joinable())
 			__auto_gc_thrd.join();
 	}
+}
+
+inline slot* rampool_imp::__slot_cast(void* p)
+{
+	auto slt = POINTER_TO_SLOT(p);
+
+	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
+		throw exception("invalid ptr");
+
+	return slt;
 }

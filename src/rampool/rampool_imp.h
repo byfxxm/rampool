@@ -18,6 +18,9 @@ public:
 	void auto_gc(bool);
 
 private:
+	slot* __slot_cast(void*);
+
+private:
 	pool __pools[POOLNUM];
 	thread __auto_gc_thrd;
 	atomic<bool> __is_auto_gc = false;
