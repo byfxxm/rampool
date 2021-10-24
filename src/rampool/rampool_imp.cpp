@@ -52,6 +52,7 @@ void* rampool_imp::realloc(void* p, size_t size)
 		return malloc(size);
 
 	auto slt = __slot_cast(p);
+
 	if (size <= slt->normalize_size)
 	{
 		__pools[POOLINDEX(slt->normalize_size)].total() += size - slt->actual_size;
@@ -125,6 +126,7 @@ void rampool_imp::auto_gc(bool b)
 inline slot* rampool_imp::__slot_cast(void* p) const
 {
 	auto slt = POINTER_TO_SLOT(p);
+
 	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
 		throw exception("invalid ptr");
 
