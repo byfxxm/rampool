@@ -122,7 +122,7 @@ void rampool_imp::auto_gc(bool b)
 	}
 }
 
-inline slot* rampool_imp::__slot_cast(void* p)
+inline slot* rampool_imp::__slot_cast(void* p) const
 {
 	auto slt = POINTER_TO_SLOT(p);
 	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)

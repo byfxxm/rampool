@@ -18,7 +18,7 @@ public:
 	void auto_gc(bool);
 
 private:
-	slot* __slot_cast(void*);
+	slot* __slot_cast(void*) const;
 
 private:
 	pool __pools[POOLNUM];
