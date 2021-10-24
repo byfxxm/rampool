@@ -52,7 +52,6 @@ void* rampool_imp::realloc(void* p, size_t size)
 		return malloc(size);
 
 	auto slt = __slot_cast(p);
-
 	if (size <= slt->normalize_size)
 	{
 		__pools[POOLINDEX(slt->normalize_size)].total() += size - slt->actual_size;
