@@ -4,7 +4,7 @@
 
 struct block : public stack<block>::node
 {
-	block(size_t, void*);
+	block(size_t,	 const void*);
 	~block();
 	void* alloc(size_t);
 	bool is_full();

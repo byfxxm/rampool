@@ -9,7 +9,7 @@ rampool_imp::rampool_imp()
 	for (size_t i = 0; i < _countof(__pools); ++i)
 	{
 		size += GRANULARITY;
-		__pools[i].set_size(size);
+		__pools[i].initialize(size, this);
 	}
 }
 
@@ -33,7 +33,7 @@ void rampool_imp::destroy()
 void* rampool_imp::malloc(size_t size)
 {
 	if (size == 0 || size > MAXSIZE)
-		throw std::bad_alloc();
+		throw bad_alloc();
 
 	auto idx = POOLINDEX(size);
 	return __pools[idx].malloc(size);
@@ -45,6 +45,9 @@ void rampool_imp::free(void* p)
 		return;
 
 	auto slt = POINTER_TO_SLOT(p);
+	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
+		throw exception("invalid ptr");
+
 	__pools[POOLINDEX(slt->normalize_size)].free(p);
 }
 
@@ -54,8 +57,8 @@ void* rampool_imp::realloc(void* p, size_t size)
 		return malloc(size);
 
 	auto slt = POINTER_TO_SLOT(p);
-	assert(slt->owner == &__pools[POOLINDEX(slt->normalize_size)]);
-	assert(slt->valid == valid_t::SLOT_USED);
+	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
+		throw exception("invalid ptr");
 
 	if (size <= slt->normalize_size)
 	{

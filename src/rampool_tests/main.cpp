@@ -7,6 +7,7 @@ void test3();
 void test4();
 void test5();
 void test6();
+void test7();
 
 int main()
 {
@@ -19,6 +20,7 @@ int main()
 		test4();
 		test5();
 		test6();
+		//test7();
 	} while (true);
 
 	return 0;

@@ -6,7 +6,7 @@
 #define RAMPOOL_API __declspec(dllimport)
 #endif
 
-#ifdef	__cplusplus
+#ifdef __cplusplus
 extern "C"
 {
 #endif

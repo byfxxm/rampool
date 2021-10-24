@@ -2,7 +2,7 @@
 #include "block.h"
 #include "slot.h"
 
-block::block(size_t size, void* owner)
+block::block(size_t size, const void* owner)
 {
 	if (size <= MAXSIZE / 8)
 		slot_num = 32;

@@ -3,9 +3,10 @@
 #include "block.h"
 #include "slot.h"
 
-void pool::set_size(size_t size)
+void pool::initialize(size_t size, const void* owner)
 {
 	__size = size;
+	__owner = owner;
 }
 
 size_t pool::get_size()
@@ -32,7 +33,7 @@ void* pool::malloc(size_t size)
 	auto blk = __block_stack.top();
 	if (!blk || blk->is_full())
 	{
-		blk = new block(__size, this);
+		blk = new block(__size, __owner);
 		__block_stack.push(blk);
 	}
 
@@ -42,12 +43,9 @@ void* pool::malloc(size_t size)
 void pool::free(void* p)
 {
 	unique_lock<mutex> lck(__mtx);
-
 	auto slt = POINTER_TO_SLOT(p);
-	assert(slt->owner == this);
-	assert(slt->valid == valid_t::SLOT_USED);
-	slt->valid = valid_t::SLOT_DELETED;
 
+	slt->valid = valid_t::SLOT_DELETED;
 	__free_stack.push(slt);
 	--__count;
 	__total -= slt->actual_size;

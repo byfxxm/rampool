@@ -169,3 +169,16 @@ void test6()
 
 	rp_gc();
 }
+
+void test7()
+{
+	try
+	{
+		int n = 0;
+		rp_free(&n);
+	}
+	catch (exception& ex)
+	{
+		cout << ex.what() << endl;
+	}
+}

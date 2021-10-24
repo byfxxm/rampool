@@ -6,7 +6,7 @@
 class pool
 {
 public:
-	void set_size(size_t);
+	void initialize(size_t, const void*);
 	size_t get_size();
 	void* malloc(size_t);
 	void free(void*);
@@ -23,4 +23,5 @@ private:
 	atomic<size_t> __size = 0;
 	atomic<size_t> __count = 0;
 	atomic<size_t> __total = 0;
+	const void* __owner = nullptr;
 };
