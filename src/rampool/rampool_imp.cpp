@@ -62,10 +62,10 @@ void* rampool_imp::realloc(void* p, size_t size)
 		return p;
 	}
 
-	auto pm = malloc(size);
-	memmove(pm, p, slt->actual_size);
+	auto p_ = malloc(size);
+	memmove(p_, p, slt->actual_size);
 	free(p);
-	return pm;
+	return p_;
 }
 
 void rampool_imp::leak(leak_info* info)
