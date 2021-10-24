@@ -74,7 +74,6 @@ void rampool_imp::leak(leak_info* info)
 		return;
 
 	memset(info, 0, sizeof(leak_info));
-
 	for (auto& pl : __pools)
 	{
 		info->count += pl.count();
