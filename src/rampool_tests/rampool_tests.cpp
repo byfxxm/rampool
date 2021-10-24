@@ -172,13 +172,13 @@ void test6()
 
 void test7()
 {
-	try
+	__try
 	{
 		int n = 0;
 		rp_free(&n);
 	}
-	catch (exception& ex)
+	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
-		cout << ex.what() << endl;
+		cout << hex << GetExceptionCode() << endl;
 	}
 }
