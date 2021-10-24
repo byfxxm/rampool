@@ -35,8 +35,7 @@ void* rampool_imp::malloc(size_t size)
 	if (size == 0 || size > MAXSIZE)
 		throw bad_alloc();
 
-	auto idx = POOLINDEX(size);
-	return __pools[idx].malloc(size);
+	return __pools[POOLINDEX(size)].malloc(size);
 }
 
 void rampool_imp::free(void* p)
@@ -44,8 +43,7 @@ void rampool_imp::free(void* p)
 	if (!p)
 		return;
 
-	auto slt = __slot_cast(p);
-	__pools[POOLINDEX(slt->normalize_size)].free(p);
+	__pools[POOLINDEX(__slot_cast(p)->normalize_size)].free(p);
 }
 
 void* rampool_imp::realloc(void* p, size_t size)
