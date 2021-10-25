@@ -21,7 +21,7 @@ int main()
 		test5();
 		test6();
 		test7();
-	} while (true);
+	} while (1);
 
 	return 0;
 }
