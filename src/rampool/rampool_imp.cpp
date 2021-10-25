@@ -15,6 +15,7 @@ rampool_imp::rampool_imp()
 
 rampool_imp::~rampool_imp()
 {
+	auto_gc(false);
 	destroy();
 }
 
