@@ -6,11 +6,11 @@
 rampool_imp::rampool_imp()
 {
 	size_t size = 0;
-	for (size_t i = 0; i < _countof(__pools); ++i)
-	{
-		size += GRANULARITY;
-		__pools[i].initialize(size, this);
-	}
+	for_each(__pools.begin(), __pools.end(), [&](auto& it)
+		{
+			size += GRANULARITY;
+			it.initialize(size, this);
+		});
 }
 
 rampool_imp::~rampool_imp()
