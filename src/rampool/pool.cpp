@@ -83,11 +83,8 @@ void pool::gc()
 {
 	lock_ty lck(__mtx);
 
-	block* next = nullptr;
-	for (auto blk = __block_stack.top(); blk; blk = next)
+	for (auto blk = __block_stack.top(), next = blk->next; blk; blk = next, next = blk->next)
 	{
-		next = blk->next;
-
 		size_t idx = 0;
 		for (; idx < blk->cur_slot; ++idx)
 		{
