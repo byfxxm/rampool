@@ -2,6 +2,7 @@
 #include "stack.h"
 #include "block.h"
 #include "slot.h"
+#include "spin.h"
 
 class pool
 {
@@ -17,7 +18,11 @@ public:
 	bool need_gc();
 
 private:
-	mutex __mtx;
+	using mutex_ty = spin;
+	using lock_ty = unique_lock<mutex_ty>;
+
+private:
+	mutex_ty __mtx;
 	stack<block> __block_stack;
 	stack<slot> __free_stack;
 	atomic<size_t> __size = 0;

@@ -16,7 +16,7 @@ size_t pool::get_size()
 
 void* pool::malloc(size_t size)
 {
-	unique_lock<mutex> lck(__mtx);
+	lock_ty lck(__mtx);
 	++__count;
 	__total += size;
 
@@ -42,7 +42,7 @@ void* pool::malloc(size_t size)
 
 void pool::free(void* p)
 {
-	unique_lock<mutex> lck(__mtx);
+	lock_ty lck(__mtx);
 	auto slt = POINTER_TO_SLOT(p);
 
 	slt->valid = valid_t::SLOT_DELETED;
@@ -54,7 +54,7 @@ void pool::free(void* p)
 
 void pool::destroy()
 {
-	unique_lock<mutex> lck(__mtx);
+	lock_ty lck(__mtx);
 
 	block* blk = nullptr;
 	while (blk = __block_stack.top())
@@ -81,7 +81,7 @@ atomic<size_t>& pool::total()
 
 void pool::gc()
 {
-	unique_lock<mutex> lck(__mtx);
+	lock_ty lck(__mtx);
 
 	block* next = NULL;
 	for (auto blk = __block_stack.top(); blk; blk = next)
