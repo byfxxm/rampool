@@ -11,7 +11,7 @@ public:
 
 	void unlock()
 	{
-		flg.clear();
+		flg.clear(memory_order_relaxed);
 	}
 
 private:
