@@ -6,6 +6,10 @@
 
 class pool
 {
+private:
+	using mutex_ty = spin;
+	using lock_ty = unique_lock<mutex_ty>;
+
 public:
 	void initialize(size_t, const void*);
 	size_t get_size();
@@ -16,10 +20,6 @@ public:
 	atomic<size_t>& total();
 	void gc();
 	bool need_gc();
-
-private:
-	using mutex_ty = spin;
-	using lock_ty = unique_lock<mutex_ty>;
 
 private:
 	mutex_ty __mtx;
