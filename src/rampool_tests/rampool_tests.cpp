@@ -182,3 +182,26 @@ void test7()
 		cout << hex << GetExceptionCode() << endl;
 	}
 }
+
+void test8()
+{
+	atomic<void*> p[100] = { 0 };
+	thread thd[_countof(p)];
+
+	for (int i = 0; i < _countof(p); ++i)
+	{
+		thd[i] = thread([&, i]()
+			{
+				for (int j = 0; j < 100000; ++j)
+					p[i] = rp_realloc(p[i], 18 + i % 8);
+			});
+	}
+
+	for (auto& t : thd)
+		t.join();
+
+	for (auto& i : p)
+		rp_free(i);
+
+	leak(nullptr);
+}
