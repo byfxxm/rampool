@@ -113,7 +113,7 @@ void rampool_imp::auto_gc(bool b)
 							pl.gc();
 					}
 
-					this_thread::yield();
+					yield();
 				}
 			});
 	}
