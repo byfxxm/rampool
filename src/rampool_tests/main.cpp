@@ -14,15 +14,15 @@ int main()
 {
 	do
 	{
-		rp_auto_gc(true);
+		//rp_auto_gc(true);
 		test1();
-		test2();
-		test3();
-		test4();
-		test5();
-		test6();
-		test7();
-		test8();
+		//test2();
+		//test3();
+		//test4();
+		//test5();
+		//test6();
+		//test7();
+		//test8();
 	} while (1);
 
 	return 0;

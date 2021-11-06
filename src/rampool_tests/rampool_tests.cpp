@@ -2,6 +2,14 @@
 #include "../rampool/rampool.h"
 #include "../lua/lua52/lua.hpp"
 
+#pragma comment(lib, "../release/libtcmalloc_minimal.lib")
+#define DLL_IMPORT __declspec(dllimport)
+extern "C"
+{
+	DLL_IMPORT void* tc_malloc(size_t);
+	DLL_IMPORT void tc_free(void*);
+}
+
 void* lua_alloc(void* ud, void* ptr, size_t osize, size_t nsize)
 {
 	if (nsize == 0) {
@@ -46,16 +54,22 @@ void test1()
 	for (auto& size : sizes)
 		size = rand() % 10240 + 1;
 
-	auto RunRamPool = [](int size)
+	auto run_rampool = [](int size)
 	{
 		void* _p = rp_malloc(size);
 		rp_free(_p);
 	};
 	
-	auto RunMMU = [](int size)
+	auto run_mmu = [](int size)
 	{
 		void* _p = malloc(size);
 		free(_p);
+	};
+
+	auto run_tcmalloc = [](int size)
+	{
+		void* _p = tc_malloc(size);
+		tc_free(_p);
 	};
 
 	auto multi_thread_run = [&](function<void(int)> run)
@@ -79,10 +93,10 @@ void test1()
 
 	rampool_compare(1, [&]()
 		{
-			multi_thread_run(RunRamPool);
+			multi_thread_run(run_rampool);
 		}, [&]()
 		{
-			multi_thread_run(RunMMU);
+			multi_thread_run(run_tcmalloc);
 		});
 }
 
