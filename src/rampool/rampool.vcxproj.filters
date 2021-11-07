@@ -42,6 +42,9 @@
     <ClInclude Include="spin.h">
       <Filter>2.implement</Filter>
     </ClInclude>
+    <ClInclude Include="rampool_mt.h">
+      <Filter>2.implement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="rampool_imp.cpp">
@@ -60,6 +63,9 @@
       <Filter>2.implement</Filter>
     </ClCompile>
     <ClCompile Include="rampool.cpp">
+      <Filter>2.implement</Filter>
+    </ClCompile>
+    <ClCompile Include="rampool_mt.cpp">
       <Filter>2.implement</Filter>
     </ClCompile>
   </ItemGroup>

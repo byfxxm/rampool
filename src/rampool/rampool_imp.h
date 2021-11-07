@@ -1,6 +1,7 @@
 #pragma once
-#include "rampool.h"
 #include "pool.h"
+
+struct leak_info;
 
 class rampool_imp
 {

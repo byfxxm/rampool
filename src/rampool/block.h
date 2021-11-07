@@ -1,6 +1,7 @@
 #pragma once
 #include "stack.h"
-#include "slot.h"
+
+struct slot;
 
 struct block : public stack<block>::node
 {

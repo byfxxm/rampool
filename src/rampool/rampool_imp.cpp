@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "rampool.h"
 #include "rampool_imp.h"
 #include "block.h"
 #include "slot.h"

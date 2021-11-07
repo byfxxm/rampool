@@ -1,5 +1,4 @@
 #pragma once
-#include "stack.h"
 #include "block.h"
 #include "slot.h"
 #include "spin.h"
