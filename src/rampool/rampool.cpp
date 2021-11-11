@@ -1,7 +1,9 @@
 ﻿#include "stdafx.h"
 #include "rampool.h"
 #include "rampool_imp.h"
+#include "rampool_mt.h"
 
+#if 0
 void* rp_heap_create()
 {
 	return new rampool_imp();
@@ -51,43 +53,39 @@ void rp_heap_auto_gc(void* heap, bool b)
 {
 	return ((rampool_imp*)heap)->auto_gc(b);
 }
+#endif
 
 void* rp_malloc(size_t size)
 {
-	return rampool_imp::instance()->malloc(size);
+	return rampool_mt::instance().malloc(size);
 }
 
 void rp_free(void* p)
 {
-	return rampool_imp::instance()->free(p);
+	return rampool_mt::instance().free(p);
 }
 
 void* rp_realloc(void* p, size_t size)
 {
-	return rampool_imp::instance()->realloc(p, size);
+	return rampool_mt::instance().realloc(p, size);
 }
 
 void rp_destroy()
 {
-	return rampool_imp::instance()->destroy();
+	//return rampool_imp::instance()->destroy();
 }
 
 void rp_leak(leak_info* info)
 {
-	return rampool_imp::instance()->leak(info);
+	return rampool_mt::instance().leak(info);
 }
 
 size_t rp_size(void* p)
 {
-	return rampool_imp::instance()->size(p);
+	return rampool_mt::instance().size(p);
 }
 
 void rp_gc()
 {
-	return rampool_imp::instance()->gc();
-}
-
-void rp_auto_gc(bool b)
-{
-	return rampool_imp::instance()->auto_gc(b);
+	return rampool_mt::instance().gc();
 }

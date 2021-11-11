@@ -8,7 +8,7 @@ class rampool_imp
 public:
 	rampool_imp();
 	~rampool_imp();
-	static rampool_imp* instance();
+	static rampool_imp& instance_thread();
 	void* malloc(size_t);
 	void free(void*);
 	void* realloc(void*, size_t);

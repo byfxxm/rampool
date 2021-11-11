@@ -20,10 +20,10 @@ rampool_imp::~rampool_imp()
 	destroy();
 }
 
-rampool_imp* rampool_imp::instance()
+static __declspec(thread) rampool_imp __inst;
+rampool_imp& rampool_imp::instance_thread()
 {
-	static rampool_imp inst;
-	return &inst;
+	return __inst;
 }
 
 void rampool_imp::destroy()
@@ -130,7 +130,7 @@ inline slot* rampool_imp::__slot_cast(void* p) const
 	auto slt = POINTER_TO_SLOT(p);
 
 	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
-		throw exception("invalid ptr");
+		THROW_EXCEPTION_INVALID_PTR;
 
 	return slt;
 }

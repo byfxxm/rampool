@@ -2,13 +2,13 @@
 #include "../rampool/rampool.h"
 #include "../lua/lua52/lua.hpp"
 
-#pragma comment(lib, "../release/libtcmalloc_minimal.lib")
-#define DLL_IMPORT __declspec(dllimport)
-extern "C"
-{
-	DLL_IMPORT void* tc_malloc(size_t);
-	DLL_IMPORT void tc_free(void*);
-}
+//#pragma comment(lib, "../release/libtcmalloc_minimal.lib")
+//#define DLL_IMPORT __declspec(dllimport)
+//extern "C"
+//{
+//	DLL_IMPORT void* tc_malloc(size_t);
+//	DLL_IMPORT void tc_free(void*);
+//}
 
 void* lua_alloc(void* ud, void* ptr, size_t osize, size_t nsize)
 {
@@ -22,10 +22,10 @@ void* lua_alloc(void* ud, void* ptr, size_t osize, size_t nsize)
 	}
 }
 
-void leak(void* heap)
+void leak()
 {
 	leak_info info;
-	heap ? rp_heap_leak(heap, &info) : rp_leak(&info);
+	rp_leak(&info);
 	printf("leak count = %u, leak size = %u, leak actual size = %u\n", info.count, info.total_size, info.total_actual_size);
 }
 
@@ -66,11 +66,11 @@ void test1()
 		free(_p);
 	};
 
-	auto run_tcmalloc = [](int size)
-	{
-		void* _p = tc_malloc(size);
-		tc_free(_p);
-	};
+	//auto run_tcmalloc = [](int size)
+	//{
+	//	void* _p = tc_malloc(size);
+	//	tc_free(_p);
+	//};
 
 	auto multi_thread_run = [&](function<void(int)> run)
 	{
@@ -96,10 +96,10 @@ void test1()
 			multi_thread_run(run_rampool);
 		}, [&]()
 		{
-			multi_thread_run(run_tcmalloc);
+			multi_thread_run(run_mmu);
 		});
 }
-
+#if 0
 void test2()
 {
 	{
@@ -110,7 +110,7 @@ void test2()
 		}
 	}
 
-	leak(nullptr);
+	leak();
 }
 
 void test3()
@@ -122,7 +122,7 @@ void test3()
 
 	rp_free(p3);
 	rp_free(p1);
-	leak(nullptr);
+	leak();
 	rp_destroy();
 }
 
@@ -219,3 +219,4 @@ void test8()
 
 	leak(nullptr);
 }
+#endif

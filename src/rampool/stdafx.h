@@ -16,6 +16,7 @@
 #define POOLINDEX(size) (ROUND(size) / GRANULARITY - 1)
 #define POINTER_TO_SLOT(p) ((slot*)((char*)(p) - sizeof(slot)))
 #define AUTOGC_THRESHOLD 64
+#define THROW_EXCEPTION_INVALID_PTR throw exception("invalid ptr")
 
 using namespace std;
 using namespace std::this_thread;
