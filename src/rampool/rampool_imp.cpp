@@ -34,7 +34,7 @@ void rampool_imp::destroy()
 void* rampool_imp::malloc(size_t size)
 {
 	if (size == 0 || size > MAXSIZE)
-		throw bad_alloc();
+		return nullptr;
 
 	return __pools[POOLINDEX(size)].malloc(size);
 }
