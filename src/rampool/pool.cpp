@@ -43,9 +43,11 @@ void* pool::malloc(size_t size)
 void pool::free(void* p)
 {
 	lock_ty lck(__mtx);
+
 	auto slt = POINTER_TO_SLOT(p);
 	slt->valid = valid_t::SLOT_DELETED;
 	__free_stack.push(slt);
+
 	--__count;
 	__total -= slt->actual_size;
 	assert((int)__count >= 0);
