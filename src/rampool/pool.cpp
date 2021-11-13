@@ -74,7 +74,7 @@ size_t pool::count()
 	return __count;
 }
 
-atomic<size_t>& pool::total()
+size_t pool::total()
 {
 	return __total;
 }

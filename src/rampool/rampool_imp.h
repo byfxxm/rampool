@@ -23,5 +23,5 @@ private:
 private:
 	array<pool, POOLNUM> __pools;
 	thread __auto_gc_thrd;
-	atomic<bool> __is_auto_gc = false;
+	volatile bool __is_auto_gc = false;
 };
