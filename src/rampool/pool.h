@@ -17,7 +17,7 @@ public:
 	void free(void*);
 	void destroy();
 	size_t count();
-	atomic<size_t>& total();
+	size_t total();
 	void gc();
 	bool need_gc();
 
@@ -25,8 +25,8 @@ private:
 	mutex_ty __mtx;
 	stack<block> __block_stack;
 	stack<slot> __free_stack;
-	atomic<size_t> __size = 0;
-	atomic<size_t> __count = 0;
-	atomic<size_t> __total = 0;
+	size_t __size = 0;
+	size_t __count = 0;
+	size_t __total = 0;
 	const void* __owner = nullptr;
 };
