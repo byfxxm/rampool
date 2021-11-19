@@ -51,7 +51,7 @@ public:
 			p->next->prev = p->prev;
 	}
 
-	size_t count()
+	size_t count() const
 	{
 		return __count;
 	}
