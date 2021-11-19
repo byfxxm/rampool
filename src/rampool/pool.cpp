@@ -20,10 +20,9 @@ void* pool::malloc(size_t size)
 	++__count;
 	__total += size;
 
-	auto slt = __free_stack.top();
+	auto slt = __free_stack.pop();
 	if (slt)
 	{
-		__free_stack.pop();
 		assert(slt->valid == valid_t::SLOT_DELETED);
 		slt->valid = valid_t::SLOT_USED;
 		slt->actual_size = size;

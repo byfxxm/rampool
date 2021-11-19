@@ -19,15 +19,20 @@ public:
 		__top = p;
 	}
 
-	void pop()
+	ty* pop()
 	{
-		assert(__top);
+		if (!__top)
+			return nullptr;
+
+		auto ret = __top;
 		--__count;
 		__top = __top->next;
 		__top && (__top->prev = nullptr, 0);
+		assert(__count >= 0);
+		return ret;
 	}
 
-	ty* top()
+	ty* top() const
 	{
 		return __top;
 	}
