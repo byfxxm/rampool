@@ -25,8 +25,8 @@ private:
 	mutex_ty __mtx;
 	stack<block> __block_stack;
 	stack<slot> __free_stack;
-	size_t __size = 0;
-	size_t __count = 0;
-	size_t __total = 0;
-	const void* __owner = nullptr;
+	size_t __size{ 0 };
+	size_t __count{ 0 };
+	size_t __total{ 0 };
+	const void* __owner{ nullptr };
 };

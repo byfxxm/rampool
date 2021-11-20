@@ -57,6 +57,6 @@ public:
 	}
 
 private:
-	ty* __top = nullptr;
-	size_t __count = 0;
+	ty* __top{ nullptr };
+	size_t __count{ 0 };
 };
