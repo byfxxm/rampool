@@ -1,16 +1,16 @@
 #pragma once
 
-template<typename ty>
+template<typename T>
 class stack
 {
 public:
 	struct node
 	{
-		ty* prev = nullptr;
-		ty* next = nullptr;
+		T* prev = nullptr;
+		T* next = nullptr;
 	};
 
-	void push(ty* p)
+	void push(T* p)
 	{
 		assert(p);
 		++__count;
@@ -19,7 +19,7 @@ public:
 		__top = p;
 	}
 
-	ty* pop()
+	T* pop()
 	{
 		if (!__top)
 			return nullptr;
@@ -32,12 +32,12 @@ public:
 		return ret;
 	}
 
-	ty* top() const
+	T* top() const
 	{
 		return __top;
 	}
 
-	void erase(ty* p)
+	void erase(T* p)
 	{
 		assert(p);
 		--__count;
@@ -57,6 +57,6 @@ public:
 	}
 
 private:
-	ty* __top{ nullptr };
+	T* __top{ nullptr };
 	size_t __count{ 0 };
 };
