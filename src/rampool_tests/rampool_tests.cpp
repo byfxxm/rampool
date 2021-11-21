@@ -46,13 +46,13 @@ void test1()
 	for (auto& size : sizes)
 		size = rand() % 10240 + 1;
 
-	auto RunRamPool = [](int size)
+	auto run_rampool = [](int size)
 	{
 		void* _p = rp_malloc(size);
 		rp_free(_p);
 	};
 	
-	auto RunMMU = [](int size)
+	auto run_mmu = [](int size)
 	{
 		void* _p = malloc(size);
 		free(_p);
@@ -79,10 +79,10 @@ void test1()
 
 	rampool_compare(1, [&]()
 		{
-			multi_thread_run(RunRamPool);
+			multi_thread_run(run_rampool);
 		}, [&]()
 		{
-			multi_thread_run(RunMMU);
+			multi_thread_run(run_mmu);
 		});
 }
 
