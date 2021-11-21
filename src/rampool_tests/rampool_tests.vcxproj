@@ -14,7 +14,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{B1D21D84-6017-4E67-AA25-29933613064C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>RamPoolTest</RootNamespace>
+    <RootNamespace>rampool_tests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
