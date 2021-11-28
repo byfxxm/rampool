@@ -1,21 +1,17 @@
 #include "stdafx.h"
 
 #ifdef _WIN64
-	#ifdef _DEBUG
-		#pragma comment(lib, "../x64/Debug/rampool.lib")
-		#pragma comment(lib, "../x64/Debug/lua.lib")
-	#else
-		#pragma comment(lib, "../x64/Release/rampool.lib")
-		#pragma comment(lib, "../x64/Release/lua.lib")
-	#endif
+#define PLATFORM "x64"
 #else
-	#ifdef _DEBUG
-		#pragma comment(lib, "../Debug/rampool.lib")
-		#pragma comment(lib, "../Debug/lua.lib")
-	#else
-		#pragma comment(lib, "../Release/rampool.lib")
-		#pragma comment(lib, "../Release/lua.lib")
-	#endif
+#define PLATFORM ""
 #endif
 
+#ifdef _DEBUG
+#define CONFIG "Debug"
+#else
+#define CONFIG "Release"
+#endif
+
+#pragma comment(lib, "../" PLATFORM "/" CONFIG "/rampool.lib")
+#pragma comment(lib, "../" PLATFORM "/" CONFIG "/lua.lib")
 #pragma comment(lib, "DbgHelp.lib")
