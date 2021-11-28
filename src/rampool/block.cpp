@@ -18,7 +18,7 @@ block::block(size_t size, const void* owner)
 	mem ? memset(mem, 0, mem_size) : throw bad_alloc();
 
 	slots = new slot * [slot_num];
-	auto index_of_mem = 0;
+	size_t index_of_mem = 0;
 	for (size_t i = 0; i < slot_num; ++i)
 	{
 		slots[i] = new(&mem[index_of_mem]) slot();
