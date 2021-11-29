@@ -6,18 +6,17 @@
 #define RAMPOOL_API __declspec(dllimport)
 #endif
 
+struct leak_info
+{
+	size_t count;
+	size_t total_size;
+	size_t total_actual_size;
+};
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
-	struct leak_info
-	{
-		size_t count;
-		size_t total_size;
-		size_t total_actual_size;
-	};
-
 	RAMPOOL_API void* rp_heap_create();
 	RAMPOOL_API void rp_heap_delete(void* heap);
 	RAMPOOL_API void* rp_heap_malloc(void* heap, size_t size);
@@ -37,7 +36,6 @@ extern "C"
 	RAMPOOL_API size_t rp_size(void* p);
 	RAMPOOL_API void rp_gc();
 	RAMPOOL_API void rp_auto_gc(bool b);
-
 #ifdef __cplusplus
 }
 #endif
