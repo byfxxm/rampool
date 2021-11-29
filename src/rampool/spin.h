@@ -1,19 +1,22 @@
 #pragma once
 
-class spin
+namespace rampool
 {
-public:
-	void lock()
+	class spin
 	{
-		while (flg.test_and_set(memory_order_relaxed))
-			yield();
-	}
+	public:
+		void lock()
+		{
+			while (flg.test_and_set(std::memory_order_relaxed))
+				std::this_thread::yield();
+		}
 
-	void unlock()
-	{
-		flg.clear(memory_order_relaxed);
-	}
+		void unlock()
+		{
+			flg.clear(std::memory_order_relaxed);
+		}
 
-private:
-	atomic_flag flg;
-};
+	private:
+		std::atomic_flag flg;
+	};
+}

@@ -15,7 +15,7 @@ block::block(size_t size, const void* owner)
 	auto slot_size = sizeof(slot) + round_size;
 	mem_size = slot_size * slot_num;
 	mem = (char*)VirtualAlloc(nullptr, mem_size, MEM_COMMIT, PAGE_READWRITE);
-	mem ? memset(mem, 0, mem_size) : throw bad_alloc();
+	mem ? memset(mem, 0, mem_size) : throw std::bad_alloc();
 
 	slots = new slot * [slot_num];
 	size_t index_of_mem = 0;

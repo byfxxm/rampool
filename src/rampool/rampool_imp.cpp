@@ -95,7 +95,7 @@ void rampool_imp::auto_gc(bool b)
 		if (__auto_gc_thrd.joinable())
 			return;
 
-		__auto_gc_thrd = thread([this]()
+		__auto_gc_thrd = std::thread([this]()
 			{
 				while (__is_auto_gc)
 				{
@@ -105,7 +105,7 @@ void rampool_imp::auto_gc(bool b)
 							pl.gc();
 					}
 
-					yield();
+					std::this_thread::yield();
 				}
 			});
 	}
@@ -121,7 +121,7 @@ inline slot* rampool_imp::__slot_cast(void* p) const
 	auto slt = POINTER_TO_SLOT(p);
 
 	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
-		throw exception("invalid ptr");
+		throw std::exception("invalid ptr");
 
 	return slt;
 }

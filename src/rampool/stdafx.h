@@ -16,5 +16,5 @@
 #define POINTER_TO_SLOT(p) ((slot*)((char*)(p) - sizeof(slot)))
 #define AUTOGC_THRESHOLD 64
 
-using namespace std;
-using namespace std::this_thread;
+namespace rampool {}
+using namespace rampool;
