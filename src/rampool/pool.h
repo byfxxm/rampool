@@ -8,7 +8,7 @@ class pool
 {
 private:
 	using mutex_ty = spin;
-	using lock_ty = lock_guard<mutex_ty>;
+	using lock_ty = std::lock_guard<mutex_ty>;
 
 public:
 	void initialize(size_t, const void*);

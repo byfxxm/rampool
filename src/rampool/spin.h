@@ -5,15 +5,15 @@ class spin
 public:
 	void lock()
 	{
-		while (flg.test_and_set(memory_order_relaxed))
-			yield();
+		while (flg.test_and_set(std::memory_order_relaxed))
+			std::this_thread::yield();
 	}
 
 	void unlock()
 	{
-		flg.clear(memory_order_relaxed);
+		flg.clear(std::memory_order_relaxed);
 	}
 
 private:
-	atomic_flag flg;
+	std::atomic_flag flg;
 };

@@ -18,10 +18,10 @@ void leak(void* heap)
 {
 	leak_info info;
 	heap ? rp_heap_leak(heap, &info) : rp_leak(&info);
-	cout << "leak count = " << info.count << ", leak size = " << info.total_size << ", leak actual size = " << info.total_actual_size << endl;
+	std::cout << "leak count = " << info.count << ", leak size = " << info.total_size << ", leak actual size = " << info.total_actual_size << std::endl;
 }
 
-void rampool_compare(int times, function<void()>f1, function<void()>f2)
+void rampool_compare(int times, std::function<void()>f1, std::function<void()>f2)
 {
 	auto _time1 = clock();
 
@@ -58,13 +58,13 @@ void test1()
 		free(_p);
 	};
 
-	auto multi_thread_run = [&](function<void(int)> run)
+	auto multi_thread_run = [&](std::function<void(int)> run)
 	{
-		thread thds[100];
+		std::thread thds[100];
 
 		for (int _i = 0; _i < _countof(thds); _i++)
 		{
-			thds[_i] = thread([&]()
+			thds[_i] = std::thread([&]()
 			{
 				for (int _j = 0; _j < _countof(sizes); _j++)
 					run(sizes[_j]);
@@ -89,7 +89,7 @@ void test1()
 void test2()
 {
 	{
-		shared_ptr<void> ps[16000];
+		std::shared_ptr<void> ps[16000];
 		for (auto& pi : ps)
 		{
 			pi.reset(rp_malloc(1000), rp_free);
@@ -134,7 +134,7 @@ void test4()
 		end"))
 	{
 		auto _s = lua_tostring(sub_lua_1, -1);
-		cout << _s << endl;
+		std::cout << _s << std::endl;
 	}
 
 	luaL_dostring(sub_lua_2, "F2()");
@@ -179,18 +179,18 @@ void test7()
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
-		cout << hex << GetExceptionCode() << endl;
+		std::cout << std::hex << GetExceptionCode() << std::endl;
 	}
 }
 
 void test8()
 {
-	atomic<void*> p[100] = { 0 };
-	thread thd[_countof(p)];
+	std::atomic<void*> p[100] = { 0 };
+	std::thread thd[_countof(p)];
 
 	for (int i = 0; i < _countof(p); ++i)
 	{
-		thd[i] = thread([&, i]()
+		thd[i] = std::thread([&, i]()
 			{
 				for (int j = 0; j < 100000; ++j)
 					p[i] = rp_realloc(p[i], 18 + i % 8);

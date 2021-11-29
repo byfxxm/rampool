@@ -21,7 +21,7 @@ private:
 	slot* __slot_cast(void*) const;
 
 private:
-	array<pool, POOLNUM> __pools;
-	thread __auto_gc_thrd;
+	std::array<pool, POOLNUM> __pools;
+	std::thread __auto_gc_thrd;
 	volatile bool __is_auto_gc{ false };
 };
