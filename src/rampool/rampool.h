@@ -27,7 +27,6 @@ extern "C"
 	RAMPOOL_API size_t rp_heap_size(void* heap, void* p);
 	RAMPOOL_API void rp_heap_gc(void* heap);
 	RAMPOOL_API void rp_heap_auto_gc(void* heap, bool b);
-
 	RAMPOOL_API void* rp_malloc(size_t size);
 	RAMPOOL_API void rp_free(void* p);
 	RAMPOOL_API void* rp_realloc(void* p, size_t size);
