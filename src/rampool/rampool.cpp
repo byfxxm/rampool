@@ -2,6 +2,46 @@
 #include "rampool.h"
 #include "rampool_imp.h"
 
+void* rp_malloc(size_t size)
+{
+	return rampool_imp::instance()->malloc(size);
+}
+
+void rp_free(void* p)
+{
+	return rampool_imp::instance()->free(p);
+}
+
+void* rp_realloc(void* p, size_t size)
+{
+	return rampool_imp::instance()->realloc(p, size);
+}
+
+void rp_destroy()
+{
+	return rampool_imp::instance()->destroy();
+}
+
+void rp_leak(leak_info* info)
+{
+	return rampool_imp::instance()->leak(info);
+}
+
+size_t rp_size(void* p)
+{
+	return rampool_imp::instance()->size(p);
+}
+
+void rp_gc()
+{
+	return rampool_imp::instance()->gc();
+}
+
+void rp_auto_gc(bool b)
+{
+	return rampool_imp::instance()->auto_gc(b);
+}
+
 void* rp_heap_create()
 {
 	return new rampool_imp();
@@ -50,44 +90,4 @@ void rp_heap_gc(void* heap)
 void rp_heap_auto_gc(void* heap, bool b)
 {
 	return ((rampool_imp*)heap)->auto_gc(b);
-}
-
-void* rp_malloc(size_t size)
-{
-	return rampool_imp::instance()->malloc(size);
-}
-
-void rp_free(void* p)
-{
-	return rampool_imp::instance()->free(p);
-}
-
-void* rp_realloc(void* p, size_t size)
-{
-	return rampool_imp::instance()->realloc(p, size);
-}
-
-void rp_destroy()
-{
-	return rampool_imp::instance()->destroy();
-}
-
-void rp_leak(leak_info* info)
-{
-	return rampool_imp::instance()->leak(info);
-}
-
-size_t rp_size(void* p)
-{
-	return rampool_imp::instance()->size(p);
-}
-
-void rp_gc()
-{
-	return rampool_imp::instance()->gc();
-}
-
-void rp_auto_gc(bool b)
-{
-	return rampool_imp::instance()->auto_gc(b);
 }
