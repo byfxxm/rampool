@@ -27,8 +27,8 @@ rampool_imp* rampool_imp::instance()
 
 void rampool_imp::destroy()
 {
-	for (auto& pl : __pools)
-		pl.destroy();
+	for (auto& pool : __pools)
+		pool.destroy();
 }
 
 void* rampool_imp::malloc(size_t size)
@@ -65,11 +65,11 @@ void rampool_imp::leak(leak_info* info)
 		return;
 
 	memset(info, 0, sizeof(leak_info));
-	for (auto& pl : __pools)
+	for (auto& pool : __pools)
 	{
-		info->count += pl.count();
-		info->total_size += pl.count() * pl.get_size();
-		info->total_actual_size += pl.total();
+		info->count += pool.count();
+		info->total_size += pool.count() * pool.get_size();
+		info->total_actual_size += pool.total();
 	}
 
 	assert(info->total_actual_size <= info->total_size);
@@ -82,8 +82,8 @@ size_t rampool_imp::size(void* p)
 
 void rampool_imp::gc()
 {
-	for (auto& pl : __pools)
-		pl.gc();
+	for (auto& pool : __pools)
+		pool.gc();
 }
 
 void rampool_imp::auto_gc(bool b)
@@ -99,10 +99,10 @@ void rampool_imp::auto_gc(bool b)
 			{
 				while (__is_auto_gc)
 				{
-					for (auto& pl : __pools)
+					for (auto& pool : __pools)
 					{
-						if (pl.need_gc())
-							pl.gc();
+						if (pool.need_gc())
+							pool.gc();
 					}
 
 					std::this_thread::yield();
