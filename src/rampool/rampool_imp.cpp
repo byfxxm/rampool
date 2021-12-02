@@ -52,9 +52,9 @@ void* rampool_imp::realloc(void* p, size_t size)
 	if (!p)
 		return malloc(size);
 
-	auto slt = __slot_cast(p);
+	auto slot_ = __slot_cast(p);
 	auto p_ = malloc(size);
-	memmove(p_, p, min(slt->actual_size, size));
+	memmove(p_, p, min(slot_->actual_size, size));
 	free(p);
 	return p_;
 }
@@ -118,10 +118,10 @@ void rampool_imp::auto_gc(bool b)
 
 inline slot* rampool_imp::__slot_cast(void* p) const
 {
-	auto slt = POINTER_TO_SLOT(p);
+	auto slot_ = POINTER_TO_SLOT(p);
 
-	if (slt->owner != this || slt->valid != valid_t::SLOT_USED)
+	if (slot_->owner != this || slot_->valid != valid_t::SLOT_USED)
 		throw std::exception("invalid ptr");
 
-	return slt;
+	return slot_;
 }
