@@ -81,13 +81,13 @@ size_t pool::total()
 void pool::gc()
 {
 	lock_ty lock(__mutex);
-	block* next = nullptr;
 
+	block* next = nullptr;
 	for (auto block_ = __block_stack.top(); block_; block_ = next)
 	{
 		next = block_->next;
-		size_t idx = 0;
 
+		size_t idx = 0;
 		for (; idx < block_->cur_slot; ++idx)
 		{
 			assert(block_->slots[idx]->valid != valid_t::SLOT_UNUSE);

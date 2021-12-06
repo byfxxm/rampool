@@ -18,7 +18,7 @@ void leak(void* heap)
 {
 	leak_info info;
 	heap ? rp_heap_leak(heap, &info) : rp_leak(&info);
-	std::cout << "leak count = " << info.count << ", leak size = " << info.total_size << ", leak actual size = " << info.total_actual_size << std::endl;
+	std::cout << std::dec << "leak count = " << info.count << ", leak size = " << info.total_size << ", leak actual size = " << info.total_actual_size << std::endl;
 }
 
 void rampool_compare(int times, std::function<void()>f1, std::function<void()>f2)
