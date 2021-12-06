@@ -16,7 +16,7 @@ size_t pool::get_size()
 
 void* pool::malloc(size_t size)
 {
-	lock_ty lck(__mtx);
+	lock_ty lock(__mutex);
 	++__count;
 	__total += size;
 
@@ -41,7 +41,7 @@ void* pool::malloc(size_t size)
 
 void pool::free(void* p)
 {
-	lock_ty lck(__mtx);
+	lock_ty lock(__mutex);
 
 	auto slot_ = POINTER_TO_SLOT(p);
 	slot_->valid = valid_t::SLOT_DELETED;
@@ -53,7 +53,7 @@ void pool::free(void* p)
 
 void pool::destroy()
 {
-	lock_ty lck(__mtx);
+	lock_ty lock(__mutex);
 
 	block* block_ = nullptr;
 	while (block_ = __block_stack.top())
@@ -80,14 +80,14 @@ size_t pool::total()
 
 void pool::gc()
 {
-	lock_ty lck(__mtx);
-
+	lock_ty lock(__mutex);
 	block* next = nullptr;
+
 	for (auto block_ = __block_stack.top(); block_; block_ = next)
 	{
 		next = block_->next;
-
 		size_t idx = 0;
+
 		for (; idx < block_->cur_slot; ++idx)
 		{
 			assert(block_->slots[idx]->valid != valid_t::SLOT_UNUSE);

@@ -24,7 +24,7 @@ namespace rampool
 		bool need_gc();
 
 	private:
-		mutex_ty __mtx;
+		mutex_ty __mutex;
 		stack<block> __block_stack;
 		stack<slot> __free_stack;
 		size_t __size{ 0 };
