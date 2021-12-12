@@ -3,7 +3,7 @@
 #ifdef _WIN64
 #define PLATFORM "x64"
 #else
-#define PLATFORM ""
+#define PLATFORM
 #endif
 #ifdef _DEBUG
 #define CONFIG "Debug"
