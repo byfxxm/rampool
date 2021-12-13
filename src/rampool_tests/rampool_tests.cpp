@@ -185,7 +185,7 @@ void test7()
 
 void test8()
 {
-	std::atomic<void*> p[100]{};
+	std::atomic<void*> p[100];
 	std::thread thd[_countof(p)];
 
 	for (int i = 0; i < _countof(p); ++i)
