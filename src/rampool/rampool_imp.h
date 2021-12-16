@@ -23,7 +23,7 @@ namespace rampool
 		slot_s* __slot_s_cast(void*) const;
 
 	private:
-		std::array<pool, POOLNUM> __pools;
+		std::array<pool_c, POOLNUM> __pools;
 		std::thread __auto_gc_thrd;
 		volatile bool __is_auto_gc{ false };
 	};

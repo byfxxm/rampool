@@ -3,18 +3,18 @@
 #include "block.h"
 #include "slot.h"
 
-void pool::initialize(size_t size, const void* owner)
+void pool_c::initialize(size_t size, const void* owner)
 {
 	__size = size;
 	__owner = owner;
 }
 
-size_t pool::get_size()
+size_t pool_c::get_size()
 {
 	return __size;
 }
 
-void* pool::malloc(size_t size)
+void* pool_c::malloc(size_t size)
 {
 	lock_ty lock(__mutex);
 	++__count;
@@ -39,7 +39,7 @@ void* pool::malloc(size_t size)
 	return block_->alloc(size);
 }
 
-void pool::free(void* p)
+void pool_c::free(void* p)
 {
 	lock_ty lock(__mutex);
 
@@ -51,7 +51,7 @@ void pool::free(void* p)
 	assert((int)__count >= 0);
 }
 
-void pool::destroy()
+void pool_c::destroy()
 {
 	lock_ty lock(__mutex);
 
@@ -68,17 +68,17 @@ void pool::destroy()
 	__total = 0;
 }
 
-size_t pool::count()
+size_t pool_c::count()
 {
 	return __count;
 }
 
-size_t pool::total()
+size_t pool_c::total()
 {
 	return __total;
 }
 
-void pool::gc()
+void pool_c::gc()
 {
 	lock_ty lock(__mutex);
 
@@ -112,7 +112,7 @@ void pool::gc()
 	}
 }
 
-bool pool::need_gc()
+bool pool_c::need_gc()
 {
 	return __free_stack.count() >= AUTOGC_THRESHOLD;
 }
