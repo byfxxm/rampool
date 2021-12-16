@@ -20,13 +20,13 @@ void* pool_c::malloc(size_t size)
 	++__count;
 	__total += size;
 
-	auto slot_s_ = __free_stack.pop();
-	if (slot_s_)
+	auto slot = __free_stack.pop();
+	if (slot)
 	{
-		assert(slot_s_->valid == valid_t::DELETED);
-		slot_s_->valid = slot_s::valid_t::USED;
-		slot_s_->actual_size = size;
-		return slot_s_->mem;
+		assert(slot->valid == valid_t::DELETED);
+		slot->valid = slot_s::valid_t::USED;
+		slot->actual_size = size;
+		return slot->mem;
 	}
 
 	auto block = __block_stack.top();
