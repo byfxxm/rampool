@@ -23,7 +23,7 @@ void* pool_c::malloc(size_t size)
 	auto slot = __free_stack.pop();
 	if (slot)
 	{
-		assert(slot->valid == valid_t::DELETED);
+		assert(slot->valid == slot_s::valid_t::DELETED);
 		slot->valid = slot_s::valid_t::USED;
 		slot->actual_size = size;
 		return slot->mem;
@@ -90,7 +90,7 @@ void pool_c::gc()
 		size_t index = 0;
 		for (; index < block->cur_slot; ++index)
 		{
-			assert(block->slots[idx]->valid != valid_t::UNUSE);
+			assert(block->slots[index]->valid != slot_s::valid_t::UNUSE);
 			if (block->slots[index]->valid == slot_s::valid_t::USED)
 				break;
 		}
