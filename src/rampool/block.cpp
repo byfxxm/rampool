@@ -12,8 +12,8 @@ block_s::block_s(size_t size, const void* owner)
 		assert(false);
 
 	auto round_size = ROUND(size);
-	auto slot_s_size = sizeof(slot_s) + round_size;
-	mem_size = slot_s_size * slot_num;
+	auto slot_size = sizeof(slot_s) + round_size;
+	mem_size = slot_size * slot_num;
 	mem = (char*)VirtualAlloc(nullptr, mem_size, MEM_COMMIT, PAGE_READWRITE);
 	mem ? memset(mem, 0, mem_size) : throw std::bad_alloc();
 
@@ -24,7 +24,7 @@ block_s::block_s(size_t size, const void* owner)
 		slots[i] = new(&mem[index_of_mem]) slot_s();
 		slots[i]->normalize_size = round_size;
 		slots[i]->owner = owner;
-		index_of_mem += slot_s_size;
+		index_of_mem += slot_size;
 	}
 }
 
