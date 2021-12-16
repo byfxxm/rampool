@@ -44,7 +44,7 @@ void rampool_imp_c::free(void* p)
 	if (!p)
 		return;
 
-	__pools[POOLINDEX(__slot_s_cast(p)->normalize_size)].free(p);
+	__pools[POOLINDEX(__slot_cast(p)->normalize_size)].free(p);
 }
 
 void* rampool_imp_c::realloc(void* p, size_t size)
@@ -52,7 +52,7 @@ void* rampool_imp_c::realloc(void* p, size_t size)
 	if (!p)
 		return malloc(size);
 
-	auto slot_s_ = __slot_s_cast(p);
+	auto slot_s_ = __slot_cast(p);
 	auto p_ = malloc(size);
 	memmove(p_, p, min(slot_s_->actual_size, size));
 	free(p);
@@ -77,7 +77,7 @@ void rampool_imp_c::leak(leak_info_s* info)
 
 size_t rampool_imp_c::size(void* p)
 {
-	return __slot_s_cast(p)->actual_size;
+	return __slot_cast(p)->actual_size;
 }
 
 void rampool_imp_c::gc()
@@ -116,7 +116,7 @@ void rampool_imp_c::auto_gc(bool b)
 	}
 }
 
-inline slot_s* rampool_imp_c::__slot_s_cast(void* p) const
+inline slot_s* rampool_imp_c::__slot_cast(void* p) const
 {
 	auto slot_s_ = POINTER_TO_slot_s(p);
 
