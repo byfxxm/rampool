@@ -22,7 +22,7 @@ void rp_destroy()
 	return rampool_imp_c::instance()->destroy();
 }
 
-void rp_leak(leak_info* info)
+void rp_leak(leak_info_s* info)
 {
 	return rampool_imp_c::instance()->leak(info);
 }
@@ -72,7 +72,7 @@ void rp_heap_destroy(void* heap)
 	return ((rampool_imp_c*)heap)->destroy();
 }
 
-void rp_heap_leak(void* heap, leak_info* info)
+void rp_heap_leak(void* heap, leak_info_s* info)
 {
 	return ((rampool_imp_c*)heap)->leak(info);
 }

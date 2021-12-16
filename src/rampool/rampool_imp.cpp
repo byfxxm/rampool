@@ -59,12 +59,12 @@ void* rampool_imp_c::realloc(void* p, size_t size)
 	return p_;
 }
 
-void rampool_imp_c::leak(leak_info* info)
+void rampool_imp_c::leak(leak_info_s* info)
 {
 	if (!info)
 		return;
 
-	memset(info, 0, sizeof(leak_info));
+	memset(info, 0, sizeof(leak_info_s));
 	for (auto& pool_ : __pools)
 	{
 		info->count += pool_.count();

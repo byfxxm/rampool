@@ -6,7 +6,7 @@
 #define RAMPOOL_API __declspec(dllimport)
 #endif
 
-struct leak_info
+struct leak_info_s
 {
 	size_t count;
 	size_t total_size;
@@ -21,7 +21,7 @@ extern "C"
 	RAMPOOL_API void rp_free(void* p);
 	RAMPOOL_API void* rp_realloc(void* p, size_t size);
 	RAMPOOL_API void rp_destroy();
-	RAMPOOL_API void rp_leak(leak_info* info);
+	RAMPOOL_API void rp_leak(leak_info_s* info);
 	RAMPOOL_API size_t rp_size(void* p);
 	RAMPOOL_API void rp_gc();
 	RAMPOOL_API void rp_auto_gc(bool b);
@@ -32,7 +32,7 @@ extern "C"
 	RAMPOOL_API void rp_heap_free(void* heap, void* p);
 	RAMPOOL_API void* rp_heap_realloc(void* heap, void* p, size_t size);
 	RAMPOOL_API void rp_heap_destroy(void* heap);
-	RAMPOOL_API void rp_heap_leak(void* heap, leak_info* info);
+	RAMPOOL_API void rp_heap_leak(void* heap, leak_info_s* info);
 	RAMPOOL_API size_t rp_heap_size(void* heap, void* p);
 	RAMPOOL_API void rp_heap_gc(void* heap);
 	RAMPOOL_API void rp_heap_auto_gc(void* heap, bool b);

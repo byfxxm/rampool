@@ -14,7 +14,7 @@ namespace rampool
 		void free(void*);
 		void* realloc(void*, size_t);
 		void destroy();
-		void leak(leak_info*);
+		void leak(leak_info_s*);
 		size_t size(void*);
 		void gc();
 		void auto_gc(bool);
