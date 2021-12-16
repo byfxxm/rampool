@@ -27,8 +27,8 @@ rampool_imp_c* rampool_imp_c::instance()
 
 void rampool_imp_c::destroy()
 {
-	for (auto& pool_ : __pools)
-		pool_.destroy();
+	for (auto& pool : __pools)
+		pool.destroy();
 }
 
 void* rampool_imp_c::malloc(size_t size)
@@ -52,9 +52,9 @@ void* rampool_imp_c::realloc(void* p, size_t size)
 	if (!p)
 		return malloc(size);
 
-	auto slot_s_ = __slot_cast(p);
+	auto slot = __slot_cast(p);
 	auto p_ = malloc(size);
-	memmove(p_, p, min(slot_s_->actual_size, size));
+	memmove(p_, p, min(slot->actual_size, size));
 	free(p);
 	return p_;
 }
@@ -65,11 +65,11 @@ void rampool_imp_c::leak(leak_info_s* info)
 		return;
 
 	memset(info, 0, sizeof(leak_info_s));
-	for (auto& pool_ : __pools)
+	for (auto& pool : __pools)
 	{
-		info->count += pool_.count();
-		info->total_size += pool_.count() * pool_.get_size();
-		info->total_actual_size += pool_.total();
+		info->count += pool.count();
+		info->total_size += pool.count() * pool.get_size();
+		info->total_actual_size += pool.total();
 	}
 
 	assert(info->total_actual_size <= info->total_size);
@@ -82,8 +82,8 @@ size_t rampool_imp_c::size(void* p)
 
 void rampool_imp_c::gc()
 {
-	for (auto& pool_ : __pools)
-		pool_.gc();
+	for (auto& pool : __pools)
+		pool.gc();
 }
 
 void rampool_imp_c::auto_gc(bool b)
@@ -99,10 +99,10 @@ void rampool_imp_c::auto_gc(bool b)
 			{
 				while (__is_auto_gc)
 				{
-					for (auto& pool_ : __pools)
+					for (auto& pool : __pools)
 					{
-						if (pool_.need_gc())
-							pool_.gc();
+						if (pool.need_gc())
+							pool.gc();
 					}
 
 					std::this_thread::yield();
@@ -118,10 +118,10 @@ void rampool_imp_c::auto_gc(bool b)
 
 inline slot_s* rampool_imp_c::__slot_cast(void* p) const
 {
-	auto slot_s_ = POINTER_TO_slot_s(p);
+	auto slot = POINTER_TO_slot_s(p);
 
-	if (slot_s_->owner != this || slot_s_->valid != slot_s::valid_t::USED)
+	if (slot->owner != this || slot->valid != slot_s::valid_t::USED)
 		throw std::exception("invalid ptr");
 
-	return slot_s_;
+	return slot;
 }

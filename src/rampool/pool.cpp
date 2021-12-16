@@ -83,31 +83,31 @@ void pool_c::gc()
 	lock_t lock(__mutex);
 
 	block_s* next = nullptr;
-	for (auto block_ = __block_stack.top(); block_; block_ = next)
+	for (auto block = __block_stack.top(); block; block = next)
 	{
-		next = block_->next;
+		next = block->next;
 
 		size_t idx = 0;
-		for (; idx < block_->cur_slot; ++idx)
+		for (; idx < block->cur_slot; ++idx)
 		{
 			assert(block_->slots[idx]->valid != valid_t::UNUSE);
-			if (block_->slots[idx]->valid == slot_s::valid_t::USED)
+			if (block->slots[idx]->valid == slot_s::valid_t::USED)
 				break;
 		}
 
-		if (idx == block_->cur_slot)
+		if (idx == block->cur_slot)
 		{
-			for (size_t i = 0; i < block_->cur_slot; ++i)
-				block_->slots[i]->valid = slot_s::valid_t::UNUSE;
+			for (size_t i = 0; i < block->cur_slot; ++i)
+				block->slots[i]->valid = slot_s::valid_t::UNUSE;
 
-			for (auto slot_s_ = __free_stack.top(); slot_s_; slot_s_ = slot_s_->next)
+			for (auto slot = __free_stack.top(); slot; slot = slot->next)
 			{
-				if (slot_s_->valid == slot_s::valid_t::UNUSE)
-					__free_stack.erase(slot_s_);
+				if (slot->valid == slot_s::valid_t::UNUSE)
+					__free_stack.erase(slot);
 			}
 
-			__block_stack.erase(block_);
-			delete block_;
+			__block_stack.erase(block);
+			delete block;
 		}
 	}
 }
