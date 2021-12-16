@@ -9,8 +9,8 @@ namespace rampool
 	class pool_c
 	{
 	private:
-		using mutex_ty = spin_c;
-		using lock_ty = std::lock_guard<mutex_ty>;
+		using mutex_t = spin_c;
+		using lock_t = std::lock_guard<mutex_t>;
 
 	public:
 		void initialize(size_t, const void*);
@@ -24,7 +24,7 @@ namespace rampool
 		bool need_gc();
 
 	private:
-		mutex_ty __mutex;
+		mutex_t __mutex;
 		stack_c<block_s> __block_stack;
 		stack_c<slot_s> __free_stack;
 		size_t __size{ 0 };

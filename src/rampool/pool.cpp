@@ -16,7 +16,7 @@ size_t pool_c::get_size()
 
 void* pool_c::malloc(size_t size)
 {
-	lock_ty lock(__mutex);
+	lock_t lock(__mutex);
 	++__count;
 	__total += size;
 
@@ -41,7 +41,7 @@ void* pool_c::malloc(size_t size)
 
 void pool_c::free(void* p)
 {
-	lock_ty lock(__mutex);
+	lock_t lock(__mutex);
 
 	auto slot_s_ = POINTER_TO_slot_s(p);
 	slot_s_->valid = valid_t::slot_s_DELETED;
@@ -53,7 +53,7 @@ void pool_c::free(void* p)
 
 void pool_c::destroy()
 {
-	lock_ty lock(__mutex);
+	lock_t lock(__mutex);
 
 	block_s* block_ = nullptr;
 	while (block_ = __block_stack.top())
@@ -80,7 +80,7 @@ size_t pool_c::total()
 
 void pool_c::gc()
 {
-	lock_ty lock(__mutex);
+	lock_t lock(__mutex);
 
 	block_s* next = nullptr;
 	for (auto block_ = __block_stack.top(); block_; block_ = next)
