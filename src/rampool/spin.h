@@ -7,16 +7,16 @@ namespace rampool
 	public:
 		void lock()
 		{
-			while (flg.test_and_set(std::memory_order_relaxed))
+			while (flag.test_and_set(std::memory_order_relaxed))
 				std::this_thread::yield();
 		}
 
 		void unlock()
 		{
-			flg.clear(std::memory_order_relaxed);
+			flag.clear(std::memory_order_relaxed);
 		}
 
 	private:
-		std::atomic_flag flg;
+		std::atomic_flag flag;
 	};
 }
