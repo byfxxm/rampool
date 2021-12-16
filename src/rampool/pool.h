@@ -9,7 +9,7 @@ namespace rampool
 	class pool
 	{
 	private:
-		using mutex_ty = spin;
+		using mutex_ty = spin_c;
 		using lock_ty = std::lock_guard<mutex_ty>;
 
 	public:
@@ -25,8 +25,8 @@ namespace rampool
 
 	private:
 		mutex_ty __mutex;
-		stack<block> __block_stack;
-		stack<slot> __free_stack;
+		stack_c<block_s> __block_stack;
+		stack_c<slot_s> __free_stack;
 		size_t __size{ 0 };
 		size_t __count{ 0 };
 		size_t __total{ 0 };

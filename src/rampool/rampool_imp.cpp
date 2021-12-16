@@ -3,7 +3,7 @@
 #include "block.h"
 #include "slot.h"
 
-rampool_imp::rampool_imp()
+rampool_imp_c::rampool_imp_c()
 {
 	size_t size = 0;
 	for_each(__pools.begin(), __pools.end(), [&](auto& it)
@@ -13,25 +13,25 @@ rampool_imp::rampool_imp()
 		});
 }
 
-rampool_imp::~rampool_imp()
+rampool_imp_c::~rampool_imp_c()
 {
 	auto_gc(false);
 	destroy();
 }
 
-rampool_imp* rampool_imp::instance()
+rampool_imp_c* rampool_imp_c::instance()
 {
-	static rampool_imp inst;
+	static rampool_imp_c inst;
 	return &inst;
 }
 
-void rampool_imp::destroy()
+void rampool_imp_c::destroy()
 {
 	for (auto& pool_ : __pools)
 		pool_.destroy();
 }
 
-void* rampool_imp::malloc(size_t size)
+void* rampool_imp_c::malloc(size_t size)
 {
 	if (size == 0 || size > MAXSIZE)
 		return nullptr;
@@ -39,27 +39,27 @@ void* rampool_imp::malloc(size_t size)
 	return __pools[POOLINDEX(size)].malloc(size);
 }
 
-void rampool_imp::free(void* p)
+void rampool_imp_c::free(void* p)
 {
 	if (!p)
 		return;
 
-	__pools[POOLINDEX(__slot_cast(p)->normalize_size)].free(p);
+	__pools[POOLINDEX(__slot_s_cast(p)->normalize_size)].free(p);
 }
 
-void* rampool_imp::realloc(void* p, size_t size)
+void* rampool_imp_c::realloc(void* p, size_t size)
 {
 	if (!p)
 		return malloc(size);
 
-	auto slot_ = __slot_cast(p);
+	auto slot_s_ = __slot_s_cast(p);
 	auto p_ = malloc(size);
-	memmove(p_, p, min(slot_->actual_size, size));
+	memmove(p_, p, min(slot_s_->actual_size, size));
 	free(p);
 	return p_;
 }
 
-void rampool_imp::leak(leak_info* info)
+void rampool_imp_c::leak(leak_info* info)
 {
 	if (!info)
 		return;
@@ -75,18 +75,18 @@ void rampool_imp::leak(leak_info* info)
 	assert(info->total_actual_size <= info->total_size);
 }
 
-size_t rampool_imp::size(void* p)
+size_t rampool_imp_c::size(void* p)
 {
-	return __slot_cast(p)->actual_size;
+	return __slot_s_cast(p)->actual_size;
 }
 
-void rampool_imp::gc()
+void rampool_imp_c::gc()
 {
 	for (auto& pool_ : __pools)
 		pool_.gc();
 }
 
-void rampool_imp::auto_gc(bool b)
+void rampool_imp_c::auto_gc(bool b)
 {
 	__is_auto_gc = b;
 
@@ -116,12 +116,12 @@ void rampool_imp::auto_gc(bool b)
 	}
 }
 
-inline slot* rampool_imp::__slot_cast(void* p) const
+inline slot_s* rampool_imp_c::__slot_s_cast(void* p) const
 {
-	auto slot_ = POINTER_TO_SLOT(p);
+	auto slot_s_ = POINTER_TO_slot_s(p);
 
-	if (slot_->owner != this || slot_->valid != valid_t::SLOT_USED)
+	if (slot_s_->owner != this || slot_s_->valid != valid_t::slot_s_USED)
 		throw std::exception("invalid ptr");
 
-	return slot_;
+	return slot_s_;
 }

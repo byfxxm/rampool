@@ -4,12 +4,12 @@
 
 namespace rampool
 {
-	class rampool_imp
+	class rampool_imp_c
 	{
 	public:
-		rampool_imp();
-		~rampool_imp();
-		static rampool_imp* instance();
+		rampool_imp_c();
+		~rampool_imp_c();
+		static rampool_imp_c* instance();
 		void* malloc(size_t);
 		void free(void*);
 		void* realloc(void*, size_t);
@@ -20,7 +20,7 @@ namespace rampool
 		void auto_gc(bool);
 
 	private:
-		slot* __slot_cast(void*) const;
+		slot_s* __slot_s_cast(void*) const;
 
 	private:
 		std::array<pool, POOLNUM> __pools;

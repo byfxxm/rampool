@@ -13,7 +13,7 @@
 #define MAXSIZE (1024 * 1024)
 #define POOLNUM (MAXSIZE / GRANULARITY)
 #define POOLINDEX(size) (ROUND(size) / GRANULARITY - 1)
-#define POINTER_TO_SLOT(p) ((slot*)((char*)(p) - sizeof(slot)))
+#define POINTER_TO_slot_s(p) ((slot_s*)((char*)(p) - sizeof(slot_s)))
 #define AUTOGC_THRESHOLD 64
 
 namespace rampool {}

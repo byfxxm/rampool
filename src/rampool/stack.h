@@ -3,10 +3,10 @@
 namespace rampool
 {
 	template<typename T>
-	class stack
+	class stack_c
 	{
 	public:
-		struct node
+		struct node_s
 		{
 			T* prev = nullptr;
 			T* next = nullptr;

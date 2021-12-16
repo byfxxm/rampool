@@ -4,17 +4,17 @@
 
 namespace rampool
 {
-	struct block : public stack<block>::node
+	struct block_s : public stack_c<block_s>::node_s
 	{
-		block(size_t, const void*);
-		~block();
+		block_s(size_t, const void*);
+		~block_s();
 		void* alloc(size_t);
 		bool is_full();
 
 		char* mem{ nullptr };
 		size_t mem_size{ 0 };
-		slot** slots{ nullptr };
-		size_t slot_num{ 0 };
-		size_t cur_slot{ 0 };
+		slot_s** slot_ss{ nullptr };
+		size_t slot_s_num{ 0 };
+		size_t cur_slot_s{ 0 };
 	};
 }
