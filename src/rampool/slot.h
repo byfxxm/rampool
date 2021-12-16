@@ -4,17 +4,17 @@
 
 namespace rampool
 {
-	enum class valid_t
+	enum class slot_valid_t
 	{
-		SLOT_UNUSE = 0,
-		SLOT_USED = 'used',
-		SLOT_DELETED = 'dele',
+		UNUSE = 0,
+		USED = 'used',
+		DELETED = 'dele',
 	};
 
 	struct slot_s : public stack_c<slot_s>::node_s
 	{
 		const void* owner{ nullptr };
-		valid_t valid{ valid_t::SLOT_UNUSE };
+		slot_valid_t valid{ slot_valid_t::UNUSE };
 		size_t normalize_size{ 0 };
 		size_t actual_size{ 0 };
 		char mem[0];
