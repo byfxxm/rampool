@@ -13,8 +13,8 @@ namespace rampool
 
 		char* mem{ nullptr };
 		size_t mem_size{ 0 };
-		slot_s** slot_ss{ nullptr };
-		size_t slot_s_num{ 0 };
-		size_t cur_slot_s{ 0 };
+		slot_s** slots{ nullptr };
+		size_t slot_num{ 0 };
+		size_t cur_slot{ 0 };
 	};
 }

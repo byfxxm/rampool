@@ -88,17 +88,17 @@ void pool_c::gc()
 		next = block_->next;
 
 		size_t idx = 0;
-		for (; idx < block_->cur_slot_s; ++idx)
+		for (; idx < block_->cur_slot; ++idx)
 		{
-			assert(block_->slot_ss[idx]->valid != valid_t::slot_s_UNUSE);
-			if (block_->slot_ss[idx]->valid == valid_t::slot_s_USED)
+			assert(block_->slots[idx]->valid != valid_t::slot_s_UNUSE);
+			if (block_->slots[idx]->valid == valid_t::slot_s_USED)
 				break;
 		}
 
-		if (idx == block_->cur_slot_s)
+		if (idx == block_->cur_slot)
 		{
-			for (size_t i = 0; i < block_->cur_slot_s; ++i)
-				block_->slot_ss[i]->valid = valid_t::slot_s_UNUSE;
+			for (size_t i = 0; i < block_->cur_slot; ++i)
+				block_->slots[i]->valid = valid_t::slot_s_UNUSE;
 
 			for (auto slot_s_ = __free_stack.top(); slot_s_; slot_s_ = slot_s_->next)
 			{
