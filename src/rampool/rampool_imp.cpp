@@ -120,7 +120,7 @@ inline slot_s* rampool_imp_c::__slot_cast(void* p) const
 {
 	auto slot_s_ = POINTER_TO_slot_s(p);
 
-	if (slot_s_->owner != this || slot_s_->valid != slot_valid_t::USED)
+	if (slot_s_->owner != this || slot_s_->valid != slot_s::valid_t::USED)
 		throw std::exception("invalid ptr");
 
 	return slot_s_;
