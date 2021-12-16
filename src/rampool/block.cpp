@@ -37,8 +37,8 @@ block_s::~block_s()
 void* block_s::alloc(size_t size)
 {
 	assert(!is_full());
-	assert(slots[cur_slot]->valid == valid_t::slot_s_UNUSE);
-	slots[cur_slot]->valid = valid_t::slot_s_USED;
+	assert(slots[cur_slot]->valid == valid_t::SLOT_UNUSE);
+	slots[cur_slot]->valid = valid_t::SLOT_USED;
 	slots[cur_slot]->actual_size = size;
 	return slots[cur_slot++]->mem;
 }
