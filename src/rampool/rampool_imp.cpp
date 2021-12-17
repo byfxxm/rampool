@@ -92,10 +92,10 @@ void rampool_imp_c::auto_gc(bool b)
 
 	if (__is_auto_gc)
 	{
-		if (__auto_gc_thrd.joinable())
+		if (__auto_gc_thread.joinable())
 			return;
 
-		__auto_gc_thrd = std::thread([this]()
+		__auto_gc_thread = std::thread([this]()
 			{
 				while (__is_auto_gc)
 				{
@@ -111,8 +111,8 @@ void rampool_imp_c::auto_gc(bool b)
 	}
 	else
 	{
-		if (__auto_gc_thrd.joinable())
-			__auto_gc_thrd.join();
+		if (__auto_gc_thread.joinable())
+			__auto_gc_thread.join();
 	}
 }
 
