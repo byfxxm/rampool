@@ -3,14 +3,14 @@
 #ifdef _WIN64
 #define PLATFORM "x64"
 #else
-#define PLATFORM
+#define PLATFORM ""
 #endif
 #ifdef _DEBUG
-#define CONFIG "Debug"
+#define CONFIGURATION "Debug"
 #else
-#define CONFIG "Release"
+#define CONFIGURATION "Release"
 #endif
-#define LIB_DIR "../" PLATFORM "/" CONFIG "/"
+#define LIB_DIR "../" PLATFORM "/" CONFIGURATION "/"
 
 #pragma comment(lib, LIB_DIR "rampool.lib")
 #pragma comment(lib, LIB_DIR "lua.lib")
