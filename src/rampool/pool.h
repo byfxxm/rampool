@@ -6,7 +6,7 @@
 
 namespace rampool
 {
-	class pool_c
+	class pool
 	{
 	private:
 		using mutex_t = spin;
