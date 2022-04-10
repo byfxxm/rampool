@@ -20,7 +20,7 @@ namespace rampool
 		void auto_gc(bool);
 
 	private:
-		slot_s* __slot_cast(void*) const;
+		slot* __slot_cast(void*) const;
 
 	private:
 		std::array<pool_c, POOLNUM> __pools;

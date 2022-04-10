@@ -116,12 +116,12 @@ void rampool_imp_c::auto_gc(bool b)
 	}
 }
 
-inline slot_s* rampool_imp_c::__slot_cast(void* p) const
+inline slot* rampool_imp_c::__slot_cast(void* p) const
 {
-	auto slot = POINTER_TO_slot_s(p);
+	auto slot_ = POINTER_TO_slot_s(p);
 
-	if (slot->owner != this || slot->valid != slot_s::valid_t::USED)
+	if (slot_->owner != this || slot_->valid != slot::valid_t::USED)
 		throw std::exception("invalid ptr");
 
-	return slot;
+	return slot_;
 }
