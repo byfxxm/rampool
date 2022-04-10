@@ -4,10 +4,10 @@
 
 namespace rampool
 {
-	struct block_s : public stack<block_s>::node
+	struct block : public stack<block>::node
 	{
-		block_s(size_t, const void*);
-		~block_s();
+		block(size_t, const void*);
+		~block();
 		void* alloc(size_t);
 		bool is_full();
 

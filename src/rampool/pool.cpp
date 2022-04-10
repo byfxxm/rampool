@@ -29,14 +29,14 @@ void* pool::malloc(size_t size)
 		return slot->mem;
 	}
 
-	auto block = __block_stack.top();
-	if (!block || block->is_full())
+	auto block_ = __block_stack.top();
+	if (!block_ || block_->is_full())
 	{
-		block = new block_s(__size, __owner);
-		__block_stack.push(block);
+		block_ = new block(__size, __owner);
+		__block_stack.push(block_);
 	}
 
-	return block->alloc(size);
+	return block_->alloc(size);
 }
 
 void pool::free(void* p)
@@ -55,14 +55,14 @@ void pool::destroy()
 {
 	lock_t lock(__mutex);
 
-	block_s* block = nullptr;
-	while (block = __block_stack.top())
+	block* block_ = nullptr;
+	while (block_ = __block_stack.top())
 	{
 		__block_stack.pop();
-		delete block;
+		delete block_;
 	}
 
-	new(&__block_stack) stack<block_s>();
+	new(&__block_stack) stack<block>();
 	new(&__free_stack) stack<slot>();
 	__count = 0;
 	__total = 0;
@@ -82,7 +82,7 @@ void pool::gc()
 {
 	lock_t lock(__mutex);
 
-	block_s* next = nullptr;
+	block* next = nullptr;
 	for (auto block = __block_stack.top(); block; block = next)
 	{
 		next = block->next;
