@@ -4,12 +4,12 @@
 
 namespace rampool
 {
-	class rampool_imp_c
+	class rampool_imp
 	{
 	public:
-		rampool_imp_c();
-		~rampool_imp_c();
-		static rampool_imp_c* instance();
+		rampool_imp();
+		~rampool_imp();
+		static rampool_imp* instance();
 		void* malloc(size_t);
 		void free(void*);
 		void* realloc(void*, size_t);

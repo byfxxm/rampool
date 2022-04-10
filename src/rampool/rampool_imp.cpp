@@ -3,7 +3,7 @@
 #include "block.h"
 #include "slot.h"
 
-rampool_imp_c::rampool_imp_c()
+rampool_imp::rampool_imp()
 {
 	size_t size = 0;
 	for_each(__pools.begin(), __pools.end(), [&](auto& it)
@@ -13,25 +13,25 @@ rampool_imp_c::rampool_imp_c()
 		});
 }
 
-rampool_imp_c::~rampool_imp_c()
+rampool_imp::~rampool_imp()
 {
 	auto_gc(false);
 	destroy();
 }
 
-rampool_imp_c* rampool_imp_c::instance()
+rampool_imp* rampool_imp::instance()
 {
-	static rampool_imp_c inst;
+	static rampool_imp inst;
 	return &inst;
 }
 
-void rampool_imp_c::destroy()
+void rampool_imp::destroy()
 {
 	for (auto& pool : __pools)
 		pool.destroy();
 }
 
-void* rampool_imp_c::malloc(size_t size)
+void* rampool_imp::malloc(size_t size)
 {
 	if (size == 0 || size > MAXSIZE)
 		return nullptr;
@@ -39,7 +39,7 @@ void* rampool_imp_c::malloc(size_t size)
 	return __pools[POOLINDEX(size)].malloc(size);
 }
 
-void rampool_imp_c::free(void* p)
+void rampool_imp::free(void* p)
 {
 	if (!p)
 		return;
@@ -47,7 +47,7 @@ void rampool_imp_c::free(void* p)
 	__pools[POOLINDEX(__slot_cast(p)->normalize_size)].free(p);
 }
 
-void* rampool_imp_c::realloc(void* p, size_t size)
+void* rampool_imp::realloc(void* p, size_t size)
 {
 	if (!p)
 		return malloc(size);
@@ -59,7 +59,7 @@ void* rampool_imp_c::realloc(void* p, size_t size)
 	return p_;
 }
 
-void rampool_imp_c::leak(leak_info_s* info)
+void rampool_imp::leak(leak_info_s* info)
 {
 	if (!info)
 		return;
@@ -75,18 +75,18 @@ void rampool_imp_c::leak(leak_info_s* info)
 	assert(info->total_actual_size <= info->total_size);
 }
 
-size_t rampool_imp_c::size(void* p)
+size_t rampool_imp::size(void* p)
 {
 	return __slot_cast(p)->actual_size;
 }
 
-void rampool_imp_c::gc()
+void rampool_imp::gc()
 {
 	for (auto& pool : __pools)
 		pool.gc();
 }
 
-void rampool_imp_c::auto_gc(bool b)
+void rampool_imp::auto_gc(bool b)
 {
 	__is_auto_gc = b;
 
@@ -116,7 +116,7 @@ void rampool_imp_c::auto_gc(bool b)
 	}
 }
 
-inline slot* rampool_imp_c::__slot_cast(void* p) const
+inline slot* rampool_imp::__slot_cast(void* p) const
 {
 	auto slot_ = POINTER_TO_slot_s(p);
 
