@@ -83,22 +83,22 @@ void pool::gc()
 	lock_t lock(__mutex);
 
 	block* next = nullptr;
-	for (auto block = __block_stack.top(); block; block = next)
+	for (auto block_ = __block_stack.top(); block_; block_ = next)
 	{
-		next = block->next;
+		next = block_->next;
 
 		size_t index = 0;
-		for (; index < block->cur_slot; ++index)
+		for (; index < block_->cur_slot; ++index)
 		{
-			assert(block->slots[index]->valid != slot::valid_t::UNUSE);
-			if (block->slots[index]->valid == slot::valid_t::USED)
+			assert(block_->slots[index]->valid != slot::valid_t::UNUSE);
+			if (block_->slots[index]->valid == slot::valid_t::USED)
 				break;
 		}
 
-		if (index == block->cur_slot)
+		if (index == block_->cur_slot)
 		{
-			for (size_t i = 0; i < block->cur_slot; ++i)
-				block->slots[i]->valid = slot::valid_t::UNUSE;
+			for (size_t i = 0; i < block_->cur_slot; ++i)
+				block_->slots[i]->valid = slot::valid_t::UNUSE;
 
 			for (auto slot = __free_stack.top(); slot; slot = slot->next)
 			{
@@ -106,8 +106,8 @@ void pool::gc()
 					__free_stack.erase(slot);
 			}
 
-			__block_stack.erase(block);
-			delete block;
+			__block_stack.erase(block_);
+			delete block_;
 		}
 	}
 }
