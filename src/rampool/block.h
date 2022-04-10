@@ -4,7 +4,7 @@
 
 namespace rampool
 {
-	struct block_s : public stack<block_s>::node_s
+	struct block_s : public stack<block_s>::node
 	{
 		block_s(size_t, const void*);
 		~block_s();

@@ -4,7 +4,7 @@
 
 namespace rampool
 {
-	struct slot : public stack<slot>::node_s
+	struct slot : public stack<slot>::node
 	{
 		enum class valid_t
 		{

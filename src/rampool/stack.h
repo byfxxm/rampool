@@ -6,7 +6,7 @@ namespace rampool
 	class stack
 	{
 	public:
-		struct node_s
+		struct node
 		{
 			T* prev = nullptr;
 			T* next = nullptr;
