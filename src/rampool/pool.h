@@ -9,7 +9,7 @@ namespace rampool
 	class pool_c
 	{
 	private:
-		using mutex_t = spin_c;
+		using mutex_t = spin;
 		using lock_t = std::lock_guard<mutex_t>;
 
 	public:

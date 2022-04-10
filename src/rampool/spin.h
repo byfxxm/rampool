@@ -2,7 +2,7 @@
 
 namespace rampool
 {
-	class spin_c
+	class spin
 	{
 	public:
 		void lock()
