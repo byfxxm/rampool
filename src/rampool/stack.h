@@ -3,7 +3,7 @@
 namespace rampool
 {
 	template<typename T>
-	class stack_c
+	class stack
 	{
 	public:
 		struct node_s

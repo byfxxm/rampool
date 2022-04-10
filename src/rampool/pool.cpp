@@ -62,8 +62,8 @@ void pool_c::destroy()
 		delete block;
 	}
 
-	new(&__block_stack) stack_c<block_s>();
-	new(&__free_stack) stack_c<slot_s>();
+	new(&__block_stack) stack<block_s>();
+	new(&__free_stack) stack<slot_s>();
 	__count = 0;
 	__total = 0;
 }

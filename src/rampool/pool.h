@@ -25,8 +25,8 @@ namespace rampool
 
 	private:
 		mutex_t __mutex;
-		stack_c<block_s> __block_stack;
-		stack_c<slot_s> __free_stack;
+		stack<block_s> __block_stack;
+		stack<slot_s> __free_stack;
 		size_t __size{ 0 };
 		size_t __count{ 0 };
 		size_t __total{ 0 };
