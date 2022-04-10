@@ -2,10 +2,8 @@
 #include "rampool.h"
 #include "pool.h"
 
-namespace rampool
-{
-	class rampool_imp
-	{
+namespace rampool {
+	class rampool_imp {
 	public:
 		rampool_imp();
 		~rampool_imp();

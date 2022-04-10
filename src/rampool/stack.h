@@ -1,19 +1,15 @@
 #pragma once
 
-namespace rampool
-{
+namespace rampool {
 	template<typename T>
-	class stack
-	{
+	class stack {
 	public:
-		struct node
-		{
+		struct node {
 			T* prev = nullptr;
 			T* next = nullptr;
 		};
 
-		void push(T* p)
-		{
+		void push(T* p) {
 			assert(p);
 			++__count;
 			p->next = __top;
@@ -21,8 +17,7 @@ namespace rampool
 			__top = p;
 		}
 
-		T* pop()
-		{
+		T* pop() {
 			if (!__top)
 				return nullptr;
 
@@ -34,13 +29,11 @@ namespace rampool
 			return ret;
 		}
 
-		T* top() const
-		{
+		T* top() const {
 			return __top;
 		}
 
-		void erase(T* p)
-		{
+		void erase(T* p) {
 			assert(p);
 			--__count;
 
@@ -53,8 +46,7 @@ namespace rampool
 				p->next->prev = p->prev;
 		}
 
-		size_t count() const
-		{
+		size_t count() const {
 			return __count;
 		}
 

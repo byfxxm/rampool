@@ -4,10 +4,8 @@
 #include "slot.h"
 #include "spin.h"
 
-namespace rampool
-{
-	class pool
-	{
+namespace rampool {
+	class pool {
 	private:
 		using mutex_t = spin;
 		using lock_t = std::lock_guard<mutex_t>;

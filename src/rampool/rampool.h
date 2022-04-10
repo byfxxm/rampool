@@ -6,16 +6,14 @@
 #define RAMPOOL_API __declspec(dllimport)
 #endif
 
-struct leak_info_s
-{
+struct leak_info_s {
 	size_t count;
 	size_t total_size;
 	size_t total_actual_size;
 };
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 	RAMPOOL_API void* rp_malloc(size_t size);
 	RAMPOOL_API void rp_free(void* p);

@@ -2,12 +2,9 @@
 #pragma warning(disable:4200)
 #include "stack.h"
 
-namespace rampool
-{
-	struct slot : public stack<slot>::node
-	{
-		enum class valid_t
-		{
+namespace rampool {
+	struct slot : public stack<slot>::node {
+		enum class valid_t {
 			UNUSE = 0,
 			USED = 'used',
 			DELETED = 'dele',

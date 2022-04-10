@@ -2,8 +2,7 @@
 #include "block.h"
 #include "slot.h"
 
-block::block(size_t size, const void* owner)
-{
+block::block(size_t size, const void* owner) {
 	if (size <= MAXSIZE / 8)
 		slot_num = 32;
 	else if (size <= MAXSIZE)
@@ -19,8 +18,7 @@ block::block(size_t size, const void* owner)
 
 	slots = new slot * [slot_num];
 	size_t index_of_mem = 0;
-	for (size_t i = 0; i < slot_num; ++i)
-	{
+	for (size_t i = 0; i < slot_num; ++i) {
 		slots[i] = new(&mem[index_of_mem]) slot();
 		slots[i]->normalize_size = round_size;
 		slots[i]->owner = owner;
@@ -28,14 +26,12 @@ block::block(size_t size, const void* owner)
 	}
 }
 
-block::~block()
-{
+block::~block() {
 	delete[] slots;
 	VirtualFree(mem, 0, MEM_RELEASE);
 }
 
-void* block::alloc(size_t size)
-{
+void* block::alloc(size_t size) {
 	assert(!is_full());
 	assert(slots[cur_slot]->valid == slot::valid_t::UNUSE);
 	slots[cur_slot]->valid = slot::valid_t::USED;
@@ -43,7 +39,6 @@ void* block::alloc(size_t size)
 	return slots[cur_slot++]->mem;
 }
 
-bool block::is_full()
-{
+bool block::is_full() {
 	return cur_slot == slot_num;
 }
