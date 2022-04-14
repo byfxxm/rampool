@@ -83,10 +83,9 @@ void RampoolImp::AutoGc(bool b) {
 
 		auto_gc_thread_ = std::thread([this]() {
 			while (is_auto_gc_) {
-				for (auto& pool : pools_) {
+				for (auto& pool : pools_)
 					if (pool.NeedGc())
 						pool.Gc();
-				}
 
 				std::this_thread::yield();
 			}
