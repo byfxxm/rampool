@@ -1,28 +1,28 @@
 ﻿#include "stdafx.h"
 #include "../rampool/rampool.h"
 
-void test1();
-void test2();
-void test3();
-void test4();
-void test5();
-void test6();
-void test7();
-void test8();
+void Test1();
+void Test2();
+void Test3();
+void Test4();
+void Test5();
+void Test6();
+void Test7();
+void Test8();
 
 int main()
 {
 	do
 	{
 		rp_auto_gc(true);
-		test1();
-		test2();
-		test3();
-		test4();
-		test5();
-		test6();
-		test7();
-		test8();
+		Test1();
+		Test2();
+		Test3();
+		Test4();
+		Test5();
+		Test6();
+		Test7();
+		Test8();
 	} while (1);
 
 	return 0;

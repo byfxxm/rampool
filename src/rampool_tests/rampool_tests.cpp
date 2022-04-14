@@ -2,43 +2,37 @@
 #include "../rampool/rampool.h"
 #include "../lua/lua52/lua.hpp"
 
-void* lua_alloc(void* ud, void* ptr, size_t osize, size_t nsize)
+void* LuaAlloc(void* ud, void* ptr, size_t osize, size_t nsize)
 {
 	if (nsize == 0) {
 		rp_free(ptr);
 		return nullptr;
-	}
-	else
-	{
+	} else {
 		return rp_realloc(ptr, nsize);
 	}
 }
 
-void leak(void* heap)
+void Leak(void* heap)
 {
 	LeakInfo info;
 	heap ? rp_heap_leak(heap, &info) : rp_leak(&info);
 	std::cout << std::dec << "leak count = " << info.count << ", leak size = " << info.total_size << ", leak actual size = " << info.total_actual_size << std::endl;
 }
 
-void rampool_compare(int times, std::function<void()>f1, std::function<void()>f2)
+void RampoolCompare(int times, std::function<void()>f1, std::function<void()>f2)
 {
-	auto _time1 = clock();
-
+	auto time1 = std::chrono::system_clock::now();
 	for (int _i = 0; _i < times; _i++)
 		f1();
-
-	auto _time2 = clock();
-
+	auto time2 = std::chrono::system_clock::now();
 	for (int _i = 0; _i < times; _i++)
 		f2();
+	auto time3 = std::chrono::system_clock::now();
 
-	auto _time3 = clock();
-
-	printf("time ratio: %f\n", 1.0 * ((double)_time2 - _time1) / ((double)_time3 - _time2));
+	printf("time ratio: %f\n", 1.0 * std::chrono::duration<double>(time2 - time1).count() / std::chrono::duration<double>(time3 - time2).count());
 }
 
-void test1()
+void Test1()
 {
 	int sizes[16000];
 	srand((unsigned)time(0));
@@ -46,14 +40,12 @@ void test1()
 	for (auto& size : sizes)
 		size = rand() % 10240 + 1;
 
-	auto run_rampool = [](int size)
-	{
+	auto run_rampool = [](int size) {
 		void* _p = rp_malloc(size);
 		rp_free(_p);
 	};
 	
-	auto run_mmu = [](int size)
-	{
+	auto run_mmu = [](int size) {
 		void* _p = malloc(size);
 		free(_p);
 	};
@@ -62,45 +54,37 @@ void test1()
 	{
 		std::thread thds[100];
 
-		for (int _i = 0; _i < _countof(thds); _i++)
-		{
-			thds[_i] = std::thread([&]()
-			{
+		for (int _i = 0; _i < _countof(thds); _i++) {
+			thds[_i] = std::thread([&]() {
 				for (int _j = 0; _j < _countof(sizes); _j++)
 					run(sizes[_j]);
-			});
+				});
 		}
 
 		for (auto& th : thds)
-		{
 			th.join();
-		}
 	};
 
-	rampool_compare(1, [&]()
-		{
+	RampoolCompare(1,
+		[&]() {
 			multi_thread_run(run_rampool);
-		}, [&]()
-		{
+		},
+		[&]() {
 			multi_thread_run(run_mmu);
 		});
 }
 
-void test2()
-{
+void Test2() {
 	{
 		std::shared_ptr<void> ps[16000];
 		for (auto& pi : ps)
-		{
 			pi.reset(rp_malloc(1000), rp_free);
-		}
 	}
 
-	leak(nullptr);
+	Leak(nullptr);
 }
 
-void test3()
-{
+void Test3() {
 	void* p1 = rp_malloc(1001);
 	void* p2 = rp_malloc(40);
 	void* p3 = rp_malloc(11000);
@@ -108,13 +92,12 @@ void test3()
 
 	rp_free(p3);
 	rp_free(p1);
-	leak(nullptr);
+	Leak(nullptr);
 	rp_destroy();
 }
 
-void test4()
-{
-	auto lua = lua_newstate(lua_alloc, nullptr);
+void Test4() {
+	auto lua = lua_newstate(LuaAlloc, nullptr);
 	luaL_openlibs(lua);
 
 	auto sub_lua_1 = lua_newthread(lua);
@@ -131,8 +114,7 @@ void test4()
 				print(v)\n\
 			end\n\
 			F1()\n\
-		end"))
-	{
+		end")) {
 		auto _s = lua_tostring(sub_lua_1, -1);
 		std::cout << _s << std::endl;
 	}
@@ -140,68 +122,50 @@ void test4()
 	luaL_dostring(sub_lua_2, "F2()");
 	lua_close(lua);
 
-	leak(nullptr);
+	Leak(nullptr);
 }
 
-void test5()
-{
+void Test5() {
 	for (int _i = 0; _i < 100000; _i++)
-	{
 		rp_malloc(_i % 1000 + 1);
-	}
 
 	rp_destroy();
 }
 
-void test6()
-{
+void Test6() {
 	void* ps[100000];
-
 	for (auto& pi : ps)
-	{
 		pi = rp_malloc(20);
-	}
-
 	for (auto& pi : ps)
-	{
 		rp_free(pi);
-	}
-
 	rp_gc();
 }
 
-void test7()
-{
-	__try
-	{
+void Test7() {
+	__try {
 		int n = 0;
 		rp_free(&n);
 	}
-	__except (EXCEPTION_EXECUTE_HANDLER)
-	{
+	__except (EXCEPTION_EXECUTE_HANDLER) {
 		std::cout << std::hex << GetExceptionCode() << std::endl;
 	}
 }
 
-void test8()
-{
+void Test8() {
 	std::atomic<void*> p[100];
 	std::thread thd[_countof(p)];
 
-	for (int i = 0; i < _countof(p); ++i)
-	{
-		thd[i] = std::thread([&, i]()
-			{
-				for (int j = 0; j < 100000; ++j)
-					p[i] = rp_realloc(p[i], 18 + i % 8);
+	for (int i = 0; i < _countof(p); ++i) {
+		thd[i] = std::thread([&, i]() {
+			for (int j = 0; j < 100000; ++j)
+				p[i] = rp_realloc(p[i], 18 + i % 8);
 			});
 	}
 
 	for (auto& t : thd)
 		t.join();
-
 	for (auto& i : p)
 		rp_free(i);
 
-	leak(nullptr);
+	Leak(nullptr);
 }
