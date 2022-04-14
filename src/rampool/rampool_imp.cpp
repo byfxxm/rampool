@@ -51,13 +51,13 @@ void* RampoolImp::Realloc(void* p, size_t size) {
 	return p1;
 }
 
-void RampoolImp::Leak(leak_info_s* info) {
+void RampoolImp::Leak(LeakInfo* info) {
 	if (!info)
 		return;
 
-	memset(info, 0, sizeof(leak_info_s));
+	memset(info, 0, sizeof(LeakInfo));
 	for (auto& po : pools_) {
-		info->Count += po.Count();
+		info->count += po.Count();
 		info->total_size += po.Count() * po.GetSize();
 		info->total_actual_size += po.Total();
 	}

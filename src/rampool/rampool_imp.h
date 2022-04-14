@@ -12,7 +12,7 @@ namespace rampool {
 		void Free(void*);
 		void* Realloc(void*, size_t);
 		void Destroy();
-		void Leak(leak_info_s*);
+		void Leak(LeakInfo*);
 		size_t Size(void*);
 		void Gc();
 		void AutoGc(bool);
