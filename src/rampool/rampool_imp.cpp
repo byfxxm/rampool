@@ -4,10 +4,10 @@
 #include "Slot.h"
 
 RampoolImp::RampoolImp() {
-	size_t Size = 0;
+	size_t size = 0;
 	for_each(pools_.begin(), pools_.end(), [&](auto& it) {
-		Size += GRANULARITY;
-		it.Initialize(Size, this);
+		size += GRANULARITY;
+		it.Initialize(size, this);
 		});
 }
 
@@ -22,8 +22,8 @@ RampoolImp* RampoolImp::Instance() {
 }
 
 void RampoolImp::Destroy() {
-	for (auto& po : pools_)
-		po.Destroy();
+	for (auto& pool : pools_)
+		pool.Destroy();
 }
 
 void* RampoolImp::Malloc(size_t Size) {
@@ -40,15 +40,15 @@ void RampoolImp::Free(void* p) {
 	pools_[POOLINDEX(SlotCast(p)->normalize_size)].Free(p);
 }
 
-void* RampoolImp::Realloc(void* p, size_t Size) {
+void* RampoolImp::Realloc(void* p, size_t size) {
 	if (!p)
-		return Malloc(Size);
+		return Malloc(size);
 
-	auto slt = SlotCast(p);
-	auto p_ = Malloc(Size);
-	memmove(p_, p, min(slt->actual_size, Size));
+	auto slot = SlotCast(p);
+	auto p1 = Malloc(size);
+	memmove(p1, p, min(slot->actual_size, size));
 	Free(p);
-	return p_;
+	return p1;
 }
 
 void RampoolImp::Leak(leak_info_s* info) {
