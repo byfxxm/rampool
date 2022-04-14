@@ -74,8 +74,8 @@ void pool::Gc() {
 	Block* next = nullptr;
 	for (auto block = block_stack_.Top(); block; block = next) {
 		next = block->next;
-
 		size_t index = 0;
+
 		for (; index < block->cur_slot; ++index) {
 			assert(block_->slots[index]->valid != Slot::Valid::kUnuse);
 			if (block->slots[index]->valid == Slot::Valid::kUsed)
@@ -86,10 +86,9 @@ void pool::Gc() {
 			for (size_t i = 0; i < block->cur_slot; ++i)
 				block->slots[i]->valid = Slot::Valid::kUnuse;
 
-			for (auto slot = free_stack_.Top(); slot; slot = slot->next) {
+			for (auto slot = free_stack_.Top(); slot; slot = slot->next)
 				if (slot->valid == Slot::Valid::kUnuse)
 					free_stack_.Erase(slot);
-			}
 
 			block_stack_.Erase(block);
 			delete block;
