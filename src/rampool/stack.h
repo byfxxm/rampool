@@ -9,7 +9,7 @@ namespace rampool {
 			T* next = nullptr;
 		};
 
-		void push(T* p) {
+		void Push(T* p) {
 			assert(p);
 			++count_;
 			p->next = top_;
@@ -17,7 +17,7 @@ namespace rampool {
 			top_ = p;
 		}
 
-		T* pop() {
+		T* Pop() {
 			if (!top_)
 				return nullptr;
 
@@ -29,11 +29,11 @@ namespace rampool {
 			return ret;
 		}
 
-		T* top() const {
+		T* Top() const {
 			return top_;
 		}
 
-		void erase(T* p) {
+		void Erase(T* p) {
 			assert(p);
 			--count_;
 

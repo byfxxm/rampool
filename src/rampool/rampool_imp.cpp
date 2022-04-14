@@ -101,7 +101,7 @@ void RampoolImp::AutoGc(bool b) {
 inline Slot* RampoolImp::SlotCast(void* p) const {
 	auto slt = POINTER_TO_slot_s(p);
 
-	if (slt->owner != this || slt->valid != Slot::Valid::USED)
+	if (slt->owner != this || slt->valid != Slot::Valid::kUsed)
 		throw std::exception("invalid ptr");
 
 	return slt;

@@ -33,8 +33,8 @@ Block::~Block() {
 
 void* Block::Alloc(size_t Size) {
 	assert(!IsFull());
-	assert(slots[cur_slot]->valid == Slot::Valid::UNUSE);
-	slots[cur_slot]->valid = Slot::Valid::USED;
+	assert(slots[cur_slot]->valid == Slot::Valid::kUnuse);
+	slots[cur_slot]->valid = Slot::Valid::kUsed;
 	slots[cur_slot]->actual_size = Size;
 	return slots[cur_slot++]->mem;
 }
