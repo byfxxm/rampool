@@ -2,56 +2,56 @@
 
 namespace rampool {
 	template<typename T>
-	class stack {
+	class Stack {
 	public:
-		struct node {
+		struct Node {
 			T* prev = nullptr;
 			T* next = nullptr;
 		};
 
 		void push(T* p) {
 			assert(p);
-			++__count;
-			p->next = __top;
-			__top && (__top->prev = p, 0);
-			__top = p;
+			++count_;
+			p->next = top_;
+			top_ && (top_->prev = p, 0);
+			top_ = p;
 		}
 
 		T* pop() {
-			if (!__top)
+			if (!top_)
 				return nullptr;
 
-			auto ret = __top;
-			--__count;
-			__top = __top->next;
-			__top && (__top->prev = nullptr, 0);
-			assert(__count >= 0);
+			auto ret = top_;
+			--count_;
+			top_ = top_->next;
+			top_ && (top_->prev = nullptr, 0);
+			assert(count_ >= 0);
 			return ret;
 		}
 
 		T* top() const {
-			return __top;
+			return top_;
 		}
 
 		void erase(T* p) {
 			assert(p);
-			--__count;
+			--count_;
 
 			if (p->prev)
 				p->prev->next = p->next;
 			else
-				__top = p->next;
+				top_ = p->next;
 
 			if (p->next)
 				p->next->prev = p->prev;
 		}
 
 		size_t count() const {
-			return __count;
+			return count_;
 		}
 
 	private:
-		T* __top{ nullptr };
-		size_t __count{ 0 };
+		T* top_{ nullptr };
+		size_t count_{ 0 };
 	};
 }

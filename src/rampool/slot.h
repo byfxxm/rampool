@@ -3,7 +3,7 @@
 #include "stack.h"
 
 namespace rampool {
-	struct slot : public stack<slot>::node {
+	struct slot : public Stack<slot>::Node {
 		enum class valid_t {
 			UNUSE = 0,
 			USED = 'used',

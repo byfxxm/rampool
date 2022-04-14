@@ -3,7 +3,7 @@
 #include "slot.h"
 
 namespace rampool {
-	struct block : public stack<block>::node {
+	struct block : public Stack<block>::Node {
 		block(size_t, const void*);
 		~block();
 		void* alloc(size_t);
