@@ -17,31 +17,31 @@ void* pool::Malloc(size_t size) {
 	++count_;
 	total_ += size;
 
-	auto slt = free_stack_.Pop();
-	if (slt) {
-		assert(slt->valid == Slot::Valid::kDeleted);
-		slt->valid = Slot::Valid::kUsed;
-		slt->actual_size = size;
-		return slt->mem;
+	auto slot = free_stack_.Pop();
+	if (slot) {
+		assert(slot->valid == Slot::Valid::kDeleted);
+		slot->valid = Slot::Valid::kUsed;
+		slot->actual_size = size;
+		return slot->mem;
 	}
 
-	auto blk = block_stack_.Top();
-	if (!blk || blk->IsFull()) {
-		blk = new Block(size_, owner_);
-		block_stack_.Push(blk);
+	auto block = block_stack_.Top();
+	if (!block || block->IsFull()) {
+		block = new Block(size_, owner_);
+		block_stack_.Push(block);
 	}
 
-	return blk->Alloc(size);
+	return block->Alloc(size);
 }
 
 void pool::Free(void* p) {
 	Lock lock(mutex_);
 
-	auto slt = POINTER_TO_slot_s(p);
-	slt->valid = Slot::Valid::kDeleted;
-	free_stack_.Push(slt);
+	auto slot = POINTER_TO_slot_s(p);
+	slot->valid = Slot::Valid::kDeleted;
+	free_stack_.Push(slot);
 	--count_;
-	total_ -= slt->actual_size;
+	total_ -= slot->actual_size;
 	assert((int)count_ >= 0);
 }
 
