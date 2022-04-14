@@ -12,94 +12,91 @@ size_t pool::GetSize() {
 	return size_;
 }
 
-void* pool::Malloc(size_t Size) {
-	Lock lck(mutex_);
+void* pool::Malloc(size_t size) {
+	Lock lock(mutex_);
 	++count_;
-	total_ += Size;
+	total_ += size;
 
-	auto slt = free_Stack_.Pop();
+	auto slt = free_stack_.Pop();
 	if (slt) {
 		assert(slt->valid == Slot::Valid::kDeleted);
 		slt->valid = Slot::Valid::kUsed;
-		slt->actual_size = Size;
+		slt->actual_size = size;
 		return slt->mem;
 	}
 
-	auto blk = block_Stack_.Top();
+	auto blk = block_stack_.Top();
 	if (!blk || blk->IsFull()) {
 		blk = new Block(size_, owner_);
-		block_Stack_.Push(blk);
+		block_stack_.Push(blk);
 	}
 
-	return blk->Alloc(Size);
+	return blk->Alloc(size);
 }
 
 void pool::Free(void* p) {
-	Lock lck(mutex_);
+	Lock lock(mutex_);
 
 	auto slt = POINTER_TO_slot_s(p);
 	slt->valid = Slot::Valid::kDeleted;
-	free_Stack_.Push(slt);
+	free_stack_.Push(slt);
 	--count_;
 	total_ -= slt->actual_size;
 	assert((int)count_ >= 0);
 }
 
 void pool::Destroy() {
-	Lock lck(mutex_);
+	Lock lock(mutex_);
 
-	Block* blk = nullptr;
-	while (blk = block_Stack_.Top()) {
-		block_Stack_.Pop();
-		delete blk;
+	Block* block = nullptr;
+	while (block = block_stack_.Top()) {
+		block_stack_.Pop();
+		delete block;
 	}
 
-	new(&block_Stack_) Stack<Block>();
-	new(&free_Stack_) Stack<Slot>();
+	new(&block_stack_) Stack<Block>();
+	new(&free_stack_) Stack<Slot>();
 	count_ = 0;
 	total_ = 0;
 }
 
-size_t pool::Count()
-{
+size_t pool::Count() {
 	return count_;
 }
 
-size_t pool::Total()
-{
+size_t pool::Total() {
 	return total_;
 }
 
-void pool::Gc()
-{
-	Lock lck(mutex_);
+void pool::Gc() {
+	Lock lock(mutex_);
 
 	Block* next = nullptr;
-	for (auto blk = block_Stack_.Top(); blk; blk = next) {
-		next = blk->next;
+	for (auto block = block_stack_.Top(); block; block = next) {
+		next = block->next;
 
 		size_t index = 0;
-		for (; index < blk->cur_slot; ++index) {
+		for (; index < block->cur_slot; ++index) {
 			assert(block_->slots[index]->valid != Slot::Valid::kUnuse);
-			if (blk->slots[index]->valid == Slot::Valid::kUsed)
+			if (block->slots[index]->valid == Slot::Valid::kUsed)
 				break;
 		}
 
-		if (index == blk->cur_slot) {
-			for (size_t i = 0; i < blk->cur_slot; ++i)
-				blk->slots[i]->valid = Slot::Valid::kUnuse;
+		if (index == block->cur_slot) {
+			for (size_t i = 0; i < block->cur_slot; ++i)
+				block->slots[i]->valid = Slot::Valid::kUnuse;
 
-			for (auto Slot = free_Stack_.Top(); Slot; Slot = Slot->next) {
-				if (Slot->valid == Slot::Valid::kUnuse)
-					free_Stack_.Erase(Slot);
+			for (auto slot = free_stack_.Top(); slot; slot = slot->next) {
+				if (slot->valid == Slot::Valid::kUnuse)
+					free_stack_.Erase(slot);
 			}
 
-			block_Stack_.Erase(blk);
-			delete blk;
+			block_stack_.Erase(block);
+			delete block;
 		}
 	}
 }
 
 bool pool::NeedGc() {
-	return free_Stack_.Count() >= AUTOGC_THRESHOLD;
+	return free_stack_.Count() >= AUTOGC_THRESHOLD;
 }

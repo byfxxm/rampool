@@ -2,16 +2,16 @@
 #include "rampool.h"
 #include "rampool_imp.h"
 
-void* rp_malloc(size_t Size) {
-	return RampoolImp::Instance()->Malloc(Size);
+void* rp_malloc(size_t size) {
+	return RampoolImp::Instance()->Malloc(size);
 }
 
 void rp_free(void* p) {
 	return RampoolImp::Instance()->Free(p);
 }
 
-void* rp_realloc(void* p, size_t Size) {
-	return RampoolImp::Instance()->Realloc(p, Size);
+void* rp_realloc(void* p, size_t size) {
+	return RampoolImp::Instance()->Realloc(p, size);
 }
 
 void rp_destroy() {
@@ -42,16 +42,16 @@ void rp_heap_delete(void* heap) {
 	return delete (RampoolImp*)heap;
 }
 
-void* rp_heap_malloc(void* heap, size_t Size) {
-	return ((RampoolImp*)heap)->Malloc(Size);
+void* rp_heap_malloc(void* heap, size_t size) {
+	return ((RampoolImp*)heap)->Malloc(size);
 }
 
 void rp_heap_free(void* heap, void* p) {
 	return ((RampoolImp*)heap)->Free(p);
 }
 
-void* rp_heap_realloc(void* heap, void* p, size_t Size) {
-	return ((RampoolImp*)heap)->Realloc(p, Size);
+void* rp_heap_realloc(void* heap, void* p, size_t size) {
+	return ((RampoolImp*)heap)->Realloc(p, size);
 }
 
 void rp_heap_destroy(void* heap) {

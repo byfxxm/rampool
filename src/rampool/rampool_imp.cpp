@@ -56,10 +56,10 @@ void RampoolImp::Leak(LeakInfo* info) {
 		return;
 
 	memset(info, 0, sizeof(LeakInfo));
-	for (auto& po : pools_) {
-		info->count += po.Count();
-		info->total_size += po.Count() * po.GetSize();
-		info->total_actual_size += po.Total();
+	for (auto& pool : pools_) {
+		info->count += pool.Count();
+		info->total_size += pool.Count() * pool.GetSize();
+		info->total_actual_size += pool.Total();
 	}
 
 	assert(info->total_actual_size <= info->total_size);
@@ -83,10 +83,10 @@ void RampoolImp::AutoGc(bool b) {
 
 		auto_gc_thread_ = std::thread([this]() {
 			while (is_auto_gc_) {
-				for (auto& po : pools_)
+				for (auto& pool : pools_)
 				{
-					if (po.NeedGc())
-						po.Gc();
+					if (pool.NeedGc())
+						pool.Gc();
 				}
 
 				std::this_thread::yield();
@@ -99,10 +99,10 @@ void RampoolImp::AutoGc(bool b) {
 }
 
 inline Slot* RampoolImp::SlotCast(void* p) const {
-	auto slt = POINTER_TO_slot_s(p);
+	auto slot = POINTER_TO_slot_s(p);
 
-	if (slt->owner != this || slt->valid != Slot::Valid::kUsed)
+	if (slot->owner != this || slot->valid != Slot::Valid::kUsed)
 		throw std::exception("invalid ptr");
 
-	return slt;
+	return slot;
 }

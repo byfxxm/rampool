@@ -23,8 +23,8 @@ namespace rampool {
 
 	private:
 		Mutex mutex_;
-		Stack<Block> block_Stack_;
-		Stack<Slot> free_Stack_;
+		Stack<Block> block_stack_;
+		Stack<Slot> free_stack_;
 		size_t size_{ 0 };
 		size_t count_{ 0 };
 		size_t total_{ 0 };
