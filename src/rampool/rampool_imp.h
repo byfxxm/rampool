@@ -3,26 +3,26 @@
 #include "pool.h"
 
 namespace rampool {
-	class rampool_imp {
+	class RampoolImp {
 	public:
-		rampool_imp();
-		~rampool_imp();
-		static rampool_imp* instance();
-		void* malloc(size_t);
-		void free(void*);
-		void* realloc(void*, size_t);
-		void destroy();
-		void leak(leak_info_s*);
-		size_t size(void*);
-		void gc();
-		void auto_gc(bool);
+		RampoolImp();
+		~RampoolImp();
+		static RampoolImp* Instance();
+		void* Malloc(size_t);
+		void Free(void*);
+		void* Realloc(void*, size_t);
+		void Destroy();
+		void Leak(leak_info_s*);
+		size_t Size(void*);
+		void Gc();
+		void AutoGc(bool);
 
 	private:
-		slot* __slot_cast(void*) const;
+		Slot* SlotCast(void*) const;
 
 	private:
-		std::array<pool, POOLNUM> __pools;
-		std::thread __auto_gc_thread;
-		volatile bool __is_auto_gc{ false };
+		std::array<pool, POOLNUM> pools_;
+		std::thread auto_gc_thread_;
+		volatile bool is_auto_gc_{ false };
 	};
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "stack.h"
-#include "slot.h"
+#include "Slot.h"
 
 namespace rampool {
 	struct block : public Stack<block>::Node {
@@ -11,7 +11,7 @@ namespace rampool {
 
 		char* mem{ nullptr };
 		size_t mem_size{ 0 };
-		slot** slots{ nullptr };
+		Slot** slots{ nullptr };
 		size_t slot_num{ 0 };
 		size_t cur_slot{ 0 };
 	};

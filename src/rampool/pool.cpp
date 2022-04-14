@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "pool.h"
 #include "block.h"
-#include "slot.h"
+#include "Slot.h"
 
-void pool::initialize(size_t size, const void* owner) {
-	__size = size;
+void pool::initialize(size_t Size, const void* owner) {
+	__size = Size;
 	__owner = owner;
 }
 
@@ -12,16 +12,16 @@ size_t pool::get_size() {
 	return __size;
 }
 
-void* pool::malloc(size_t size) {
+void* pool::Malloc(size_t Size) {
 	lock_t lck(__mutex);
 	++count_;
-	__total += size;
+	__total += Size;
 
 	auto slt = __free_Stack.pop();
 	if (slt) {
-		assert(slt->valid == slot::valid_t::DELETED);
-		slt->valid = slot::valid_t::USED;
-		slt->actual_size = size;
+		assert(slt->valid == Slot::Valid::DELETED);
+		slt->valid = Slot::Valid::USED;
+		slt->actual_size = Size;
 		return slt->mem;
 	}
 
@@ -31,21 +31,21 @@ void* pool::malloc(size_t size) {
 		__block_Stack.push(blk);
 	}
 
-	return blk->alloc(size);
+	return blk->alloc(Size);
 }
 
-void pool::free(void* p) {
+void pool::Free(void* p) {
 	lock_t lck(__mutex);
 
 	auto slt = POINTER_TO_slot_s(p);
-	slt->valid = slot::valid_t::DELETED;
+	slt->valid = Slot::Valid::DELETED;
 	__free_Stack.push(slt);
 	--count_;
 	__total -= slt->actual_size;
 	assert((int)count_ >= 0);
 }
 
-void pool::destroy() {
+void pool::Destroy() {
 	lock_t lck(__mutex);
 
 	block* blk = nullptr;
@@ -55,7 +55,7 @@ void pool::destroy() {
 	}
 
 	new(&__block_Stack) Stack<block>();
-	new(&__free_Stack) Stack<slot>();
+	new(&__free_Stack) Stack<Slot>();
 	count_ = 0;
 	__total = 0;
 }
@@ -70,7 +70,7 @@ size_t pool::total()
 	return __total;
 }
 
-void pool::gc()
+void pool::Gc()
 {
 	lock_t lck(__mutex);
 
@@ -80,18 +80,18 @@ void pool::gc()
 
 		size_t index = 0;
 		for (; index < blk->cur_slot; ++index) {
-			assert(block_->slots[index]->valid != slot::valid_t::UNUSE);
-			if (blk->slots[index]->valid == slot::valid_t::USED)
+			assert(block_->slots[index]->valid != Slot::Valid::UNUSE);
+			if (blk->slots[index]->valid == Slot::Valid::USED)
 				break;
 		}
 
 		if (index == blk->cur_slot) {
 			for (size_t i = 0; i < blk->cur_slot; ++i)
-				blk->slots[i]->valid = slot::valid_t::UNUSE;
+				blk->slots[i]->valid = Slot::Valid::UNUSE;
 
-			for (auto slot = __free_Stack.top(); slot; slot = slot->next) {
-				if (slot->valid == slot::valid_t::UNUSE)
-					__free_Stack.erase(slot);
+			for (auto Slot = __free_Stack.top(); Slot; Slot = Slot->next) {
+				if (Slot->valid == Slot::Valid::UNUSE)
+					__free_Stack.erase(Slot);
 			}
 
 			__block_Stack.erase(blk);

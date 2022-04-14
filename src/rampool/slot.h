@@ -3,15 +3,15 @@
 #include "stack.h"
 
 namespace rampool {
-	struct slot : public Stack<slot>::Node {
-		enum class valid_t {
+	struct Slot : public Stack<Slot>::Node {
+		enum class Valid {
 			UNUSE = 0,
 			USED = 'used',
 			DELETED = 'dele',
 		};
 
 		const void* owner{ nullptr };
-		valid_t valid{ valid_t::UNUSE };
+		Valid valid{ Valid::UNUSE };
 		size_t normalize_size{ 0 };
 		size_t actual_size{ 0 };
 		char mem[0];

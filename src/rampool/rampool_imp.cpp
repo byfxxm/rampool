@@ -1,62 +1,62 @@
 #include "stdafx.h"
 #include "rampool_imp.h"
 #include "block.h"
-#include "slot.h"
+#include "Slot.h"
 
-rampool_imp::rampool_imp() {
-	size_t size = 0;
-	for_each(__pools.begin(), __pools.end(), [&](auto& it) {
-		size += GRANULARITY;
-		it.initialize(size, this);
+RampoolImp::RampoolImp() {
+	size_t Size = 0;
+	for_each(pools_.begin(), pools_.end(), [&](auto& it) {
+		Size += GRANULARITY;
+		it.initialize(Size, this);
 		});
 }
 
-rampool_imp::~rampool_imp() {
-	auto_gc(false);
-	destroy();
+RampoolImp::~RampoolImp() {
+	AutoGc(false);
+	Destroy();
 }
 
-rampool_imp* rampool_imp::instance() {
-	static rampool_imp inst;
+RampoolImp* RampoolImp::Instance() {
+	static RampoolImp inst;
 	return &inst;
 }
 
-void rampool_imp::destroy() {
-	for (auto& po : __pools)
-		po.destroy();
+void RampoolImp::Destroy() {
+	for (auto& po : pools_)
+		po.Destroy();
 }
 
-void* rampool_imp::malloc(size_t size) {
-	if (size == 0 || size > MAXSIZE)
+void* RampoolImp::Malloc(size_t Size) {
+	if (Size == 0 || Size > MAXSIZE)
 		return nullptr;
 
-	return __pools[POOLINDEX(size)].malloc(size);
+	return pools_[POOLINDEX(Size)].Malloc(Size);
 }
 
-void rampool_imp::free(void* p) {
+void RampoolImp::Free(void* p) {
 	if (!p)
 		return;
 
-	__pools[POOLINDEX(__slot_cast(p)->normalize_size)].free(p);
+	pools_[POOLINDEX(SlotCast(p)->normalize_size)].Free(p);
 }
 
-void* rampool_imp::realloc(void* p, size_t size) {
+void* RampoolImp::Realloc(void* p, size_t Size) {
 	if (!p)
-		return malloc(size);
+		return Malloc(Size);
 
-	auto slt = __slot_cast(p);
-	auto p_ = malloc(size);
-	memmove(p_, p, min(slt->actual_size, size));
-	free(p);
+	auto slt = SlotCast(p);
+	auto p_ = Malloc(Size);
+	memmove(p_, p, min(slt->actual_size, Size));
+	Free(p);
 	return p_;
 }
 
-void rampool_imp::leak(leak_info_s* info) {
+void RampoolImp::Leak(leak_info_s* info) {
 	if (!info)
 		return;
 
 	memset(info, 0, sizeof(leak_info_s));
-	for (auto& po : __pools) {
+	for (auto& po : pools_) {
 		info->count += po.count();
 		info->total_size += po.count() * po.get_size();
 		info->total_actual_size += po.total();
@@ -65,43 +65,43 @@ void rampool_imp::leak(leak_info_s* info) {
 	assert(info->total_actual_size <= info->total_size);
 }
 
-size_t rampool_imp::size(void* p) {
-	return __slot_cast(p)->actual_size;
+size_t RampoolImp::Size(void* p) {
+	return SlotCast(p)->actual_size;
 }
 
-void rampool_imp::gc() {
-	for (auto& pool : __pools)
-		pool.gc();
+void RampoolImp::Gc() {
+	for (auto& pool : pools_)
+		pool.Gc();
 }
 
-void rampool_imp::auto_gc(bool b) {
-	__is_auto_gc = b;
+void RampoolImp::AutoGc(bool b) {
+	is_auto_gc_ = b;
 
-	if (__is_auto_gc) {
-		if (__auto_gc_thread.joinable())
+	if (is_auto_gc_) {
+		if (auto_gc_thread_.joinable())
 			return;
 
-		__auto_gc_thread = std::thread([this]() {
-			while (__is_auto_gc) {
-				for (auto& po : __pools)
+		auto_gc_thread_ = std::thread([this]() {
+			while (is_auto_gc_) {
+				for (auto& po : pools_)
 				{
 					if (po.need_gc())
-						po.gc();
+						po.Gc();
 				}
 
 				std::this_thread::yield();
 			}
 			});
 	} else {
-		if (__auto_gc_thread.joinable())
-			__auto_gc_thread.join();
+		if (auto_gc_thread_.joinable())
+			auto_gc_thread_.join();
 	}
 }
 
-inline slot* rampool_imp::__slot_cast(void* p) const {
+inline Slot* RampoolImp::SlotCast(void* p) const {
 	auto slt = POINTER_TO_slot_s(p);
 
-	if (slt->owner != this || slt->valid != slot::valid_t::USED)
+	if (slt->owner != this || slt->valid != Slot::Valid::USED)
 		throw std::exception("invalid ptr");
 
 	return slt;

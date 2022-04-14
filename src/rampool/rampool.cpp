@@ -2,74 +2,74 @@
 #include "rampool.h"
 #include "rampool_imp.h"
 
-void* rp_malloc(size_t size) {
-	return rampool_imp::instance()->malloc(size);
+void* rp_malloc(size_t Size) {
+	return RampoolImp::Instance()->Malloc(Size);
 }
 
 void rp_free(void* p) {
-	return rampool_imp::instance()->free(p);
+	return RampoolImp::Instance()->Free(p);
 }
 
-void* rp_realloc(void* p, size_t size) {
-	return rampool_imp::instance()->realloc(p, size);
+void* rp_realloc(void* p, size_t Size) {
+	return RampoolImp::Instance()->Realloc(p, Size);
 }
 
 void rp_destroy() {
-	return rampool_imp::instance()->destroy();
+	return RampoolImp::Instance()->Destroy();
 }
 
 void rp_leak(leak_info_s* info) {
-	return rampool_imp::instance()->leak(info);
+	return RampoolImp::Instance()->Leak(info);
 }
 
 size_t rp_size(void* p) {
-	return rampool_imp::instance()->size(p);
+	return RampoolImp::Instance()->Size(p);
 }
 
 void rp_gc() {
-	return rampool_imp::instance()->gc();
+	return RampoolImp::Instance()->Gc();
 }
 
 void rp_auto_gc(bool b) {
-	return rampool_imp::instance()->auto_gc(b);
+	return RampoolImp::Instance()->AutoGc(b);
 }
 
 void* rp_heap_create() {
-	return new rampool_imp();
+	return new RampoolImp();
 }
 
 void rp_heap_delete(void* heap) {
-	return delete (rampool_imp*)heap;
+	return delete (RampoolImp*)heap;
 }
 
-void* rp_heap_malloc(void* heap, size_t size) {
-	return ((rampool_imp*)heap)->malloc(size);
+void* rp_heap_malloc(void* heap, size_t Size) {
+	return ((RampoolImp*)heap)->Malloc(Size);
 }
 
 void rp_heap_free(void* heap, void* p) {
-	return ((rampool_imp*)heap)->free(p);
+	return ((RampoolImp*)heap)->Free(p);
 }
 
-void* rp_heap_realloc(void* heap, void* p, size_t size) {
-	return ((rampool_imp*)heap)->realloc(p, size);
+void* rp_heap_realloc(void* heap, void* p, size_t Size) {
+	return ((RampoolImp*)heap)->Realloc(p, Size);
 }
 
 void rp_heap_destroy(void* heap) {
-	return ((rampool_imp*)heap)->destroy();
+	return ((RampoolImp*)heap)->Destroy();
 }
 
 void rp_heap_leak(void* heap, leak_info_s* info) {
-	return ((rampool_imp*)heap)->leak(info);
+	return ((RampoolImp*)heap)->Leak(info);
 }
 
 size_t rp_heap_size(void* heap, void* p) {
-	return ((rampool_imp*)heap)->size(p);
+	return ((RampoolImp*)heap)->Size(p);
 }
 
 void rp_heap_gc(void* heap) {
-	return ((rampool_imp*)heap)->gc();
+	return ((RampoolImp*)heap)->Gc();
 }
 
 void rp_heap_auto_gc(void* heap, bool b) {
-	return ((rampool_imp*)heap)->auto_gc(b);
+	return ((RampoolImp*)heap)->AutoGc(b);
 }

@@ -9,11 +9,11 @@
 #include <algorithm>
 
 #define GRANULARITY 16
-#define ROUND(size) (((size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
+#define ROUND(Size) (((Size) + GRANULARITY - 1) & ~(GRANULARITY - 1))
 #define MAXSIZE (1024 * 1024)
 #define POOLNUM (MAXSIZE / GRANULARITY)
-#define POOLINDEX(size) (ROUND(size) / GRANULARITY - 1)
-#define POINTER_TO_slot_s(p) ((slot*)((char*)(p) - sizeof(slot)))
+#define POOLINDEX(Size) (ROUND(Size) / GRANULARITY - 1)
+#define POINTER_TO_slot_s(p) ((Slot*)((char*)(p) - sizeof(Slot)))
 #define AUTOGC_THRESHOLD 64
 
 namespace rampool {}
