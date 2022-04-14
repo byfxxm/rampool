@@ -3,11 +3,11 @@
 #include "Slot.h"
 
 namespace rampool {
-	struct block : public Stack<block>::Node {
-		block(size_t, const void*);
-		~block();
-		void* alloc(size_t);
-		bool is_full();
+	struct Block : public Stack<Block>::Node {
+		Block(size_t, const void*);
+		~Block();
+		void* Alloc(size_t);
+		bool IsFull();
 
 		char* mem{ nullptr };
 		size_t mem_size{ 0 };

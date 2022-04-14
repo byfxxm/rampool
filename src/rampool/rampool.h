@@ -7,7 +7,7 @@
 #endif
 
 struct leak_info_s {
-	size_t count;
+	size_t Count;
 	size_t total_size;
 	size_t total_actual_size;
 };

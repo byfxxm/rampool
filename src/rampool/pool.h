@@ -1,33 +1,33 @@
 #pragma once
 #include "stack.h"
-#include "block.h"
+#include "Block.h"
 #include "Slot.h"
 #include "Spin.h"
 
 namespace rampool {
 	class pool {
 	private:
-		using mutex_t = Spin;
-		using lock_t = std::lock_guard<mutex_t>;
+		using Mutex = Spin;
+		using Lock = std::lock_guard<Mutex>;
 
 	public:
-		void initialize(size_t, const void*);
-		size_t get_size();
+		void Initialize(size_t, const void*);
+		size_t GetSize();
 		void* Malloc(size_t);
 		void Free(void*);
 		void Destroy();
-		size_t count();
-		size_t total();
+		size_t Count();
+		size_t Total();
 		void Gc();
-		bool need_gc();
+		bool NeedGc();
 
 	private:
-		mutex_t __mutex;
-		Stack<block> __block_Stack;
-		Stack<Slot> __free_Stack;
-		size_t __size{ 0 };
+		Mutex mutex_;
+		Stack<Block> block_Stack_;
+		Stack<Slot> free_Stack_;
+		size_t size_{ 0 };
 		size_t count_{ 0 };
-		size_t __total{ 0 };
-		const void* __owner{ nullptr };
+		size_t total_{ 0 };
+		const void* owner_{ nullptr };
 	};
 }

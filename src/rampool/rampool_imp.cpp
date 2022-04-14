@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "rampool_imp.h"
-#include "block.h"
+#include "Block.h"
 #include "Slot.h"
 
 RampoolImp::RampoolImp() {
 	size_t Size = 0;
 	for_each(pools_.begin(), pools_.end(), [&](auto& it) {
 		Size += GRANULARITY;
-		it.initialize(Size, this);
+		it.Initialize(Size, this);
 		});
 }
 
@@ -57,9 +57,9 @@ void RampoolImp::Leak(leak_info_s* info) {
 
 	memset(info, 0, sizeof(leak_info_s));
 	for (auto& po : pools_) {
-		info->count += po.count();
-		info->total_size += po.count() * po.get_size();
-		info->total_actual_size += po.total();
+		info->Count += po.Count();
+		info->total_size += po.Count() * po.GetSize();
+		info->total_actual_size += po.Total();
 	}
 
 	assert(info->total_actual_size <= info->total_size);
@@ -85,7 +85,7 @@ void RampoolImp::AutoGc(bool b) {
 			while (is_auto_gc_) {
 				for (auto& po : pools_)
 				{
-					if (po.need_gc())
+					if (po.NeedGc())
 						po.Gc();
 				}
 

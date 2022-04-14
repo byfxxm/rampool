@@ -1,23 +1,23 @@
 #include "stdafx.h"
 #include "pool.h"
-#include "block.h"
+#include "Block.h"
 #include "Slot.h"
 
-void pool::initialize(size_t Size, const void* owner) {
-	__size = Size;
-	__owner = owner;
+void pool::Initialize(size_t Size, const void* owner) {
+	size_ = Size;
+	owner_ = owner;
 }
 
-size_t pool::get_size() {
-	return __size;
+size_t pool::GetSize() {
+	return size_;
 }
 
 void* pool::Malloc(size_t Size) {
-	lock_t lck(__mutex);
+	Lock lck(mutex_);
 	++count_;
-	__total += Size;
+	total_ += Size;
 
-	auto slt = __free_Stack.pop();
+	auto slt = free_Stack_.pop();
 	if (slt) {
 		assert(slt->valid == Slot::Valid::DELETED);
 		slt->valid = Slot::Valid::USED;
@@ -25,57 +25,57 @@ void* pool::Malloc(size_t Size) {
 		return slt->mem;
 	}
 
-	auto blk = __block_Stack.top();
-	if (!blk || blk->is_full()) {
-		blk = new block(__size, __owner);
-		__block_Stack.push(blk);
+	auto blk = block_Stack_.top();
+	if (!blk || blk->IsFull()) {
+		blk = new Block(size_, owner_);
+		block_Stack_.push(blk);
 	}
 
-	return blk->alloc(Size);
+	return blk->Alloc(Size);
 }
 
 void pool::Free(void* p) {
-	lock_t lck(__mutex);
+	Lock lck(mutex_);
 
 	auto slt = POINTER_TO_slot_s(p);
 	slt->valid = Slot::Valid::DELETED;
-	__free_Stack.push(slt);
+	free_Stack_.push(slt);
 	--count_;
-	__total -= slt->actual_size;
+	total_ -= slt->actual_size;
 	assert((int)count_ >= 0);
 }
 
 void pool::Destroy() {
-	lock_t lck(__mutex);
+	Lock lck(mutex_);
 
-	block* blk = nullptr;
-	while (blk = __block_Stack.top()) {
-		__block_Stack.pop();
+	Block* blk = nullptr;
+	while (blk = block_Stack_.top()) {
+		block_Stack_.pop();
 		delete blk;
 	}
 
-	new(&__block_Stack) Stack<block>();
-	new(&__free_Stack) Stack<Slot>();
+	new(&block_Stack_) Stack<Block>();
+	new(&free_Stack_) Stack<Slot>();
 	count_ = 0;
-	__total = 0;
+	total_ = 0;
 }
 
-size_t pool::count()
+size_t pool::Count()
 {
 	return count_;
 }
 
-size_t pool::total()
+size_t pool::Total()
 {
-	return __total;
+	return total_;
 }
 
 void pool::Gc()
 {
-	lock_t lck(__mutex);
+	Lock lck(mutex_);
 
-	block* next = nullptr;
-	for (auto blk = __block_Stack.top(); blk; blk = next) {
+	Block* next = nullptr;
+	for (auto blk = block_Stack_.top(); blk; blk = next) {
 		next = blk->next;
 
 		size_t index = 0;
@@ -89,17 +89,17 @@ void pool::Gc()
 			for (size_t i = 0; i < blk->cur_slot; ++i)
 				blk->slots[i]->valid = Slot::Valid::UNUSE;
 
-			for (auto Slot = __free_Stack.top(); Slot; Slot = Slot->next) {
+			for (auto Slot = free_Stack_.top(); Slot; Slot = Slot->next) {
 				if (Slot->valid == Slot::Valid::UNUSE)
-					__free_Stack.erase(Slot);
+					free_Stack_.erase(Slot);
 			}
 
-			__block_Stack.erase(blk);
+			block_Stack_.erase(blk);
 			delete blk;
 		}
 	}
 }
 
-bool pool::need_gc() {
-	return __free_Stack.count() >= AUTOGC_THRESHOLD;
+bool pool::NeedGc() {
+	return free_Stack_.Count() >= AUTOGC_THRESHOLD;
 }

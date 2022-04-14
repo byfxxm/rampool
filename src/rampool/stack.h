@@ -46,7 +46,7 @@ namespace rampool {
 				p->next->prev = p->prev;
 		}
 
-		size_t count() const {
+		size_t Count() const {
 			return count_;
 		}
 

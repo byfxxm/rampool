@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "block.h"
+#include "Block.h"
 #include "Slot.h"
 
-block::block(size_t Size, const void* owner) {
+Block::Block(size_t Size, const void* owner) {
 	if (Size <= MAXSIZE / 8)
 		slot_num = 32;
 	else if (Size <= MAXSIZE)
@@ -26,19 +26,19 @@ block::block(size_t Size, const void* owner) {
 	}
 }
 
-block::~block() {
+Block::~Block() {
 	delete[] slots;
 	VirtualFree(mem, 0, MEM_RELEASE);
 }
 
-void* block::alloc(size_t Size) {
-	assert(!is_full());
+void* Block::Alloc(size_t Size) {
+	assert(!IsFull());
 	assert(slots[cur_slot]->valid == Slot::Valid::UNUSE);
 	slots[cur_slot]->valid = Slot::Valid::USED;
 	slots[cur_slot]->actual_size = Size;
 	return slots[cur_slot++]->mem;
 }
 
-bool block::is_full() {
+bool Block::IsFull() {
 	return cur_slot == slot_num;
 }
