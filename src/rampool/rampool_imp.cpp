@@ -46,7 +46,7 @@ void* RampoolImp::Realloc(void* p, size_t size) {
 
 	auto slot = SlotCast(p);
 	auto p1 = Malloc(size);
-	memmove(p1, p, min(slot->actual_size, size));
+	memcpy(p1, p, min(slot->actual_size, size));
 	Free(p);
 	return p1;
 }
