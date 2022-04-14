@@ -16,7 +16,7 @@ void* lua_alloc(void* ud, void* ptr, size_t osize, size_t nsize)
 
 void leak(void* heap)
 {
-	leak_info_s info;
+	LeakInfo info;
 	heap ? rp_heap_leak(heap, &info) : rp_leak(&info);
 	std::cout << std::dec << "leak count = " << info.count << ", leak size = " << info.total_size << ", leak actual size = " << info.total_actual_size << std::endl;
 }
