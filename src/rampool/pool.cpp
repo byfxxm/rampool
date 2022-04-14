@@ -3,8 +3,8 @@
 #include "Block.h"
 #include "Slot.h"
 
-void pool::Initialize(size_t Size, const void* owner) {
-	size_ = Size;
+void pool::Initialize(size_t size, const void* owner) {
+	size_ = size;
 	owner_ = owner;
 }
 

@@ -26,11 +26,11 @@ void RampoolImp::Destroy() {
 		pool.Destroy();
 }
 
-void* RampoolImp::Malloc(size_t Size) {
-	if (Size == 0 || Size > MAXSIZE)
+void* RampoolImp::Malloc(size_t size) {
+	if (size == 0 || size > MAXSIZE)
 		return nullptr;
 
-	return pools_[POOLINDEX(Size)].Malloc(Size);
+	return pools_[POOLINDEX(size)].Malloc(size);
 }
 
 void RampoolImp::Free(void* p) {
