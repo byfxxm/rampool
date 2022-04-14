@@ -2,15 +2,15 @@
 #include "Block.h"
 #include "Slot.h"
 
-Block::Block(size_t Size, const void* owner) {
-	if (Size <= MAXSIZE / 8)
+Block::Block(size_t size, const void* owner) {
+	if (size <= MAXSIZE / 8)
 		slot_num = 32;
-	else if (Size <= MAXSIZE)
+	else if (size <= MAXSIZE)
 		slot_num = 4;
 	else
 		assert(false);
 
-	auto round_size = ROUND(Size);
+	auto round_size = ROUND(size);
 	auto slot_size = sizeof(Slot) + round_size;
 	mem_size = slot_size * slot_num;
 	mem = (char*)VirtualAlloc(nullptr, mem_size, MEM_COMMIT, PAGE_READWRITE);
@@ -31,11 +31,11 @@ Block::~Block() {
 	VirtualFree(mem, 0, MEM_RELEASE);
 }
 
-void* Block::Alloc(size_t Size) {
+void* Block::Alloc(size_t size) {
 	assert(!IsFull());
 	assert(slots[cur_slot]->valid == Slot::Valid::kUnuse);
 	slots[cur_slot]->valid = Slot::Valid::kUsed;
-	slots[cur_slot]->actual_size = Size;
+	slots[cur_slot]->actual_size = size;
 	return slots[cur_slot++]->mem;
 }
 
