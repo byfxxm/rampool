@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "Block.h"
-#include "Slot.h"
+#include "block.h"
+#include "slot.h"
 
 Block::Block(size_t size, const void* owner) {
 	if (size <= MAXSIZE / 8)

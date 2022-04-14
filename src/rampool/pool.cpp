@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "pool.h"
-#include "Block.h"
-#include "Slot.h"
+#include "block.h"
+#include "slot.h"
 
 void pool::Initialize(size_t size, const void* owner) {
 	size_ = size;
@@ -37,7 +37,7 @@ void* pool::Malloc(size_t size) {
 void pool::Free(void* p) {
 	Lock lock(mutex_);
 
-	auto slot = POINTER_TO_slot_s(p);
+	auto slot = POINTER_TO_SLOT(p);
 	slot->valid = Slot::Valid::kDeleted;
 	free_stack_.Push(slot);
 	--count_;

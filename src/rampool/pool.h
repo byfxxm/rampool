@@ -1,8 +1,8 @@
 #pragma once
 #include "stack.h"
-#include "Block.h"
-#include "Slot.h"
-#include "Spin.h"
+#include "block.h"
+#include "slot.h"
+#include "spin.h"
 
 namespace rampool {
 	class pool {

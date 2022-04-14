@@ -1,6 +1,6 @@
 #pragma once
 #include "stack.h"
-#include "Slot.h"
+#include "slot.h"
 
 namespace rampool {
 	struct Block : public Stack<Block>::Node {

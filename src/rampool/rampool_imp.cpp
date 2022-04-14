@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "rampool_imp.h"
-#include "Block.h"
-#include "Slot.h"
+#include "block.h"
+#include "slot.h"
 
 RampoolImp::RampoolImp() {
 	size_t size = 0;
@@ -97,7 +97,7 @@ void RampoolImp::AutoGc(bool b) {
 }
 
 inline Slot* RampoolImp::SlotCast(void* p) const {
-	auto slot = POINTER_TO_slot_s(p);
+	auto slot = POINTER_TO_SLOT(p);
 
 	if (slot->owner != this || slot->valid != Slot::Valid::kUsed)
 		throw std::exception("invalid ptr");
