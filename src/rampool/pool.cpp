@@ -77,7 +77,7 @@ void pool::Gc() {
 		size_t index = 0;
 
 		for (; index < block->cur_slot; ++index) {
-			assert(block_->slots[index]->valid != Slot::Valid::kUnuse);
+			assert(block->slots[index]->valid != Slot::Valid::kUnuse);
 			if (block->slots[index]->valid == Slot::Valid::kUsed)
 				break;
 		}
