@@ -1,7 +1,7 @@
 #pragma once
 
 namespace rampool {
-	template<typename T>
+	template <typename T>
 	class Stack {
 	public:
 		struct Node {
