@@ -21,7 +21,7 @@ namespace rampool {
 		Slot* SlotCast(void*) const;
 
 	private:
-		std::array<pool, POOLNUM> pools_;
+		std::array<Pool, POOLNUM> pools_;
 		std::thread auto_gc_thread_;
 		volatile bool is_auto_gc_{ false };
 	};

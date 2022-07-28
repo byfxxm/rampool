@@ -5,7 +5,7 @@
 #include "spin.h"
 
 namespace rampool {
-	class pool {
+	class Pool {
 	private:
 		using Mutex = Spin;
 		using Lock = std::lock_guard<Mutex>;
