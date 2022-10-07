@@ -22,7 +22,6 @@ namespace rampool {
 
 	private:
 		std::array<Pool, POOLNUM> pools_;
-		std::thread auto_gc_thread_;
-		volatile bool is_auto_gc_{ false };
+		std::jthread auto_gc_thread_;
 	};
 }

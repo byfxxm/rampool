@@ -75,14 +75,12 @@ void RampoolImp::Gc() {
 }
 
 void RampoolImp::AutoGc(bool b) {
-	is_auto_gc_ = b;
-
-	if (is_auto_gc_) {
+	if (b) {
 		if (auto_gc_thread_.joinable())
 			return;
 
-		auto_gc_thread_ = std::thread([this]() {
-			while (is_auto_gc_) {
+		auto_gc_thread_ = std::jthread([this](std::stop_token st) {
+			while (!st.stop_requested()) {
 				for (auto& pool : pools_)
 					if (pool.NeedGc())
 						pool.Gc();
@@ -90,9 +88,9 @@ void RampoolImp::AutoGc(bool b) {
 				std::this_thread::yield();
 			}
 			});
-	} else {
-		if (auto_gc_thread_.joinable())
-			auto_gc_thread_.join();
+	}
+	else {
+		auto_gc_thread_.request_stop();
 	}
 }
 
