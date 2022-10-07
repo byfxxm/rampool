@@ -90,7 +90,10 @@ void RampoolImp::AutoGc(bool b) {
 			});
 	}
 	else {
-		auto_gc_thread_.request_stop();
+		if (auto_gc_thread_.joinable()) {
+			auto_gc_thread_.request_stop();
+			auto_gc_thread_.join();
+		}
 	}
 }
 

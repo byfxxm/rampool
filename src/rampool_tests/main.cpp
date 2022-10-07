@@ -23,7 +23,8 @@ int main()
 		Test6();
 		Test7();
 		Test8();
-	} while (0);
+		rp_auto_gc(false);
+	} while (1);
 
 	return 0;
 }
